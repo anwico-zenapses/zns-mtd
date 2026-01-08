@@ -169,14 +169,12 @@ async function newProjectCommand(projectName, options = {}) {
     await createVSCodeConfig(projectPath, projectName);
     spinner.text = 'Configuración VS Code creada';
 
-    // 11. Copiar copilot-instructions.md
+    // 11. Generar copilot-instructions.md con agentes embebidos
     const githubDir = path.join(projectPath, '.github');
     await fs.ensureDir(githubDir);
-    const templateCopilotPath = path.join(__dirname, '../../../templates/.github/copilot-instructions.md');
-    if (await fs.pathExists(templateCopilotPath)) {
-      await fs.copy(templateCopilotPath, path.join(githubDir, 'copilot-instructions.md'));
-      spinner.text = 'GitHub Copilot instructions creadas';
-    }
+    const copilotInstructions = await generateCopilotInstructions(projectPath);
+    await fs.writeFile(path.join(githubDir, 'copilot-instructions.md'), copilotInstructions);
+    spinner.text = 'GitHub Copilot instructions creadas';
 
     // 12. Crear archivo NEXT_STEPS.md
     const nextSteps = createNextStepsContent(projectName);
@@ -552,6 +550,110 @@ async function createVSCodeConfig(projectPath, projectName) {
     workspace,
     { spaces: 2 }
   );
+}
+
+/**
+ * Genera copilot-instructions.md con agentes embebidos
+ */
+async function generateCopilotInstructions(projectPath) {
+  const yaml = require('js-yaml');
+  const agentsPath = path.join(projectPath, '.awc/agents');
+  
+  let content = `# GitHub Copilot - AWC ZNS-MTD Method
+
+> **Instrucciones para GitHub Copilot**: Este proyecto utiliza el método AWC ZNS-MTD con agentes especializados.
+
+## 🎯 Agentes Disponibles
+
+Los siguientes agentes están disponibles en este proyecto. Cada agente tiene un rol específico y expertise técnica.
+
+`;
+
+  // Leer agentes base
+  const baseAgents = await fs.readdir(agentsPath);
+  for (const agentFile of baseAgents.filter(f => f.endsWith('.agent.yaml'))) {
+    try {
+      const agentPath = path.join(agentsPath, agentFile);
+      const agentContent = await fs.readFile(agentPath, 'utf8');
+      const agentData = yaml.load(agentContent);
+      
+      if (agentData && agentData.agent) {
+        const meta = agentData.agent.metadata || {};
+        const persona = agentData.agent.persona || {};
+        
+        content += `### ${meta.icon || '🤖'} ${meta.name || agentFile}
+
+**ID**: \`${meta.id || 'unknown'}\`  
+**Cuándo usar**: ${meta.whenToUse || 'No especificado'}
+
+`;
+        
+        if (persona.role) {
+          content += `**Rol**: ${persona.role}\n\n`;
+        }
+        
+        if (persona.identity) {
+          content += `**Identidad**: ${persona.identity}\n\n`;
+        }
+        
+        content += `---\n\n`;
+      }
+    } catch (error) {
+      console.error(`Error leyendo agente ${agentFile}:`, error.message);
+    }
+  }
+
+  // Leer agentes especializados si existen
+  const specializedPath = path.join(agentsPath, 'specialized');
+  if (await fs.pathExists(specializedPath)) {
+    content += `## 🔧 Agentes Especializados
+
+`;
+    const specializedAgents = await fs.readdir(specializedPath);
+    for (const agentFile of specializedAgents.filter(f => f.endsWith('.agent.yaml'))) {
+      try {
+        const agentPath = path.join(specializedPath, agentFile);
+        const agentContent = await fs.readFile(agentPath, 'utf8');
+        const agentData = yaml.load(agentContent);
+        
+        if (agentData && agentData.agent) {
+          const meta = agentData.agent.metadata || {};
+          
+          content += `- **${meta.icon || '🔧'} ${meta.name || agentFile}** (\`${meta.id || 'unknown'}\`): ${meta.whenToUse || 'Agente especializado'}\n`;
+        }
+      } catch (error) {
+        console.error(`Error leyendo agente especializado ${agentFile}:`, error.message);
+      }
+    }
+  }
+
+  content += `
+
+## 📋 Instrucciones Generales
+
+Al trabajar en este proyecto:
+
+1. **Consulta el agente apropiado** según la tarea (ver lista arriba)
+2. **Sigue la metodología ZNS-MTD**: Zen (claro), Neutro (objetivo), Sistemático (documentado)
+3. **Usa los templates** disponibles en \`.awc/templates/\`
+4. **Documenta decisiones** arquitectónicas importantes
+5. **Mantén trazabilidad** de cambios y motivaciones
+
+## 🚀 Comandos Disponibles
+
+\`\`\`bash
+zns init       # Inicializar tipo de proyecto
+zns status     # Ver estado del proyecto
+zns validate   # Validar estructura
+zns config     # Configurar preferencias
+\`\`\`
+
+---
+
+*Generado automáticamente por AWC ZNS-MTD*
+`;
+
+  return content;
 }
 
 module.exports = { newProjectCommand };
