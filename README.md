@@ -6,6 +6,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org)
 [![NPM](https://img.shields.io/badge/npm-awc--zns--mtd-red.svg)](https://www.npmjs.com/package/awc-zns-mtd)
+[![Tests](https://img.shields.io/badge/tests-40%20passing-success.svg)](./test)
+[![Coverage](https://img.shields.io/badge/coverage-8%25-yellow.svg)](./coverage)
+[![Code Quality](https://img.shields.io/badge/eslint-passing-success.svg)](./eslint.config.js)
+[![TypeScript](https://img.shields.io/badge/typescript-configured-blue.svg)](./tsconfig.json)
 
 ## 🎯 Metodología de Transformación Digital: Minimalismo Estratégico
 
