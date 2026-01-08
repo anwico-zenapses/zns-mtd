@@ -1,0 +1,181 @@
+# Standard Flow - AWC ZNS-MTD
+# Para features medias y refactorizaciones (< 30 min)
+
+workflow:
+  metadata:
+    name: "Standard Flow - Desarrollo Estándar ZNS"
+    id: "standard-flow"
+    version: "1.0.0"
+    duration: "< 30 minutos"
+    use_case: "Features medias, refactorizaciones, mejoras que requieren diseño técnico"
+    complexity: "medium"
+
+  description: |
+    Workflow balanceado para desarrollo iterativo con calidad:
+    - Features de complejidad media
+    - Refactorizaciones significativas
+    - Nuevos endpoints/componentes
+    - Mejoras de performance
+    
+    Incluye: Análisis → Planificación → Arquitectura → Implementación → Validación
+
+  phases:
+    # FASE 1: ANÁLISIS ZEN
+    - phase: "analisis"
+      steps:
+        - id: "1-analyze"
+          name: "Análisis de Requerimientos"
+          agent: "zen-master"
+          duration: "3 min"
+          actions:
+            - "Entender el problema real (no solo síntomas)"
+            - "Identificar stakeholders y restricciones"
+            - "Clarificar objetivos y criterios de éxito"
+            - "Detectar complejidad real del cambio"
+          
+          outputs:
+            - "Problema clarificado"
+            - "Objetivos SMART"
+            - "Stakeholders identificados"
+          
+          zen_principle: "Claridad en el problema antes de saltar a soluciones"
+
+    # FASE 2: PLANIFICACIÓN NEUTRAL
+    - phase: "planificacion"
+      steps:
+        - id: "2-plan"
+          name: "Planificación Técnica"
+          agent: "developer-pro"
+          duration: "5 min"
+          actions:
+            - "Crear tech spec concisa pero completa"
+            - "Identificar componentes a modificar/crear"
+            - "Definir interfaz pública (API, props, etc.)"
+            - "Estimar esfuerzo real"
+          
+          outputs:
+            - "Tech spec (500-1000 palabras)"
+            - "Componentes afectados"
+            - "Interfaces definidas"
+            - "Estimación de esfuerzo"
+          
+          neutro_principle: "Evaluación objetiva de complejidad y esfuerzo"
+
+    # FASE 3: ARQUITECTURA SISTEMÁTICA
+    - phase: "arquitectura"
+      steps:
+        - id: "3-architecture"
+          name: "Diseño de Solución"
+          agent: "architect-senior"
+          duration: "5 min"
+          actions:
+            - "Seleccionar patrones apropiados"
+            - "Diseñar estructura de datos/clases"
+            - "Identificar dependencias"
+            - "Evaluar alternativas técnicas"
+            - "Documentar decisiones (mini-ADR si aplica)"
+          
+          outputs:
+            - "Diseño de solución"
+            - "Patrones seleccionados"
+            - "Estructura de componentes"
+            - "Decisiones documentadas"
+          
+          sistematico_principle: "Diseño documentado antes de codificar"
+
+    # FASE 4: IMPLEMENTACIÓN ITERATIVA
+    - phase: "implementacion"
+      steps:
+        - id: "4-implement"
+          name: "Desarrollo con TDD"
+          agent: "developer-pro"
+          duration: "12 min"
+          actions:
+            - "Escribir tests primero (TDD) o test-after si TDD no aplica"
+            - "Implementar siguiendo diseño"
+            - "Refactorizar manteniendo tests verdes"
+            - "Commits atómicos con mensajes claros"
+          
+          outputs:
+            - "Código implementado"
+            - "Tests (unit + integration)"
+            - "Commits atómicos"
+          
+          zen_principle: "Implementación simple y directa, sin clever tricks"
+
+    # FASE 5: VALIDACIÓN Y MEJORA
+    - phase: "validacion"
+      steps:
+        - id: "5-validate"
+          name: "Validación Integral"
+          agent: "qa-specialist"
+          duration: "5 min"
+          actions:
+            - "Ejecutar suite completa de tests"
+            - "Verificar cobertura >= 80%"
+            - "Code review con checklist ZNS"
+            - "Validar criterios de aceptación"
+            - "Performance check básico"
+          
+          outputs:
+            - "Tests passing (100%)"
+            - "Cobertura >= 80%"
+            - "Code review aprobado"
+            - "QA sign-off"
+          
+          neutro_principle: "Validación objetiva con métricas medibles"
+
+  decision_gates:
+    - gate: "complexity_escalation"
+      after_step: "1-analyze"
+      condition: "Si la complejidad es alta o afecta múltiples sistemas"
+      action: "ESCALATE to Enterprise Flow"
+    
+    - gate: "design_approval"
+      after_step: "3-architecture"
+      condition: "Si hay decisiones arquitectónicas significativas"
+      action: "REVIEW with team before proceeding"
+    
+    - gate: "quality_check"
+      after_step: "5-validate"
+      condition: "Si cobertura < 80% o tests fallan"
+      action: "RETURN to step 4 - Fix implementation"
+
+  quality_gates:
+    - "Tech spec revisada y aprobada"
+    - "Cobertura de tests >= 80%"
+    - "Code review aprobado por peer senior"
+    - "Performance no degradada"
+    - "No deuda técnica introducida"
+    - "Documentación inline para lógica compleja"
+
+  success_criteria:
+    - "Feature completamente funcional"
+    - "Todos los tests pasan"
+    - "Cobertura >= 80%"
+    - "Code review aprobado"
+    - "Documentación actualizada"
+    - "Tiempo total < 30 minutos"
+
+  artifacts:
+    - "Tech spec (500-1000 palabras)"
+    - "Diseño de solución"
+    - "Mini-ADR (si hay decisiones arquitectónicas)"
+    - "Código implementado"
+    - "Tests (unit + integration)"
+    - "Commits atómicos con mensajes claros"
+    - "Code review comments/approval"
+
+  metrics_tracked:
+    - "Tiempo por fase"
+    - "Cobertura de tests"
+    - "Número de iteraciones"
+    - "Defectos encontrados en QA"
+    - "Complejidad ciclomática"
+
+  anti_patterns_to_avoid:
+    - "❌ Saltarse diseño y empezar a codificar"
+    - "❌ No escribir tests hasta el final"
+    - "❌ Commits gigantes sin atomicidad"
+    - "❌ Code review superficial"
+    - "❌ Documentación desactualizada"

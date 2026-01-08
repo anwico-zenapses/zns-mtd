@@ -1,0 +1,276 @@
+# Enterprise Flow - AWC ZNS-MTD
+# Para sistemas complejos y arquitecturas empresariales (< 2 horas)
+
+workflow:
+  metadata:
+    name: "Enterprise Flow - Transformación Digital ZNS"
+    id: "enterprise-flow"
+    version: "1.0.0"
+    duration: "< 2 horas"
+    use_case: "Proyectos complejos, arquitecturas empresariales, múltiples stakeholders, compliance"
+    complexity: "high"
+
+  description: |
+    Workflow completo para iniciativas empresariales complejas:
+    - Nuevos sistemas/plataformas
+    - Migraciones arquitectónicas
+    - Proyectos multi-equipo
+    - Requisitos de compliance/governance
+    
+    Incluye: Discovery → Requirements → Solution Design → Implementation Plan → Development → QA → Deploy Strategy
+
+  phases:
+    # FASE 1: DISCOVERY (Descubrimiento Profundo)
+    - phase: "discovery"
+      steps:
+        - id: "1-discovery"
+          name: "Descubrimiento Estratégico"
+          agent: "zen-master"
+          duration: "15 min"
+          actions:
+            - "Entrevista con stakeholders clave"
+            - "Mapeo de procesos de negocio actuales"
+            - "Identificación de pain points y oportunidades"
+            - "Análisis de restricciones (técnicas, presupuesto, tiempo, compliance)"
+            - "Definición de visión y objetivos estratégicos"
+          
+          outputs:
+            - "Stakeholder map"
+            - "Current state analysis"
+            - "Pain points prioritizados"
+            - "Visión del proyecto"
+            - "Restricciones documentadas"
+          
+          zen_principle: "Entendimiento profundo antes de proponer soluciones"
+
+    # FASE 2: REQUIREMENTS (Requerimientos Completos)
+    - phase: "requirements"
+      steps:
+        - id: "2-requirements"
+          name: "Análisis de Requerimientos"
+          agent: "architect-senior"
+          duration: "20 min"
+          actions:
+            - "Crear PRD (Product Requirements Document) completo"
+            - "Definir requerimientos funcionales detallados"
+            - "Especificar requerimientos no funcionales (performance, seguridad, escalabilidad)"
+            - "Identificar dependencias externas"
+            - "Crear user stories con criterios de aceptación"
+            - "Priorización MoSCoW (Must, Should, Could, Won't)"
+          
+          outputs:
+            - "PRD completo (2000-5000 palabras)"
+            - "Requerimientos funcionales"
+            - "Requerimientos no funcionales"
+            - "User stories con ACs"
+            - "Backlog priorizado"
+          
+          sistematico_principle: "Documentación exhaustiva de requerimientos"
+
+    # FASE 3: SOLUTION DESIGN (Diseño de Solución)
+    - phase: "solution_design"
+      steps:
+        - id: "3-solution-design"
+          name: "Arquitectura de Solución"
+          agent: "architect-senior"
+          duration: "25 min"
+          actions:
+            - "Diseñar arquitectura de alto nivel (C4 Context + Container)"
+            - "Seleccionar stack tecnológico con justificación"
+            - "Diseñar patrones de integración"
+            - "Definir estrategia de datos"
+            - "Diseñar seguridad y autenticación/autorización"
+            - "Planificar escalabilidad y alta disponibilidad"
+            - "Crear ADRs para decisiones críticas"
+          
+          outputs:
+            - "Architecture design document"
+            - "C4 diagrams (Context, Container, Component)"
+            - "Tech stack seleccionado con justificación"
+            - "ADRs para decisiones clave"
+            - "Security architecture"
+            - "Data architecture"
+          
+          neutro_principle: "Evaluación objetiva de alternativas tecnológicas"
+
+    # FASE 4: IMPLEMENTATION PLAN (Plan de Implementación)
+    - phase: "implementation_plan"
+      steps:
+        - id: "4-implementation-plan"
+          name: "Planificación de Ejecución"
+          agent: "zen-master"
+          duration: "15 min"
+          actions:
+            - "Desglosar en fases/sprints"
+            - "Identificar MVP y funcionalidades incrementales"
+            - "Asignar responsabilidades"
+            - "Definir milestones y deliverables"
+            - "Crear roadmap temporal"
+            - "Identificar riesgos y plan de mitigación"
+          
+          outputs:
+            - "Implementation roadmap"
+            - "MVP definition"
+            - "Sprint plan (primeras 2-3 iteraciones)"
+            - "Risk register con mitigaciones"
+            - "Team assignments"
+          
+          zen_principle: "Planificación clara con enfoque en valor incremental"
+
+    # FASE 5: DEVELOPMENT (Desarrollo Iterativo)
+    - phase: "development"
+      steps:
+        - id: "5-develop"
+          name: "Desarrollo Incremental"
+          agent: "developer-pro"
+          duration: "30 min (primera iteración)"
+          actions:
+            - "Setup de proyecto (repo, CI/CD, tooling)"
+            - "Implementar infraestructura base"
+            - "Desarrollar componentes core (TDD)"
+            - "Integración continua"
+            - "Code reviews sistemáticos"
+            - "Refactoring continuo"
+          
+          outputs:
+            - "Código base funcional"
+            - "Tests automatizados"
+            - "CI/CD pipeline configurado"
+            - "Documentación técnica"
+          
+          sistematico_principle: "Desarrollo disciplinado con tests y reviews"
+
+    # FASE 6: QA & VALIDATION (Aseguramiento de Calidad)
+    - phase: "qa_validation"
+      steps:
+        - id: "6-qa"
+          name: "QA Integral"
+          agent: "qa-specialist"
+          duration: "15 min"
+          actions:
+            - "Testing funcional completo"
+            - "Testing no funcional (performance, security, accessibility)"
+            - "Auditoría de código"
+            - "Validación de compliance"
+            - "UAT (User Acceptance Testing)"
+            - "Bug tracking y resolución"
+          
+          outputs:
+            - "Test results report"
+            - "Performance benchmarks"
+            - "Security audit report"
+            - "QA sign-off"
+            - "UAT feedback"
+          
+          neutro_principle: "Validación objetiva con métricas medibles"
+
+    # FASE 7: DEPLOY STRATEGY (Estrategia de Despliegue)
+    - phase: "deploy_strategy"
+      steps:
+        - id: "7-deploy-strategy"
+          name: "Planificación de Despliegue"
+          agent: "architect-senior"
+          duration: "10 min"
+          actions:
+            - "Definir estrategia de despliegue (blue/green, canary, etc.)"
+            - "Crear runbook de deployment"
+            - "Planificar rollback strategy"
+            - "Configurar monitoring y alertas"
+            - "Crear post-deployment checklist"
+            - "Documentar operational procedures"
+          
+          outputs:
+            - "Deployment strategy document"
+            - "Runbook"
+            - "Rollback plan"
+            - "Monitoring dashboard"
+            - "Operational docs"
+          
+          sistematico_principle: "Despliegue planificado con contingencias"
+
+  decision_gates:
+    - gate: "stakeholder_alignment"
+      after_step: "1-discovery"
+      condition: "Si hay desalineación en visión/objetivos"
+      action: "PAUSE - Resolver desalineación antes de continuar"
+    
+    - gate: "requirements_approval"
+      after_step: "2-requirements"
+      condition: "PRD debe ser aprobado por stakeholders"
+      action: "REVIEW & APPROVE before proceeding"
+    
+    - gate: "architecture_review"
+      after_step: "3-solution-design"
+      condition: "Arquitectura debe pasar review de equipo senior"
+      action: "ARCHITECTURE REVIEW BOARD approval required"
+    
+    - gate: "mvp_validation"
+      after_step: "4-implementation-plan"
+      condition: "MVP debe ser validado con usuarios/stakeholders"
+      action: "VALIDATE MVP definition before development"
+    
+    - gate: "quality_gates"
+      after_step: "6-qa"
+      condition: "Todos los quality gates deben pasar"
+      action: "NO DEPLOYMENT until all gates pass"
+
+  quality_gates_enterprise:
+    - "PRD aprobado por product owner"
+    - "Arquitectura revisada por architecture board"
+    - "Security review aprobado"
+    - "Compliance requirements verificados"
+    - "Performance benchmarks cumplidos"
+    - "Cobertura de tests >= 85%"
+    - "Code review aprobado por 2+ seniors"
+    - "UAT aprobado por usuarios clave"
+    - "Documentación completa y actualizada"
+    - "Runbook de deployment validado"
+
+  success_criteria:
+    - "Stakeholders alineados en visión"
+    - "Requerimientos documentados y aprobados"
+    - "Arquitectura sólida y escalable"
+    - "MVP funcional entregado"
+    - "Calidad empresarial (tests, docs, security)"
+    - "Despliegue planificado con contingencias"
+    - "Equipo capacitado en el sistema"
+
+  artifacts:
+    - "Stakeholder map y meeting notes"
+    - "PRD completo (2000-5000 palabras)"
+    - "Architecture design document"
+    - "C4 diagrams (Context, Container, Component, Code)"
+    - "ADRs para decisiones arquitectónicas"
+    - "Tech stack justification"
+    - "Implementation roadmap"
+    - "Risk register"
+    - "Código fuente con tests"
+    - "CI/CD pipeline"
+    - "Test reports (functional, performance, security)"
+    - "Deployment runbook"
+    - "Operational documentation"
+
+  metrics_tracked:
+    - "Tiempo por fase"
+    - "Velocity (story points por sprint)"
+    - "Cobertura de tests"
+    - "Defect density"
+    - "Performance benchmarks"
+    - "Security vulnerabilities"
+    - "Technical debt ratio"
+    - "Stakeholder satisfaction"
+
+  governance:
+    - "Weekly status reports"
+    - "Bi-weekly sprint reviews"
+    - "Monthly steering committee"
+    - "Architecture review board (para decisiones críticas)"
+    - "Change control board (para cambios de scope)"
+
+  anti_patterns_to_avoid:
+    - "❌ Saltarse discovery y empezar a codificar"
+    - "❌ PRD incompleto o ambiguo"
+    - "❌ Arquitectura no revisada por pares"
+    - "❌ Despliegue sin plan de rollback"
+    - "❌ Documentación desactualizada"
+    - "❌ No involucrar stakeholders hasta el final"

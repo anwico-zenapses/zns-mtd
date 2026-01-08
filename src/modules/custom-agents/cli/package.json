@@ -1,0 +1,63 @@
+{
+  "name": "@awc/agent-cli",
+  "version": "1.0.0",
+  "description": "CLI profesional para gestionar y usar los 22 agentes especializados de AWC-ZNS-MTD Framework",
+  "main": "awc-agent.js",
+  "bin": {
+    "awc-agent": "./awc-agent.js"
+  },
+  "scripts": {
+    "test": "node awc-agent.js list",
+    "prepublishOnly": "node awc-agent.js list"
+  },
+  "keywords": [
+    "awc",
+    "zns",
+    "agents",
+    "cli",
+    "copilot",
+    "github-copilot",
+    "react",
+    "java",
+    "python",
+    "architecture",
+    "ddd",
+    "tdd",
+    "hexagonal",
+    "framework",
+    "developer-tools"
+  ],
+  "author": {
+    "name": "AWC Team",
+    "url": "https://github.com/awc-team"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/awc-team/awc-zns-mtd.git",
+    "directory": "src/modules/custom-agents/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/awc-team/awc-zns-mtd/issues"
+  },
+  "homepage": "https://github.com/awc-team/awc-zns-mtd#readme",
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "files": [
+    "awc-agent.js",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "agents-data/",
+    "config.yaml"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "bundledDependencies": false
+}

@@ -1,0 +1,209 @@
+# AWC ZNS-MTD Module Configuration
+# Generado: 2026-01-07
+# Autor: AWC Team
+
+module_name: "AWC ZNS-MTD Method"
+module_code: "awc-zns-mtd"
+version: "1.0.0"
+author: "AWC Team"
+description: "Metodología de Transformación Digital - Zen, Neutro, Sistemático"
+
+# Module paths
+module_root: "{project-root}/src/modules/awc-zns-mtd"
+installer_path: "{project-root}/src/modules/awc-zns-mtd/_module-installer"
+
+# Component structure
+agents:
+  path: "{module_root}/agents"
+  core:
+    - "zen-master"
+    - "architect-senior"
+    - "developer-pro"
+    - "qa-specialist"
+  contextual:
+    - "ux-strategist"
+    - "data-engineer"
+    - "security-auditor"
+    - "performance-tuner"
+    - "tech-writer"
+
+workflows:
+  path: "{module_root}/workflows"
+  tracks:
+    quick_flow:
+      path: "{module_root}/workflows/quick-flow"
+      description: "Workflow rápido para bugs y cambios menores (< 10 min)"
+      steps:
+        - "quick-init"
+        - "quick-spec"
+        - "quick-implement"
+        - "quick-test"
+
+    standard_flow:
+      path: "{module_root}/workflows/standard-flow"
+      description: "Workflow estándar para features y refactorizaciones (< 30 min)"
+      steps:
+        - "analyze"
+        - "plan"
+        - "architecture"
+        - "implement"
+        - "validate"
+
+    enterprise_flow:
+      path: "{module_root}/workflows/enterprise-flow"
+      description: "Workflow empresarial para sistemas complejos (< 2 horas)"
+      steps:
+        - "discovery"
+        - "requirements"
+        - "solution-design"
+        - "implementation-plan"
+        - "develop"
+        - "qa"
+        - "deploy-strategy"
+
+  phases:
+    analisis:
+      path: "{module_root}/workflows/analisis"
+      description: "Fase 1: Análisis Zen - Descubrimiento profundo"
+
+    planificacion:
+      path: "{module_root}/workflows/planificacion"
+      description: "Fase 2: Planificación Neutral - Diseño estratégico"
+
+    arquitectura:
+      path: "{module_root}/workflows/arquitectura"
+      description: "Fase 3: Arquitectura Sistemática - Soluciones escalables"
+
+    implementacion:
+      path: "{module_root}/workflows/implementacion"
+      description: "Fase 4: Implementación Iterativa - Ejecución disciplinada"
+
+    validacion:
+      path: "{module_root}/workflows/validacion"
+      description: "Fase 5: Validación y Mejora - Optimización continua"
+
+tasks:
+  path: "{module_root}/tasks"
+  count: 0
+  planned:
+    - "check-module-version"
+    - "validate-project-structure"
+    - "generate-metrics-report"
+
+teams:
+  path: "{module_root}/teams"
+  planned:
+    - "equipo-core-development"
+    - "equipo-arquitectura-avanzada"
+    - "equipo-qa-automation"
+    - "equipo-devops-cloud"
+
+# ZNS Philosophy Configuration
+philosophy:
+  zen:
+    description: "Claridad mental, decisiones sin ruido, enfoque minimalista"
+    principles:
+      - "Simplicidad deliberada sobre complejidad accidental"
+      - "Concentración profunda en problemas reales"
+      - "Decisiones claras y bien fundamentadas"
+      - "Reducción de ruido y distracciones"
+
+  neutro:
+    description: "Objetividad técnica, sin sesgos, basado en evidencia"
+    principles:
+      - "Decisiones basadas en datos y métricas"
+      - "Análisis imparcial de alternativas"
+      - "Sin preferencias tecnológicas injustificadas"
+      - "Evaluación objetiva de trade-offs"
+
+  sistematico:
+    description: "Procesos repetibles, documentación rigurosa, trazabilidad completa"
+    principles:
+      - "Documentación sincronizada con código"
+      - "Trazabilidad de decisiones arquitectónicas"
+      - "Procesos validados y repetibles"
+      - "Mejora continua basada en retrospectivas"
+
+# Quality Standards (Non-negotiable)
+quality_standards:
+  test_coverage: 80 # Minimum percentage
+  technical_debt: 5 # Maximum percentage
+  code_review: true # Mandatory for production
+  documentation: "synchronized" # Must match code state
+
+# Supported Technology Stacks
+technology_support:
+  backend:
+    - "Java"
+    - ".NET"
+    - "Node.js"
+    - "Python"
+
+  frontend:
+    - "React"
+    - "Angular"
+    - "Vue"
+    - "Next.js"
+
+  cloud:
+    - "AWS"
+    - "Azure"
+    - "GCP"
+
+  devops:
+    - "Docker"
+    - "Kubernetes"
+    - "CI/CD"
+
+  databases:
+    - "SQL"
+    - "NoSQL"
+    - "Graph"
+
+# Output configuration
+output_folder: "{project-root}/docs/output"
+data_folder: "{module_root}/data"
+metrics_folder: "{project-root}/docs/metrics"
+
+# User preferences (configured during installation)
+user_preferences:
+  communication_language: "Spanish"
+  document_output_language: "Spanish"
+  code_language: "English" # Variable names, comments in English
+  user_skill_level: "intermediate" # beginner, intermediate, advanced
+  verbosity_level: "normal" # minimal, normal, detailed
+
+# Project structure references
+project_structure:
+  stories_location: "{project-root}/docs/stories"
+  architecture_location: "{project-root}/docs/architecture"
+  adr_location: "{project-root}/docs/adr"
+  tests_location: "{project-root}/tests"
+
+# Integration settings
+integration:
+  ide_support:
+    - "VS Code"
+    - "Cursor"
+    - "Windsurf"
+    - "Claude Code"
+
+  version_control: "Git"
+  package_manager: "npm"
+
+# Metrics and KPIs
+metrics:
+  velocity:
+    - "story_points_per_sprint"
+    - "cycle_time"
+    - "lead_time"
+
+  quality:
+    - "bugs_in_production"
+    - "technical_debt_ratio"
+    - "code_coverage"
+
+  health:
+    - "documentation_freshness"
+    - "dependency_vulnerabilities"
+    - "build_stability"

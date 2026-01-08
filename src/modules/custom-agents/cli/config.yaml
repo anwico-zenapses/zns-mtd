@@ -1,0 +1,478 @@
+module:
+  metadata:
+    name: "Custom Agents Module"
+    id: "custom-agents"
+    version: "1.0.0"
+    description: "Agentes especializados personalizados del equipo"
+    author: "AWC Team"
+    
+  philosophy:
+    zen:
+      description: "Claridad técnica, código limpio, enfoque en valor"
+      practices:
+        - "Componentes reutilizables y testeables"
+        - "Arquitectura modular escalable"
+        - "Simplicidad deliberada sobre complejidad accidental"
+    
+    neutro:
+      description: "Decisiones basadas en métricas y evidencia"
+      practices:
+        - "Performance medido (Core Web Vitals, Lighthouse)"
+        - "Calidad cuantificada (coverage, complexity, duplication)"
+        - "Security validado (npm audit, CSP headers)"
+    
+    sistematico:
+      description: "Procesos repetibles, documentación sincronizada"
+      practices:
+        - "Testing coverage >80%"
+        - "TypeScript strict mode"
+        - "Definition of Done checklist"
+        - "Code review obligatorio"
+
+  agents:
+    # ========================================
+    # FRONTEND DEVELOPMENT (2 agentes)
+    # ========================================
+    - id: "frontend-react-senior"
+      file: "agents/frontend-react-senior.agent.yaml"
+      category: "development"
+      subcategory: "frontend"
+      stack: ["React 18+", "Next.js 14+", "TypeScript 5+", "Tailwind CSS"]
+      whenToUse: "Desarrollo frontend web, optimización performance, accesibilidad, SEO"
+      workflows: 14
+      
+    - id: "react-native-senior"
+      file: "agents/react-native-senior.agent.yaml"
+      category: "development"
+      subcategory: "mobile"
+      stack: ["React Native", "Expo", "TypeScript", "Hermes", "Zustand"]
+      whenToUse: "Desarrollo mobile iOS/Android, Clean Architecture, DDD, TDD"
+      workflows: 6
+      
+    # ========================================
+    # BACKEND DEVELOPMENT (4 agentes)
+    # ========================================
+    - id: "backend-java-senior"
+      file: "agents/backend-java-senior.agent.yaml"
+      category: "development"
+      subcategory: "backend"
+      stack: ["Java 21 LTS", "Spring Boot 3.4", "PostgreSQL 16", "Kafka"]
+      whenToUse: "Desarrollo backend Java, arquitectura hexagonal, DDD, TDD, microservices"
+      workflows: 17
+      
+    - id: "python-senior"
+      file: "agents/python-senior.agent.yaml"
+      category: "development"
+      subcategory: "backend"
+      stack: ["Python 3.11+", "Django 4.2+", "FastAPI", "Pydantic"]
+      whenToUse: "Desarrollo backend Python, APIs REST, async, data processing"
+      workflows: 11
+      
+    - id: "dotnet-core-senior"
+      file: "agents/dotnet-core-senior.agent.yaml"
+      category: "development"
+      subcategory: "backend"
+      stack: [".NET 6/8", "ASP.NET Core", "MediatR", "EF Core"]
+      whenToUse: "Desarrollo .NET, Clean Architecture, CQRS, microservices"
+      workflows: 11
+      
+    - id: "php-senior"
+      file: "agents/php-senior.agent.yaml"
+      category: "development"
+      subcategory: "backend"
+      stack: ["PHP 8.2+", "Laravel 10+", "Symfony 6+", "PHPStan L9"]
+      whenToUse: "Desarrollo PHP, hexagonal architecture, strict types, testing"
+      workflows: 10
+      
+    # ========================================
+    # INFRASTRUCTURE & DEVOPS (2 agentes)
+    # ========================================
+    - id: "devsecops-onpremise-senior"
+      file: "agents/devsecops-onpremise-senior.agent.yaml"
+      category: "infrastructure"
+      subcategory: "devops"
+      stack: ["K3s/K8s", "Jenkins", "ArgoCD", "Trivy", "Prometheus"]
+      whenToUse: "DevSecOps on-premise, K3s clusters, GitOps, security automation"
+      workflows: 12
+      
+    - id: "database-engineer-senior"
+      file: "agents/database-engineer-senior.agent.yaml"
+      category: "infrastructure"
+      subcategory: "database"
+      stack: ["PostgreSQL 16", "DDD Data Modeling", "Flyway"]
+      whenToUse: "Diseño de bases de datos, migraciones, performance tuning, DDD modeling"
+      workflows: 10
+      
+    # ========================================
+    # ARCHITECTURE & DESIGN (4 agentes)
+    # ========================================
+    - id: "solution-architect-senior"
+      file: "agents/solution-architect-senior.agent.yaml"
+      category: "architecture"
+      subcategory: "solution-architect"
+      stack: ["PlantUML C4", "AWS/Azure/GCP", "Terraform", "ADRs"]
+      whenToUse: "Arquitectura de soluciones, ADRs, diagramas C4, estimación TCO"
+      workflows: 5
+      
+    - id: "aspnet-core-architect-senior"
+      file: "agents/aspnet-core-architect-senior.agent.yaml"
+      category: "architecture"
+      subcategory: "dotnet-architect"
+      stack: [".NET 6/8", "ASP.NET Core", "MassTransit", "Azure"]
+      whenToUse: "Arquitectura .NET, hexagonal, DDD, CQRS, microservices, event-driven"
+      workflows: 11
+      
+    - id: "c4-diagram-specialist"
+      file: "agents/c4-diagram-specialist.agent.yaml"
+      category: "architecture"
+      subcategory: "documentation"
+      stack: ["PlantUML", "C4 Model", "Graphviz", "Draw.io"]
+      whenToUse: "Diagramas de arquitectura C4, documentación visual, context mapping DDD"
+      workflows: 11
+      
+    - id: "technical-stories-architect"
+      file: "agents/technical-stories-architect.agent.yaml"
+      category: "architecture"
+      subcategory: "technical-design"
+      stack: ["DDD", "Hexagonal Architecture", "TDD", "OpenAPI", "SQL"]
+      whenToUse: "Descomponer épicas en HUTs, DDD strategic/tactical, hexagonal, TDD design"
+      workflows: 7
+      
+    # ========================================
+    # QUALITY & AUDIT (3 agentes)
+    # ========================================
+    - id: "frontend-audit-master"
+      file: "agents/frontend-audit-master.agent.yaml"
+      category: "quality"
+      subcategory: "audit"
+      stack: ["Lighthouse CI", "axe DevTools", "WAVE", "npm audit", "ESLint"]
+      whenToUse: "Auditoría frontend completa, scoring /100, performance, a11y, security"
+      workflows: 6
+      
+    - id: "backend-audit-master"
+      file: "agents/backend-audit-master.agent.yaml"
+      category: "quality"
+      subcategory: "audit"
+      stack: ["OWASP Top 10", "SonarQube", "JaCoCo", "ArchUnit", "Trivy"]
+      whenToUse: "Auditoría backend completa, scoring A-F, arquitectura, security, obsolescence"
+      workflows: 7
+      
+    - id: "validation-quality-master"
+      file: "agents/validation-quality-master.agent.yaml"
+      category: "quality"
+      subcategory: "validation"
+      stack: ["ISO 25010", "IEEE 830", "TOGAF", "C4 Model"]
+      whenToUse: "Validación de calidad: completitud, consistencia, corrección, claridad, trazabilidad"
+      workflows: 7
+      
+    # ========================================
+    # BUSINESS & PRODUCT (1 agente)
+    # ========================================
+    - id: "product-owner-business-analyst"
+      file: "agents/product-owner-business-analyst.agent.yaml"
+      category: "business"
+      subcategory: "product-management"
+      stack: ["INVEST", "Gherkin BDD", "User Story Mapping", "MoSCoW"]
+      whenToUse: "Historias de usuario INVEST, backlog management, criterios aceptación Gherkin"
+      workflows: 10
+      
+    # ========================================
+    # COST & ESTIMATION (1 agente)
+    # ========================================
+    - id: "cost-estimator-senior"
+      file: "agents/cost-estimator-senior.agent.yaml"
+      category: "business"
+      subcategory: "estimation"
+      stack: ["Story Points", "TCO", "FinOps", "ROI/NPV/IRR"]
+      whenToUse: "Estimación de costos (story→horas→$), TCO cloud 3 años, ROI analysis"
+      workflows: 5
+      
+    # ========================================
+    # PROMPT ENGINEERING (2 agentes)
+    # ========================================
+    - id: "prompt-engineer-senior"
+      file: "agents/prompt-engineer-senior.agent.yaml"
+      category: "ai"
+      subcategory: "prompt-engineering"
+      stack: ["Chain-of-Thought", "Tree-of-Thought", "ReAct", "Few-Shot"]
+      whenToUse: "Crear, analizar, optimizar prompts; técnicas avanzadas (CoT, ToT, ReAct)"
+      workflows: 5
+      
+    - id: "prompt-architect-senior"
+      file: "agents/prompt-architect-senior.agent.yaml"
+      category: "ai"
+      subcategory: "prompt-architecture"
+      stack: ["Multi-agent systems", "Workflow orchestration", "ISO/IEC 23053"]
+      whenToUse: "Arquitectura de prompts, multi-agent systems, diseño de workflows complejos"
+      workflows: 4
+      
+    # ========================================
+    # DOCUMENTATION & ANALYSIS (3 agentes)
+    # ========================================
+    - id: "consolidation-context-master"
+      file: "agents/consolidation-context-master.agent.yaml"
+      category: "documentation"
+      subcategory: "consolidation"
+      stack: ["PDF parsing", "OCR", "NLP", "Markdown generation"]
+      whenToUse: "Consolidar contexto de proyecto desde múltiples fuentes (PDFs, Word, código)"
+      workflows: 7
+      
+    - id: "document-export-specialist"
+      file: "agents/document-export-specialist.agent.yaml"
+      category: "documentation"
+      subcategory: "export"
+      stack: ["pandoc", "python-docx", "PlantUML CLI", "Word .docx"]
+      whenToUse: "Exportar documentación Markdown→Word con formato profesional"
+      workflows: 8
+      
+    - id: "obsolescence-analyst-senior"
+      file: "agents/obsolescence-analyst-senior.agent.yaml"
+      category: "analysis"
+      subcategory: "obsolescence"
+      stack: ["NVD NIST", "CVE database", "EOL tracking", "Risk matrix"]
+      whenToUse: "Análisis de obsolescencia tecnológica, CVEs, EOL, plan de modernización"
+      workflows: 7
+      
+  quality_standards:
+    code_coverage: ">80%"
+    technical_debt: "<5%"
+    code_review: "mandatory"
+    documentation: "synchronized"
+    
+  workflows:
+    total: 191
+    available:
+      # Frontend React (14)
+      - "create-react-component"
+      - "create-nextjs-page"
+      - "integrate-api"
+      - "build-form"
+      - "optimize-performance"
+      - "fix-accessibility"
+      - "setup-seo"
+      - "create-testing-suite"
+      - "security-audit"
+      - "setup-state-management"
+      - "setup-ui-library"
+      - "review-architecture"
+      - "generate-quality-report"
+      - "migrate-react-19"
+      
+      # React Native (6)
+      - "setup-rn-project"
+      - "create-bounded-context"
+      - "create-aggregate"
+      - "create-use-case"
+      - "run-tests"
+      - "audit-architecture"
+      
+      # Backend Java (17)
+      - "implement-hut"
+      - "create-aggregate-ddd"
+      - "create-use-case-application"
+      - "create-repository-jpa"
+      - "create-rest-controller-post"
+      - "tdd-cycle"
+      - "outside-in-tdd"
+      - "create-domain-event"
+      - "kafka-integration"
+      - "security-oauth2"
+      - "database-migration-flyway"
+      - "architecture-test-archunit"
+      - "integration-test-testcontainers"
+      - "mutation-testing-pit"
+      - "sonarqube-analysis"
+      - "refactor-hexagonal"
+      - "performance-optimization-java"
+      
+      # Python (11)
+      - "create-python-project"
+      - "create-api-endpoint-fastapi"
+      - "create-domain-model-dataclass"
+      - "async-service"
+      - "celery-task"
+      - "pytest-suite"
+      - "poetry-dependencies"
+      - "mypy-type-check"
+      - "black-format"
+      - "ruff-lint"
+      - "hexagonal-refactor-python"
+      
+      # .NET Core (11)
+      - "create-dotnet-solution"
+      - "cqrs-command-mediatr"
+      - "cqrs-query-mediatr"
+      - "ef-migration"
+      - "mediatr-handler"
+      - "integration-test-dotnet"
+      - "clean-architecture-setup"
+      - "fluent-validation"
+      - "automapper-config"
+      - "unit-test-xunit"
+      - "repository-pattern"
+      
+      # PHP (10)
+      - "create-php-project-composer"
+      - "domain-entity-value-objects"
+      - "api-resource-laravel"
+      - "service-contract-interface"
+      - "phpstan-analysis-level9"
+      - "pest-tests"
+      - "phpunit-coverage"
+      - "doctrine-orm-mapping"
+      - "hexagonal-php"
+      - "strict-types-enforce"
+      
+      # DevSecOps (12)
+      - "k3s-cluster-setup"
+      - "jenkins-pipeline-cicd"
+      - "security-scan-trivy"
+      - "gitops-deployment-argocd"
+      - "backup-strategy-k8s"
+      - "monitoring-prometheus"
+      - "logging-elk-stack"
+      - "secrets-vault-hashicorp"
+      - "disaster-recovery-plan"
+      - "infrastructure-as-code-terraform"
+      - "container-registry-setup"
+      - "helm-chart-deployment"
+      
+      # Database (10)
+      - "create-table-ddd-conventions"
+      - "migration-script-flyway"
+      - "performance-audit-explain"
+      - "data-model-review-ddd"
+      - "index-optimization"
+      - "query-tuning"
+      - "partition-strategy"
+      - "replication-setup"
+      - "backup-restore-automation"
+      - "schema-versioning"
+      
+      # Solution Architect (5)
+      - "design-architecture-c4"
+      - "create-adr"
+      - "create-c4-diagram-plantuml"
+      - "estimate-costs-tco"
+      - "generate-architecture-document"
+      
+      # ASP.NET Architect (11)
+      - "create-microservice-architecture"
+      - "create-aggregate-csharp"
+      - "cqrs-command-architecture"
+      - "event-driven-integration-masstransit"
+      - "azure-service-bus-setup"
+      - "api-gateway-design"
+      - "saga-pattern-orchestration"
+      - "distributed-cache-redis"
+      - "monitoring-application-insights"
+      - "security-identity-server"
+      - "container-orchestration-k8s"
+      
+      # C4 Diagram (11)
+      - "c4-context-diagram-level1"
+      - "c4-container-diagram-level2"
+      - "c4-component-diagram-level3"
+      - "c4-code-diagram-level4"
+      - "context-map-ddd-strategic"
+      - "deployment-diagram"
+      - "sequence-diagram"
+      - "dynamic-diagram"
+      - "plantuml-generation"
+      - "diagram-versioning-git"
+      - "export-diagrams-png-svg"
+      
+      # Technical Stories (7)
+      - "full-technical-decomposition"
+      - "strategic-ddd-analysis-bounded-contexts"
+      - "tactical-ddd-modeling-aggregates"
+      - "hexagonal-design-ports-adapters"
+      - "tdd-design-red-green-refactor"
+      - "technical-specifications-openapi"
+      - "generate-huts-from-epics"
+      
+      # Frontend Audit (6)
+      - "full-audit-frontend"
+      - "audit-performance-lighthouse"
+      - "audit-accessibility-wcag"
+      - "audit-security-frontend"
+      - "audit-testing-coverage"
+      - "audit-seo-metadata"
+      
+      # Backend Audit (7)
+      - "full-audit-backend"
+      - "audit-architecture-hexagonal"
+      - "audit-security-owasp"
+      - "audit-obsolescence-tech-stack"
+      - "audit-performance-backend"
+      - "audit-testing-backend"
+      - "audit-code-quality-sonarqube"
+      
+      # Validation Quality (7)
+      - "full-validation-quality"
+      - "validate-completeness"
+      - "validate-consistency"
+      - "validate-correctness"
+      - "validate-clarity"
+      - "validate-traceability"
+      - "generate-validation-report"
+      
+      # Product Owner (10)
+      - "create-user-story-invest"
+      - "gherkin-scenario-bdd"
+      - "backlog-generation-prioritized"
+      - "acceptance-criteria-measurable"
+      - "story-mapping-workflow"
+      - "epic-decomposition"
+      - "moscow-prioritization"
+      - "story-points-fibonacci"
+      - "sprint-planning"
+      - "refinement-session"
+      
+      # Cost Estimator (5)
+      - "estimate-project-full"
+      - "estimate-epic-stories"
+      - "estimate-story-hours-cost"
+      - "estimate-cloud-tco-3years"
+      - "calculate-roi-npv-irr"
+      
+      # Prompt Engineer (5)
+      - "create-prompt-structured"
+      - "analyze-prompt-quality"
+      - "optimize-prompt-performance"
+      - "test-prompt-validation"
+      - "validate-structure-prompt"
+      
+      # Prompt Architect (4)
+      - "architect-prompt-multi-agent"
+      - "design-agent-persona"
+      - "design-workflow-orchestration"
+      - "validate-compliance-standards"
+      
+      # Consolidation Context (7)
+      - "full-consolidation-context"
+      - "analyze-documentation-sources"
+      - "extract-business-context"
+      - "extract-functional-requirements"
+      - "extract-non-functional-requirements"
+      - "reconcile-contradictions"
+      - "generate-consolidated-files"
+      
+      # Document Export (8)
+      - "full-export-documentation"
+      - "prepare-diagrams-plantuml"
+      - "convert-markdown-to-word"
+      - "apply-professional-format"
+      - "validate-export-quality"
+      - "export-executive-summary"
+      - "export-architecture-document"
+      - "export-api-specification"
+      
+      # Obsolescence Analyst (7)
+      - "full-obsolescence-analysis"
+      - "inventory-tech-stack"
+      - "analyze-architecture-patterns"
+      - "inventory-endpoints-apis"
+      - "identify-vulnerabilities-cves"
+      - "generate-risk-matrix"
+      - "create-modernization-plan"

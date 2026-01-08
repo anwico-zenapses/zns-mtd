@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "awc-zns-mtd",
+  "version": "1.0.0",
+  "description": "AWC ZNS-MTD Method - Metodología de Transformación Digital Zen, Neutro y Sistemático",
+  "keywords": [
+    "awc",
+    "zns-mtd",
+    "agile",
+    "ai",
+    "metodologia",
+    "transformacion-digital",
+    "zen",
+    "neutro",
+    "sistematico",
+    "desarrollo",
+    "arquitectura"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awc/awc-zns-mtd.git"
+  },
+  "license": "MIT",
+  "author": "AWC Team",
+  "main": "tools/cli/awc-cli.js",
+  "bin": {
+    "awc": "tools/cli/awc-cli.js",
+    "zns": "tools/cli/awc-cli.js"
+  },
+  "scripts": {
+    "awc:install": "node tools/cli/awc-cli.js install",
+    "awc:status": "node tools/cli/awc-cli.js status",
+    "awc:version": "node tools/cli/awc-cli.js version",
+    "awc:init": "node tools/cli/awc-cli.js init",
+    "install:awc": "node tools/cli/awc-cli.js install",
+    "version:bump:major": "node tools/version/version-bump.js major",
+    "version:bump:minor": "node tools/version/version-bump.js minor",
+    "version:bump:patch": "node tools/version/version-bump.js patch",
+    "version:check": "node tools/cli/awc-cli.js version",
+    "test": "npm run test:schemas && npm run test:agents && npm run validate:schemas",
+    "test:schemas": "node test/test-agent-schema.js",
+    "test:agents": "node test/test-agents.js",
+    "validate:schemas": "node tools/schema/validate-agent-schema.js",
+    "lint": "eslint . --ext .js,.yaml --max-warnings=0",
+    "lint:fix": "eslint . --ext .js,.yaml --fix",
+    "format:check": "prettier --check \"**/*.{js,json,md,yaml}\"",
+    "format:fix": "prettier --write \"**/*.{js,json,md,yaml}\""
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^8.2.6",
+    "js-yaml": "^4.1.0",
+    "ora": "^5.4.1",
+    "semver": "^7.5.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

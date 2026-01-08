@@ -1,0 +1,121 @@
+# Quick Flow - AWC ZNS-MTD
+# Para bugs, hotfixes y cambios menores (< 10 min)
+
+workflow:
+  metadata:
+    name: "Quick Flow - Cambios Rápidos ZNS"
+    id: "quick-flow"
+    version: "1.0.0"
+    duration: "< 10 minutos"
+    use_case: "Bugs, hotfixes, cambios menores que no requieren diseño arquitectónico"
+    complexity: "low"
+
+  description: |
+    Workflow optimizado para cambios rápidos que mantienen estándares ZNS:
+    - Bug fixes urgentes
+    - Cambios de configuración
+    - Ajustes de UI menores
+    - Correcciones de typos/documentación
+    
+    Mantiene calidad con: spec técnica mínima + tests + code review
+
+  steps:
+    - id: "1-quick-init"
+      name: "Inicialización Rápida"
+      agent: "zen-master"
+      duration: "1 min"
+      actions:
+        - "Confirmar que el cambio es realmente 'quick' (< 10 min de implementación)"
+        - "Si es más complejo, recomendar Standard Flow o Enterprise Flow"
+        - "Verificar que no impacta arquitectura core"
+      
+      outputs:
+        - "Confirmación de scope (simple/complejo)"
+        - "Prioridad del cambio (P0-P4)"
+      
+      zen_principle: "Claridad en el scope - no subestimar complejidad"
+    
+    - id: "2-quick-spec"
+      name: "Especificación Mínima"
+      agent: "developer-pro"
+      duration: "2 min"
+      actions:
+        - "Describir el cambio en 2-3 líneas"
+        - "Identificar archivos a modificar"
+        - "Definir criterio de aceptación simple"
+        - "Identificar riesgos potenciales"
+      
+      outputs:
+        - "Quick spec (qué, dónde, criterio)"
+        - "Archivos afectados"
+        - "Riesgos identificados"
+      
+      neutro_principle: "Evaluar riesgos objetivamente, incluso en cambios pequeños"
+    
+    - id: "3-quick-implement"
+      name: "Implementación Ágil"
+      agent: "developer-pro"
+      duration: "5 min"
+      actions:
+        - "Implementar el cambio siguiendo coding standards"
+        - "Escribir test mínimo (si aplica)"
+        - "Verificar que no rompe tests existentes"
+        - "Commit con mensaje descriptivo"
+      
+      outputs:
+        - "Código implementado"
+        - "Tests actualizados/creados"
+        - "Commit descriptivo"
+      
+      sistematico_principle: "Tests y commits claros, incluso en cambios rápidos"
+    
+    - id: "4-quick-test"
+      name: "Validación Rápida"
+      agent: "qa-specialist"
+      duration: "2 min"
+      actions:
+        - "Ejecutar tests afectados"
+        - "Verificar criterio de aceptación"
+        - "Smoke test manual si es UI"
+        - "Aprobar para merge si todo OK"
+      
+      outputs:
+        - "Resultado de tests (pass/fail)"
+        - "QA sign-off"
+      
+      zen_principle: "Testing enfocado - no sobre-testing en cambios simples"
+
+  decision_gates:
+    - gate: "complexity_check"
+      after_step: "1-quick-init"
+      condition: "Si el cambio requiere > 10 min o afecta arquitectura"
+      action: "STOP - Recomendar Standard Flow o Enterprise Flow"
+    
+    - gate: "tests_pass"
+      after_step: "4-quick-test"
+      condition: "Si algún test falla"
+      action: "RETURN to step 3 - Fix implementation"
+
+  quality_gates:
+    - "Al menos 1 test de regresión (si código funcional)"
+    - "Code review rápido (< 5 min) por peer"
+    - "No introducir deuda técnica"
+    - "Commit message descriptivo"
+
+  success_criteria:
+    - "Cambio implementado en < 10 minutos"
+    - "Tests pasan"
+    - "No degradación de calidad"
+    - "Documentación inline si es necesario"
+
+  artifacts:
+    - "Quick spec (1 párrafo)"
+    - "Código modificado"
+    - "Tests actualizados"
+    - "Commit descriptivo"
+
+  anti_patterns_to_avoid:
+    - "❌ Saltarse tests porque 'es rápido'"
+    - "❌ No considerar efectos secundarios"
+    - "❌ Commits sin mensaje claro"
+    - "❌ Subestimar complejidad real"

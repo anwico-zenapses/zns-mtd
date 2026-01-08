@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# NPM
+*.tgz
+npm-debug.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Test
+coverage/
