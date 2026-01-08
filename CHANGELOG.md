@@ -7,6 +7,72 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [2.3.0] - 2026-01-08
+
+### 🎯 SISTEMA UNIFICADO DE AGENTES ESPECIALIZADOS
+
+#### ✨ Mejoras
+
+**Workflows → Agentes Especializados (22 agentes)**
+- ✅ Cada workflow ahora usa agentes especializados por defecto
+- ✅ comercial-flow → product-owner + cost-estimator + solution-architect
+- ✅ inception-flow → product-owner + solution-architect + technical-stories-architect
+- ✅ analisis-flow → backend-audit + frontend-audit + obsolescence-analyst
+- ✅ development-flow → backend-java/dotnet/python + database-engineer + devsecops
+- ✅ qa-flow → qa-automation + security-specialist + performance-engineer
+- ✅ deployment-flow → devsecops + database-engineer
+- ✅ support-flow → backend-senior + database-engineer + devsecops
+
+**copilot-instructions.md Profesional**
+- 🤖 Mapeo completo de agentes por fase
+- 📋 Comandos contextuales por directorio
+- 🎯 Stack detection automático (Java, .NET, Python, PHP, React)
+- 💡 Sugerencias proactivas según fase activa
+- 📚 Documentación de 22 agentes especializados
+
+**Comportamiento Contextual**
+```javascript
+// Ejemplo: Usuario en 05-development/src/backend/
+// → Detecta: Desarrollo + Backend
+// → Carga: backend-java-senior (si es Java)
+// → Sugiere: "Implementa con TDD, ¿qué feature desarrollo?"
+```
+
+**Agentes por Stack Tecnológico**
+- Backend: Java, .NET, Python, PHP especializados
+- Frontend: React, React Native especializados
+- Database: Database Engineer Senior
+- DevOps: DevSecOps On-Premise Senior
+- QA: Test Automation + Security + Performance
+
+#### 🔧 Arquitectura Mejorada
+
+**Antes (v2.2.0):**
+- 4 agentes base genéricos
+- 22 agentes custom sin integración clara
+- Usuario debía invocar manualmente
+
+**Ahora (v2.3.0):**
+- 22 agentes especializados integrados
+- Carga automática según fase + stack
+- Workflows usan agentes apropiados
+- Zero manual intervention
+
+#### 📊 Mapeo Fase → Agentes
+
+| Fase | Agentes Activos | Workflow |
+|------|----------------|----------|
+| Comercial | Product Owner, Cost Estimator, Solution Architect | comercial-flow |
+| Inception | Product Owner, Solution Architect, Technical Stories | inception-flow |
+| Análisis | Backend/Frontend Audit, Obsolescence Analyst | analisis-flow |
+| Planificación | Product Owner, Technical Stories, Solution Architect | planificacion-flow |
+| Desarrollo | Stack-specific (Java/NET/Python), Database, DevOps | development-flow |
+| QA | QA Automation, Security, Performance | qa-flow |
+| Deployment | DevOps, Database Engineer | deployment-flow |
+| Soporte | Backend Senior, Database, DevOps | support-flow |
+
+---
+
 ## [2.2.0] - 2026-01-08
 
 ### 🚀 CONFIGURACIÓN 100% AUTOMÁTICA
