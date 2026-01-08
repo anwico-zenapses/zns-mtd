@@ -8,6 +8,10 @@ const fs = require('fs-extra');
 const path = require('path');
 const os = require('os');
 
+// Leer versión actual del package.json para tests dinámicos
+const packageJson = require('../../../package.json');
+const currentVersion = packageJson.version;
+
 describe('CLI Integration Tests', () => {
   let testDir;
   const cliPath = path.join(__dirname, '../../../tools/cli/awc-cli.js');
@@ -30,7 +34,7 @@ describe('CLI Integration Tests', () => {
         cwd: testDir
       });
 
-      expect(output).toContain('2.10.2');
+      expect(output).toContain(currentVersion);
       expect(output).toContain('ZΞNAPSΞS');
     });
 
@@ -63,7 +67,7 @@ describe('CLI Integration Tests', () => {
         cwd: testDir
       });
 
-      expect(output).toContain('2.10.2');
+      expect(output).toContain(currentVersion);
     });
   });
 
