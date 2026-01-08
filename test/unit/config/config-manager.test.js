@@ -7,7 +7,7 @@ const ConfigManager = require('../../../tools/config/config-manager');
 describe('ConfigManager', () => {
   describe('Constantes de directorio', () => {
     test('debe retornar directorios correctos', () => {
-      expect(ConfigManager.AWC_DIR).toBe('.awc');
+      expect(ConfigManager.AWC_DIR).toBe('.zns-mtd');
       expect(ConfigManager.AGENTS_DIR).toContain('agents');
       expect(ConfigManager.WORKFLOWS_DIR).toContain('workflows');
       expect(ConfigManager.TEMPLATES_DIR).toContain('templates');
@@ -47,7 +47,7 @@ describe('ConfigManager', () => {
       const cwd = '/home/user/project';
       const path = ConfigManager.getProjectPath(cwd, 'agents');
 
-      expect(path).toContain('.awc');
+      expect(path).toContain('.zns-mtd');
       expect(path).toContain('agents');
     });
 
@@ -55,7 +55,7 @@ describe('ConfigManager', () => {
       const cwd = '/home/user/project';
       const path = ConfigManager.getProjectPath(cwd);
 
-      expect(path).toContain('.awc');
+      expect(path).toContain('.zns-mtd');
       expect(path).not.toContain('undefined');
     });
   });
@@ -65,7 +65,7 @@ describe('ConfigManager', () => {
       const cwd = '/project';
       const path = ConfigManager.getAgentsPath(cwd);
 
-      expect(path).toContain('.awc');
+      expect(path).toContain('.zns-mtd');
       expect(path).toContain('agents');
     });
   });

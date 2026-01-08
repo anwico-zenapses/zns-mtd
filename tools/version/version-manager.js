@@ -132,7 +132,7 @@ class VersionManager {
    * @param {string} projectPath - Ruta del proyecto
    */
   async getInstalledVersion(projectPath) {
-    const awcDir = path.join(projectPath, '.awc');
+    const awcDir = path.join(projectPath, '.zns-mtd');
     const configPath = path.join(awcDir, 'config.yaml');
 
     if (!(await fs.pathExists(configPath))) {
@@ -155,7 +155,7 @@ class VersionManager {
    * @param {string} newVersion - Nueva versión
    */
   async updateProjectVersion(projectPath, newVersion) {
-    const awcDir = path.join(projectPath, '.awc');
+    const awcDir = path.join(projectPath, '.zns-mtd');
     const configPath = path.join(awcDir, 'config.yaml');
 
     if (!(await fs.pathExists(configPath))) {

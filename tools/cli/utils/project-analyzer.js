@@ -273,7 +273,7 @@ function shouldIgnoreDirectory(dirName) {
   const ignoreDirs = [
     'node_modules',
     '.git',
-    '.awc',
+    '.zns-mtd',
     'dist',
     'build',
     'out',

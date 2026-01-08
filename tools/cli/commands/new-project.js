@@ -106,7 +106,7 @@ async function newProjectCommand(projectName, options = {}) {
     spinner.text = `Directorio ${projectName} creado`;
 
     // 2. Crear estructura base mínima
-    const baseDirectories = ['.awc/agents', '.awc/workflows', '.awc/templates', 'docs'];
+    const baseDirectories = ['.zns-mtd/agents', '.zns-mtd/workflows', '.zns-mtd/templates', 'docs'];
 
     for (const dir of baseDirectories) {
       await fs.ensureDir(path.join(projectPath, dir));

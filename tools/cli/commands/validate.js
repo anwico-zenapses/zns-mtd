@@ -11,7 +11,7 @@ const { displayLogo } = require('../utils/console-logger');
 
 async function validateCommand() {
   const cwd = process.cwd();
-  const awcDir = path.join(cwd, '.awc');
+  const awcDir = path.join(cwd, '.zns-mtd');
 
   displayLogo();
 

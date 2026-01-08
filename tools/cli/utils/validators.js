@@ -34,7 +34,7 @@ function validateProjectName(name) {
     'package.json',
     'package-lock.json',
     '.git',
-    '.awc',
+    '.zns-mtd',
     'test',
     'dist',
     'build'

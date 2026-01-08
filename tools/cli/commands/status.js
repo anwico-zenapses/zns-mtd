@@ -11,7 +11,7 @@ const { displayLogo } = require('../utils/console-logger');
 
 async function statusCommand(options = {}) {
   const cwd = process.cwd();
-  const awcDir = path.join(cwd, '.awc');
+  const awcDir = path.join(cwd, '.zns-mtd');
   const verbose = options.verbose || false;
 
   displayLogo();
@@ -37,7 +37,9 @@ async function statusCommand(options = {}) {
   console.log(chalk.cyan('🔧 Configuración:'));
   console.log(chalk.gray('─'.repeat(60)));
   console.log(`  Versión instalada:     ${chalk.yellow(config.version || 'N/A')}`);
-  console.log(`  Instalado el:          ${chalk.yellow(config.installedAt ? new Date(config.installedAt).toLocaleString('es-ES') : 'N/A')}`);
+  console.log(
+    `  Instalado el:          ${chalk.yellow(config.installedAt ? new Date(config.installedAt).toLocaleString('es-ES') : 'N/A')}`
+  );
   console.log(`  Tipo de proyecto:      ${chalk.yellow(config.projectType || 'N/A')}`);
   console.log(`  Tamaño de equipo:      ${chalk.yellow(config.teamSize || 'N/A')}`);
   console.log(`  Nivel técnico:         ${chalk.yellow(config.skillLevel || 'N/A')}`);
@@ -56,14 +58,16 @@ async function statusCommand(options = {}) {
   const docsExist = await fs.pathExists(docsPath);
 
   console.log(`  Agentes:    ${agentsExist ? chalk.green('✓') : chalk.red('✗')} ${agentsPath}`);
-  console.log(`  Workflows:  ${workflowsExist ? chalk.green('✓') : chalk.red('✗')} ${workflowsPath}`);
+  console.log(
+    `  Workflows:  ${workflowsExist ? chalk.green('✓') : chalk.red('✗')} ${workflowsPath}`
+  );
   console.log(`  Docs:       ${docsExist ? chalk.green('✓') : chalk.red('✗')} ${docsPath}`);
 
   if (verbose) {
     // Contar agentes
     if (agentsExist) {
       const agentFiles = await fs.readdir(agentsPath);
-      const yamlAgents = agentFiles.filter(f => f.endsWith('.yaml'));
+      const yamlAgents = agentFiles.filter((f) => f.endsWith('.yaml'));
       console.log(chalk.gray(`    → ${yamlAgents.length} agentes disponibles`));
     }
 

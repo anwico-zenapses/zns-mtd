@@ -11,7 +11,7 @@ class ConfigManager {
    * Directorios principales
    */
   static get AWC_DIR() {
-    return '.awc';
+    return '.zns-mtd';
   }
 
   static get AGENTS_DIR() {
@@ -152,7 +152,7 @@ class ConfigManager {
       'package.json',
       'package-lock.json',
       '.git',
-      '.awc',
+      '.zns-mtd',
       'test',
       'dist',
       'build',
