@@ -7,6 +7,37 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [2.5.0] - 2026-01-08
+
+### 🎯 ESTRUCTURA CLIENT-DOCS AUTOMÁTICA
+
+#### ✨ Mejoras
+
+**Directorios client-docs/ por Fase**
+- ✅ 01-comercial/docs/client-docs/ (requerimientos, presentaciones, contratos)
+- ✅ 02-inception/docs/client-docs/ (procesos, manuales, imagenes)
+- ✅ 03-analysis/docs/client-docs/ (arquitectura, databases, especificaciones)
+- ✅ 04-planning/docs/client-docs/ (historias, estimaciones)
+- ✅ 05-development/docs/client-docs/ (apis, integraciones, recursos)
+- ✅ 06-qa/docs/client-docs/ (criterios-aceptacion, escenarios-prueba)
+- ✅ 07-deployment/docs/client-docs/ (infraestructura, accesos)
+- ✅ 08-support/docs/client-docs/ (incidentes, cambios)
+
+**README.md Documentados**
+- 📋 Cada client-docs/ tiene README con:
+  * Propósito del directorio
+  * Estructura de subcarpetas
+  * Buenas prácticas de nomenclatura
+  * Guías de uso específicas por fase
+  * Checklists y flujos recomendados
+
+**Nomenclatura Profesional**
+- 📝 Formato estándar: YYYYMMDD-nombre-descriptivo-v1.0.ext
+- 🔐 Archivos confidenciales en .gitignore automáticamente
+- 📦 Organización por tipo de documento
+
+---
+
 ## [2.4.0] - 2026-01-08
 
 ### 🎯 SISTEMA UNIFICADO DE AGENTES ESPECIALIZADOS

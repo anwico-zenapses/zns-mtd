@@ -99,45 +99,65 @@ async function newProjectCommand(projectName, options = {}) {
       '01-comercial/02-technical-proposal',
       '01-comercial/03-quotation',
       '01-comercial/04-contract',
+      '01-comercial/docs/client-docs/requerimientos',
+      '01-comercial/docs/client-docs/presentaciones',
+      '01-comercial/docs/client-docs/contratos',
       
       // Fase 1: Inception
       '02-inception/01-kickoff',
       '02-inception/02-prd',
       '02-inception/03-backlog',
       '02-inception/04-release-planning',
+      '02-inception/docs/client-docs/procesos',
+      '02-inception/docs/client-docs/manuales',
+      '02-inception/docs/client-docs/imagenes',
       
       // Fase 2: Análisis
       '03-analysis/01-code-audit',
       '03-analysis/02-architecture-review',
       '03-analysis/03-technical-debt',
       '03-analysis/04-recommendations',
+      '03-analysis/docs/client-docs/arquitectura',
+      '03-analysis/docs/client-docs/databases',
+      '03-analysis/docs/client-docs/especificaciones',
       
       // Fase 3: Planificación
       '04-planning/01-sprint-planning',
       '04-planning/02-backlog-refinement',
       '04-planning/03-release-planning',
       '04-planning/04-roadmap',
+      '04-planning/docs/client-docs/historias',
+      '04-planning/docs/client-docs/estimaciones',
       
       // Fase 4: Desarrollo
       '05-development/src',
       '05-development/tests',
       '05-development/docs',
+      '05-development/docs/client-docs/apis',
+      '05-development/docs/client-docs/integraciones',
+      '05-development/docs/client-docs/recursos',
       
       // Fase 5: QA
       '06-qa/test-plans',
       '06-qa/test-cases',
       '06-qa/test-results',
       '06-qa/bug-reports',
+      '06-qa/docs/client-docs/criterios-aceptacion',
+      '06-qa/docs/client-docs/escenarios-prueba',
       
       // Fase 6: Deployment
       '07-deployment/environments',
       '07-deployment/scripts',
       '07-deployment/logs',
+      '07-deployment/docs/client-docs/infraestructura',
+      '07-deployment/docs/client-docs/accesos',
       
       // Fase 7: Soporte
       '08-support/incidents',
       '08-support/bug-fixes',
       '08-support/maintenance',
+      '08-support/docs/client-docs/incidentes',
+      '08-support/docs/client-docs/cambios',
       
       // Documentación general
       'docs/architecture',
@@ -224,6 +244,10 @@ async function newProjectCommand(projectName, options = {}) {
     // 9. Crear archivo de inicio para cada fase
     await createPhaseGuides(projectPath);
     spinner.text = 'Guías de fase creadas';
+
+    // 9.0. Crear README para client-docs
+    await createClientDocsReadmes(projectPath);
+    spinner.text = 'README de client-docs creados';
 
     // 9.1. Crear configuración de VS Code
     await createVSCodeConfig(projectPath);
@@ -636,6 +660,357 @@ Una vez features completas → **06-qa/**
   for (const phase of phases) {
     const filePath = path.join(projectPath, phase.dir, 'START_HERE.md');
     await fs.writeFile(filePath, phase.content);
+  }
+}
+
+/**
+ * Crea README.md en directorios client-docs
+ */
+async function createClientDocsReadmes(projectPath) {
+  const clientDocsReadmes = [
+    {
+      path: '01-comercial/docs/client-docs/README.md',
+      content: `# 📄 Documentación del Cliente - Fase Comercial
+
+Este directorio contiene toda la documentación proporcionada por el cliente durante la fase comercial.
+
+## 📂 Estructura
+
+### requerimientos/
+Documentos de requerimientos del cliente:
+- PDFs con especificaciones funcionales
+- Word con listados de requerimientos
+- Excel con matrices de requerimientos
+- Presentaciones con necesidades del negocio
+
+### presentaciones/
+Presentaciones del cliente:
+- Decks ejecutivos
+- Presentaciones de producto actual
+- Material de marketing
+- Diagramas de flujo de negocio
+
+### contratos/
+Documentos contractuales (CONFIDENCIAL):
+- Contratos firmados
+- NDAs
+- SOWs (Statement of Work)
+- Anexos contractuales
+
+⚠️ **IMPORTANTE**: Los archivos en \`contratos/\` están en .gitignore por defecto.
+
+## 📝 Buenas Prácticas
+
+1. **Nomenclatura**: Usar formato \`YYYYMMDD-nombre-descriptivo.ext\`
+   - ✅ \`20260107-requerimientos-funcionales-v1.pdf\`
+   - ❌ \`documento.pdf\`
+
+2. **Versionado**: Incluir versión en el nombre
+   - \`requerimientos-v1.0.docx\`
+   - \`requerimientos-v1.1.docx\`
+
+3. **Organización**: Un archivo por tipo de documento
+   - No mezclar requerimientos con contratos
+   - Mantener presentaciones separadas
+
+4. **Respaldo**: Mantener originales intactos
+   - No editar documentos del cliente
+   - Crear copias de trabajo si es necesario
+`
+    },
+    {
+      path: '02-inception/docs/client-docs/README.md',
+      content: `# 📄 Documentación del Cliente - Fase Inception
+
+Este directorio contiene la documentación del cliente relevante para el inicio del proyecto.
+
+## 📂 Estructura
+
+### procesos/
+Diagramas y documentación de procesos actuales:
+- Diagramas de flujo (BPMN, Visio)
+- Mapas de procesos de negocio
+- Descripciones de workflows actuales
+- Casos de uso documentados
+
+### manuales/
+Manuales de usuario de sistemas existentes:
+- Manuales de usuario en PDF/Word
+- Guías de operación
+- Documentación de sistemas legacy
+- FAQs del sistema actual
+
+### imagenes/
+Material visual del cliente:
+- Screenshots de sistemas actuales
+- Wireframes/mockups proporcionados
+- Logos y branding guidelines
+- Fotografías de procesos físicos
+- Diagramas y esquemas
+
+## 📝 Uso Recomendado
+
+**procesos/**: Usar para entender flujos actuales y diseñar mejoras
+**manuales/**: Referencia para features esperados en el nuevo sistema  
+**imagenes/**: Material visual para PRD y documentación
+
+## ⚠️ Importante
+- Estos documentos son REFERENCIA, no especificaciones finales
+- Validar con stakeholders antes de implementar
+- Mantener trazabilidad con el PRD
+`
+    },
+    {
+      path: '03-analysis/docs/client-docs/README.md',
+      content: `# 📄 Documentación del Cliente - Fase Análisis
+
+Documentación técnica del cliente para auditoría y análisis.
+
+## 📂 Estructura
+
+### arquitectura/
+Diagramas arquitectónicos actuales:
+- Diagramas de arquitectura (C4, UML)
+- Diagramas de red e infraestructura
+- Diagramas de componentes
+- Documentos de diseño técnico
+
+### databases/
+Documentación de bases de datos:
+- Esquemas de base de datos (ERD)
+- Modelos de datos en PDF/Visio
+- Scripts SQL de estructura
+- Diccionarios de datos
+- Excel con tablas y campos
+
+### especificaciones/
+Especificaciones técnicas:
+- Documentos de APIs existentes (Swagger, Postman)
+- Especificaciones de interfaces
+- Protocolos de integración
+- Documentación de servicios web
+
+## 🎯 Objetivo
+
+Entender la arquitectura actual para:
+- Identificar technical debt
+- Planificar migraciones
+- Diseñar integraciones
+- Evaluar impacto de cambios
+
+## 📊 Artefactos Generados
+
+A partir de esta documentación, el equipo AWC generará:
+- Reporte de auditoría de código
+- Análisis de arquitectura
+- Assessment de technical debt
+- Recomendaciones de mejora
+`
+    },
+    {
+      path: '04-planning/docs/client-docs/README.md',
+      content: `# 📄 Documentación del Cliente - Fase Planificación
+
+Documentación del cliente para planificación de sprints.
+
+## 📂 Estructura
+
+### historias/
+User stories y casos de uso del cliente:
+- Word/Excel con historias de usuario
+- Casos de uso detallados
+- Escenarios de negocio
+- Criterios de aceptación iniciales
+
+### estimaciones/
+Material para estimación:
+- Hojas de cálculo con estimaciones del cliente
+- Referencias de proyectos similares
+- Benchmarks de performance esperado
+- Constraints de tiempo/presupuesto
+
+## 💡 Uso
+
+Esta documentación ayuda a:
+- Refinar user stories del backlog
+- Validar estimaciones del equipo
+- Alinear expectativas de tiempos
+- Priorizar features según negocio
+`
+    },
+    {
+      path: '05-development/docs/client-docs/README.md',
+      content: `# 📄 Documentación del Cliente - Fase Desarrollo
+
+Recursos técnicos del cliente necesarios para implementación.
+
+## 📂 Estructura
+
+### apis/
+Documentación de APIs a integrar:
+- Swagger/OpenAPI specs
+- Colecciones de Postman
+- WSDL de servicios SOAP
+- Documentación de endpoints REST
+- Credenciales de acceso (sandbox/test)
+
+### integraciones/
+Sistemas externos a integrar:
+- Manuales de integración
+- Diagramas de flujo de integración
+- Mappings de campos
+- Ejemplos de payloads XML/JSON
+- Certificados SSL/TLS
+
+### recursos/
+Assets para la aplicación:
+- Imágenes para UI (logos, iconos)
+- Archivos de diseño (Figma, Sketch exports)
+- Fuentes corporativas
+- Guidelines de branding
+- Templates de documentos
+
+## 🔧 Integración
+
+**Antes de integrar**:
+1. Validar credenciales en ambiente de pruebas
+2. Revisar rate limits y SLAs
+3. Documentar endpoints en Swagger local
+4. Crear tests de integración
+
+**Durante desarrollo**:
+- Mantener colecciones de Postman actualizadas
+- Documentar cambios en APIs
+- Reportar issues de integración al cliente
+`
+    },
+    {
+      path: '06-qa/docs/client-docs/README.md',
+      content: `# 📄 Documentación del Cliente - Fase QA
+
+Material del cliente para validación y pruebas.
+
+## 📂 Estructura
+
+### criterios-aceptacion/
+Criterios de aceptación del cliente:
+- Excel/Word con criterios de aceptación
+- Checklist de features esperados
+- Requerimientos no funcionales (SLA, performance)
+- Escenarios de validación de negocio
+
+### escenarios-prueba/
+Escenarios de prueba proporcionados:
+- Casos de prueba del cliente
+- Datos de prueba (datasets CSV/Excel)
+- Scripts de carga de datos
+- Escenarios end-to-end prioritarios
+
+## ✅ Validación
+
+Esta documentación se usa para:
+1. Crear test cases alineados con expectativas
+2. Generar datos de prueba realistas
+3. Validar acceptance criteria
+4. Preparar UAT con el cliente
+
+## 📋 UAT (User Acceptance Testing)
+
+Coordinar con cliente:
+- [ ] Ambiente de UAT preparado
+- [ ] Usuarios de prueba creados
+- [ ] Datasets cargados
+- [ ] Sesiones de UAT agendadas
+- [ ] Formulario de signoff preparado
+`
+    },
+    {
+      path: '07-deployment/docs/client-docs/README.md',
+      content: `# 📄 Documentación del Cliente - Fase Deployment
+
+Información de infraestructura del cliente para deployment.
+
+## 📂 Estructura
+
+### infraestructura/
+Documentación de infraestructura del cliente:
+- Diagramas de red
+- Especificaciones de servidores
+- Configuraciones de firewalls
+- IPs y rangos asignados
+- Políticas de seguridad
+
+### accesos/
+Credenciales y accesos (CONFIDENCIAL):
+- Credenciales de servidores
+- VPN configs
+- Certificados SSL
+- API keys de producción
+- Passwords de bases de datos
+
+⚠️ **CRÍTICO**: 
+- Archivos en esta carpeta están en .gitignore
+- Usar gestor de secretos (Azure Key Vault, AWS Secrets Manager)
+- NUNCA commitear credenciales al repositorio
+
+## 🚀 Pre-Deployment Checklist
+
+- [ ] Accesos a servidores validados
+- [ ] VPN configurada y probada
+- [ ] DNS apuntando correctamente
+- [ ] Certificados SSL instalados
+- [ ] Firewall rules configurados
+- [ ] Backup de producción realizado
+`
+    },
+    {
+      path: '08-support/docs/client-docs/README.md',
+      content: `# 📄 Documentación del Cliente - Fase Soporte
+
+Documentación de incidentes y solicitudes del cliente.
+
+## 📂 Estructura
+
+### incidentes/
+Reportes de incidentes del cliente:
+- Screenshots de errores
+- Logs proporcionados por el cliente
+- Videos reproduciendo issues
+- Reportes de usuarios finales
+
+### cambios/
+Solicitudes de cambio:
+- Change requests (PDFs/Word)
+- Nuevos requerimientos post-lanzamiento
+- Solicitudes de mejoras
+- Feedback de usuarios
+
+## 🎫 Gestión de Incidentes
+
+**Flujo recomendado**:
+1. Cliente reporta → Copiar evidencia a \`incidentes/\`
+2. Crear ticket en sistema de tracking
+3. Reproducir y documentar en \`08-support/incidents/\`
+4. Resolver y validar con cliente
+
+**Nomenclatura**:
+- \`INC-001-descripcion-corta/\` (subdirectorio por incidente)
+- Dentro: screenshots, logs, análisis, solución
+
+## 📝 Change Requests
+
+**Evaluación**:
+1. Cliente envía CR → Guardar en \`cambios/\`
+2. Equipo analiza impacto (tiempo/costo)
+3. Aprobar/rechazar con justificación
+4. Si aprobado → Crear user stories en backlog
+`
+    }
+  ];
+
+  for (const readme of clientDocsReadmes) {
+    const filePath = path.join(projectPath, readme.path);
+    await fs.writeFile(filePath, readme.content);
   }
 }
 
