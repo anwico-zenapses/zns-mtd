@@ -44,29 +44,39 @@ async function createConfigFile(awcDir, config) {
 }
 
 /**
- * Carga configuración desde archivo YAML
+ * Carga configuración desde archivo JSON o YAML
  */
 async function loadConfig(awcDir) {
-  const configPath = path.join(awcDir, 'config.yaml');
-
-  if (!(await fs.pathExists(configPath))) {
-    return null;
+  // Intentar primero JSON (usado por awc new)
+  const configJsonPath = path.join(awcDir, 'config.json');
+  if (await fs.pathExists(configJsonPath)) {
+    try {
+      return await fs.readJson(configJsonPath);
+    } catch (error) {
+      console.error('Error al cargar config.json:', error.message);
+    }
   }
 
-  try {
-    const content = await fs.readFile(configPath, 'utf8');
-    return yaml.load(content);
-  } catch (error) {
-    console.error('Error al cargar configuración:', error.message);
-    return null;
+  // Fallback a YAML (compatibilidad)
+  const configYamlPath = path.join(awcDir, 'config.yaml');
+  if (await fs.pathExists(configYamlPath)) {
+    try {
+      const content = await fs.readFile(configYamlPath, 'utf8');
+      return yaml.load(content);
+    } catch (error) {
+      console.error('Error al cargar config.yaml:', error.message);
+    }
   }
+
+  return null;
 }
 
 /**
- * Actualiza configuración existente
+ * Actualiza configuración existente (JSON)
  */
 async function updateConfig(awcDir, newConfig) {
-  await createConfigFile(awcDir, newConfig);
+  const configPath = path.join(awcDir, 'config.json');
+  await fs.writeJson(configPath, newConfig, { spaces: 2 });
 }
 
 /**
