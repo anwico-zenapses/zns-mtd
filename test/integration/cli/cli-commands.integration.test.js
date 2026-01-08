@@ -30,7 +30,7 @@ describe('CLI Integration Tests', () => {
         cwd: testDir
       });
 
-      expect(output).toContain('2.10.1');
+      expect(output).toContain('2.10.2');
       expect(output).toContain('ZΞNAPSΞS');
     });
 
@@ -63,7 +63,7 @@ describe('CLI Integration Tests', () => {
         cwd: testDir
       });
 
-      expect(output).toContain('2.10.1');
+      expect(output).toContain('2.10.2');
     });
   });
 
