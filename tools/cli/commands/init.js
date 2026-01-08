@@ -21,8 +21,8 @@ async function initCommand(options = {}) {
 
   // Verificar que existe .awc
   if (!(await fs.pathExists(awcDir))) {
-    console.log(chalk.red('❌ Este directorio no es un proyecto AWC.'));
-    console.log(chalk.yellow(`\n💡 Ejecuta primero ${chalk.green('awc new <proyecto>')}\n`));
+    console.log(chalk.red('❌ Este directorio no es un proyecto ZNS.'));
+    console.log(chalk.yellow(`\n💡 Ejecuta primero ${chalk.green('zns new <proyecto>')}\n`));
     return;
   }
 

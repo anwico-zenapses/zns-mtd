@@ -47,7 +47,7 @@ async function createConfigFile(awcDir, config) {
  * Carga configuración desde archivo JSON o YAML
  */
 async function loadConfig(awcDir) {
-  // Intentar primero JSON (usado por awc new)
+  // Intentar primero JSON (usado por zns new)
   const configJsonPath = path.join(awcDir, 'config.json');
   if (await fs.pathExists(configJsonPath)) {
     try {

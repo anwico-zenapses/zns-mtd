@@ -214,10 +214,10 @@ async function newProjectCommand(projectName, options = {}) {
     // Próximos pasos
     console.log(chalk.cyan('📚 Próximos Pasos:\n'));
     console.log(`  ${chalk.green('1.')} cd ${projectName}`);
-    console.log(`  ${chalk.green('2.')} awc init ${chalk.gray('# Inicializar tipo de proyecto')}`);
+    console.log(`  ${chalk.green('2.')} zns init ${chalk.gray('# Inicializar tipo de proyecto')}`);
     console.log(`  ${chalk.green('3.')} Leer ${chalk.yellow('NEXT_STEPS.md')} para más detalles\n`);
 
-    console.log(chalk.yellow('⚠️  La estructura de fases se creará al ejecutar') + chalk.green(' awc init\n'));
+    console.log(chalk.yellow('⚠️  La estructura de fases se creará al ejecutar') + chalk.green(' zns init\n'));
 
   } catch (error) {
     spinner.fail(chalk.red('❌ Error creando proyecto'));
@@ -247,10 +247,10 @@ Este proyecto ha sido creado con la estructura base de AWC ZNS-MTD.
 ### 1. Inicializar Tipo de Proyecto
 
 \`\`\`bash
-awc init
+zns init
 \`\`\`
 
-El comando \`awc init\` te preguntará:
+El comando \`zns init\` te preguntará:
 - Tipo de proyecto (auditoría, desarrollo nuevo, migración, etc.)
 - Tecnologías a utilizar
 - Tipo de workflow (quick, standard, enterprise)
@@ -278,16 +278,16 @@ El directorio \`.awc/\` contiene:
 
 \`\`\`bash
 # Inicializar proyecto (siguiente paso)
-awc init
+zns init
 
 # Ver estado del proyecto
-awc status
+zns status
 
 # Validar estructura
-awc validate
+zns validate
 
 # Ver configuración
-awc config
+zns config
 \`\`\`
 
 ---
@@ -370,12 +370,12 @@ Tu proyecto ha sido creado con la **estructura base** de AWC ZNS-MTD.
 Ejecuta el comando de inicialización:
 
 \`\`\`bash
-awc init
+zns init
 \`\`\`
 
-### 🔍 ¿Qué hace \`awc init\`?
+### 🔍 ¿Qué hace \`zns init\`?
 
-El comando \`awc init\` te preguntará:
+El comando \`zns init\` te preguntará:
 
 #### 1️⃣ Tipo de Proyecto
 - **🔍 Auditoría de Código Existente**: Evaluar sistema legacy
@@ -396,7 +396,7 @@ El comando \`awc init\` te preguntará:
 - Frontend: React, Angular, Vue
 - Base de datos: SQL, NoSQL
 
-### ✅ Resultado de \`awc init\`
+### ✅ Resultado de \`zns init\`
 
 Basado en tus respuestas, creará automáticamente:
 
@@ -447,16 +447,16 @@ proyecto/
 
 \`\`\`bash
 # Inicializar proyecto
-awc init
+zns init
 
 # Ver estado actual
-awc status
+zns status
 
 # Validar estructura
-awc validate
+zns validate
 
 # Ver configuración
-awc config
+zns config
 \`\`\`
 
 ### 📚 Más Información
