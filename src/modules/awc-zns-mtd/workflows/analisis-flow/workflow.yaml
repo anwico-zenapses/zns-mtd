@@ -1,0 +1,500 @@
+workflow:
+  name: "Análisis Técnico Profundo"
+  id: "analisis-flow"
+  version: "1.0.0"
+  description: "Auditoría técnica completa de proyectos existentes para identificar deuda técnica, riesgos y oportunidades de mejora"
+  
+  metadata:
+    duration: "1-2 semanas"
+    complexity: "high"
+    team_size: "2-4 personas"
+    output_format: "Technical Audit Report"
+  
+  phases:
+    - id: "code-audit"
+      name: "Auditoría de Código"
+      duration: "2-3 días"
+      
+    - id: "architecture-review"
+      name: "Revisión de Arquitectura"
+      duration: "2-3 días"
+      
+    - id: "technical-debt"
+      name: "Análisis de Deuda Técnica"
+      duration: "2-3 días"
+      
+    - id: "recommendations"
+      name: "Recomendaciones y Plan de Acción"
+      duration: "1-2 días"
+
+  agents:
+    primary:
+      - "solution-architect-senior"
+      - "tech-lead-full-stack"
+      - "code-reviewer"
+    
+    supporting:
+      - "security-specialist"
+      - "performance-engineer"
+      - "refactoring-specialist"
+
+  steps:
+    # === FASE 1: AUDITORÍA DE CÓDIGO ===
+    - id: "audit-01"
+      name: "Escaneo Automatizado de Código"
+      phase: "code-audit"
+      agent: "code-reviewer"
+      duration: "4 horas"
+      
+      actions:
+        - type: "analyze"
+          description: "Ejecutar análisis estático de código (SonarQube/ESLint/Checkstyle)"
+          tools:
+            - "SonarQube"
+            - "ESLint"
+            - "PMD"
+            - "SpotBugs"
+          
+        - type: "analyze"
+          description: "Detectar code smells y anti-patterns"
+          metrics:
+            - "Cyclomatic Complexity > 15"
+            - "Code Duplication > 5%"
+            - "Method Length > 50 líneas"
+            - "Class Size > 500 líneas"
+          
+        - type: "document"
+          description: "Generar reporte de issues por severidad"
+          output: "code-analysis-report.md"
+      
+      deliverables:
+        - "Lista priorizada de code smells"
+        - "Métricas de calidad de código"
+        - "Gráficos de distribución de issues"
+
+    - id: "audit-02"
+      name: "Revisión Manual de Código Crítico"
+      phase: "code-audit"
+      agent: "tech-lead-full-stack"
+      duration: "8 horas"
+      
+      actions:
+        - type: "review"
+          description: "Revisar módulos core y lógica de negocio crítica"
+          focus_areas:
+            - "Authentication & Authorization"
+            - "Payment Processing"
+            - "Data Validation"
+            - "Error Handling"
+          
+        - type: "evaluate"
+          description: "Evaluar adherencia a mejores prácticas"
+          criteria:
+            - "SOLID Principles"
+            - "DRY (Don't Repeat Yourself)"
+            - "KISS (Keep It Simple)"
+            - "Design Patterns correctos"
+          
+        - type: "identify"
+          description: "Identificar refactorizaciones de alto impacto"
+      
+      deliverables:
+        - "Mapa de módulos críticos"
+        - "Lista de refactorizaciones recomendadas"
+        - "Ejemplos de código problemático con sugerencias"
+
+    - id: "audit-03"
+      name: "Análisis de Dependencias"
+      phase: "code-audit"
+      agent: "tech-lead-full-stack"
+      duration: "4 horas"
+      
+      actions:
+        - type: "analyze"
+          description: "Mapear dependencias del proyecto"
+          tools:
+            - "npm audit"
+            - "OWASP Dependency-Check"
+            - "Snyk"
+          
+        - type: "identify"
+          description: "Detectar dependencias obsoletas o vulnerables"
+          checks:
+            - "Versiones deprecadas"
+            - "CVEs conocidos"
+            - "Licencias incompatibles"
+            - "Dependencias no utilizadas"
+      
+      deliverables:
+        - "Dependency tree diagram"
+        - "Lista de dependencias vulnerables (CVE score)"
+        - "Plan de actualización de dependencias"
+
+    # === FASE 2: REVISIÓN DE ARQUITECTURA ===
+    - id: "arch-01"
+      name: "Documentación de Arquitectura Actual"
+      phase: "architecture-review"
+      agent: "solution-architect-senior"
+      duration: "8 horas"
+      
+      actions:
+        - type: "document"
+          description: "Crear diagramas C4 del sistema actual"
+          levels:
+            - "Level 1: System Context"
+            - "Level 2: Containers"
+            - "Level 3: Components (módulos clave)"
+          
+        - type: "analyze"
+          description: "Mapear flujos de datos críticos"
+          
+        - type: "identify"
+          description: "Identificar patrones arquitectónicos utilizados"
+          patterns:
+            - "Layered Architecture"
+            - "Microservices"
+            - "Event-Driven"
+            - "CQRS"
+      
+      deliverables:
+        - "Diagramas C4 (3 niveles)"
+        - "Documentación de patrones arquitectónicos"
+        - "Mapa de integraciones externas"
+
+    - id: "arch-02"
+      name: "Evaluación de Escalabilidad"
+      phase: "architecture-review"
+      agent: "performance-engineer"
+      duration: "6 horas"
+      
+      actions:
+        - type: "analyze"
+          description: "Evaluar capacidad de escalamiento horizontal/vertical"
+          
+        - type: "test"
+          description: "Ejecutar tests de carga (opcional si hay ambiente de staging)"
+          tools:
+            - "JMeter"
+            - "Gatling"
+            - "K6"
+          
+        - type: "identify"
+          description: "Identificar cuellos de botella de performance"
+          areas:
+            - "Database queries (N+1 problems)"
+            - "API response times"
+            - "Memory leaks"
+            - "CPU-intensive operations"
+      
+      deliverables:
+        - "Performance baseline report"
+        - "Bottleneck analysis"
+        - "Recomendaciones de optimización"
+
+    - id: "arch-03"
+      name: "Auditoría de Seguridad"
+      phase: "architecture-review"
+      agent: "security-specialist"
+      duration: "8 horas"
+      
+      actions:
+        - type: "audit"
+          description: "Revisar implementación de seguridad"
+          checklist:
+            - "OWASP Top 10 compliance"
+            - "Authentication/Authorization robustness"
+            - "Data encryption (at rest & in transit)"
+            - "Input validation & sanitization"
+            - "Session management"
+            - "Secrets management"
+          
+        - type: "test"
+          description: "Ejecutar escaneo de vulnerabilidades"
+          tools:
+            - "OWASP ZAP"
+            - "Burp Suite"
+            - "Snyk Code"
+          
+        - type: "review"
+          description: "Revisar configuraciones de infraestructura"
+          focus:
+            - "Firewall rules"
+            - "IAM policies"
+            - "Database access controls"
+            - "API rate limiting"
+      
+      deliverables:
+        - "Security audit report"
+        - "Lista de vulnerabilidades (clasificadas por CVSS)"
+        - "Plan de remediación priorizado"
+
+    # === FASE 3: DEUDA TÉCNICA ===
+    - id: "debt-01"
+      name: "Cuantificación de Deuda Técnica"
+      phase: "technical-debt"
+      agent: "tech-lead-full-stack"
+      duration: "6 horas"
+      
+      actions:
+        - type: "calculate"
+          description: "Calcular métricas de deuda técnica"
+          metrics:
+            - "Technical Debt Ratio (SonarQube)"
+            - "Code Coverage (%)"
+            - "Duplicated Lines (%)"
+            - "Complexity Distribution"
+          
+        - type: "estimate"
+          description: "Estimar costo de remediación"
+          formula: "Debt Hours = (Issues × Avg Fix Time)"
+          
+        - type: "prioritize"
+          description: "Priorizar deuda por impacto/esfuerzo"
+          matrix: "Eisenhower Matrix (Urgente/Importante)"
+      
+      deliverables:
+        - "Technical Debt Dashboard"
+        - "Estimación de esfuerzo de remediación (horas)"
+        - "Matriz de priorización"
+
+    - id: "debt-02"
+      name: "Análisis de Tests y Cobertura"
+      phase: "technical-debt"
+      agent: "qa-test-automation-engineer"
+      duration: "6 horas"
+      
+      actions:
+        - type: "analyze"
+          description: "Evaluar estrategia de testing actual"
+          metrics:
+            - "Unit Test Coverage (%)"
+            - "Integration Test Coverage (%)"
+            - "E2E Test Coverage (%)"
+            - "Test Execution Time"
+          
+        - type: "identify"
+          description: "Identificar gaps de cobertura"
+          focus:
+            - "Módulos sin tests"
+            - "Código legacy sin cobertura"
+            - "Happy paths vs edge cases"
+          
+        - type: "recommend"
+          description: "Recomendar mejoras en testing strategy"
+          improvements:
+            - "Aumentar cobertura a >80%"
+            - "Implementar mutation testing"
+            - "Automatizar E2E tests"
+      
+      deliverables:
+        - "Test coverage report"
+        - "Gap analysis de testing"
+        - "Plan de mejora de testing"
+
+    - id: "debt-03"
+      name: "Documentación Técnica Assessment"
+      phase: "technical-debt"
+      agent: "documentation-specialist"
+      duration: "4 horas"
+      
+      actions:
+        - type: "audit"
+          description: "Evaluar calidad de documentación existente"
+          check:
+            - "README actualizado"
+            - "API documentation (Swagger/OpenAPI)"
+            - "Architecture Decision Records (ADRs)"
+            - "Runbooks de deployment"
+            - "Guías de troubleshooting"
+          
+        - type: "identify"
+          description: "Identificar documentación faltante o desactualizada"
+          
+        - type: "recommend"
+          description: "Crear plan de documentación"
+      
+      deliverables:
+        - "Documentation audit report"
+        - "Lista de documentación faltante"
+        - "Plan de creación de docs"
+
+    # === FASE 4: RECOMENDACIONES ===
+    - id: "rec-01"
+      name: "Generación de Roadmap de Mejoras"
+      phase: "recommendations"
+      agent: "solution-architect-senior"
+      duration: "8 horas"
+      
+      actions:
+        - type: "synthesize"
+          description: "Consolidar findings de todas las auditorías"
+          
+        - type: "prioritize"
+          description: "Priorizar recomendaciones por ROI"
+          criteria:
+            - "Impacto en negocio (High/Medium/Low)"
+            - "Esfuerzo de implementación (horas)"
+            - "Riesgo de no hacer (High/Medium/Low)"
+          
+        - type: "plan"
+          description: "Crear roadmap de mejoras por fases"
+          phases:
+            - "Quick Wins (1-2 semanas)"
+            - "Medium-term (1-3 meses)"
+            - "Long-term (3-6 meses)"
+      
+      deliverables:
+        - "Executive Summary Report (5-10 páginas)"
+        - "Roadmap visual de mejoras (Gantt/Timeline)"
+        - "Budget estimation de remediación"
+
+    - id: "rec-02"
+      name: "Presentación de Findings a Stakeholders"
+      phase: "recommendations"
+      agent: "solution-architect-senior"
+      duration: "2 horas"
+      
+      actions:
+        - type: "prepare"
+          description: "Crear presentación ejecutiva"
+          slides:
+            - "Executive Summary"
+            - "Current State Assessment"
+            - "Key Findings (Top 10 issues)"
+            - "Recommendations & Roadmap"
+            - "Budget & Timeline"
+            - "Next Steps"
+          
+        - type: "present"
+          description: "Sesión de presentación con Q&A"
+          attendees:
+            - "CTO/VP Engineering"
+            - "Product Owner"
+            - "Tech Leads"
+            - "Stakeholders clave"
+          
+        - type: "align"
+          description: "Alinear prioridades con stakeholders"
+      
+      deliverables:
+        - "PowerPoint/PDF presentation"
+        - "Video recording de la presentación"
+        - "Acta de acuerdos y próximos pasos"
+
+  deliverables:
+    primary:
+      - name: "Technical Audit Report"
+        description: "Reporte ejecutivo completo (30-50 páginas)"
+        sections:
+          - "Executive Summary"
+          - "Code Quality Analysis"
+          - "Architecture Review"
+          - "Security Audit"
+          - "Technical Debt Assessment"
+          - "Performance Analysis"
+          - "Testing Strategy Review"
+          - "Recommendations & Roadmap"
+        format: "PDF + Markdown"
+      
+      - name: "Remediation Roadmap"
+        description: "Plan de acción priorizado con timelines"
+        format: "Gantt Chart + Excel"
+      
+      - name: "Budget Estimation"
+        description: "Estimación de costos de remediación"
+        format: "Spreadsheet"
+    
+    supporting:
+      - "Code analysis reports (SonarQube, ESLint)"
+      - "Dependency audit (npm audit, Snyk)"
+      - "Security scan results (OWASP ZAP)"
+      - "Performance test results (JMeter)"
+      - "C4 architecture diagrams"
+      - "Test coverage reports"
+
+  metrics:
+    quality:
+      - name: "Technical Debt Ratio"
+        target: "< 5%"
+        critical_threshold: "> 20%"
+      
+      - name: "Code Coverage"
+        target: "> 80%"
+        critical_threshold: "< 50%"
+      
+      - name: "Critical Security Issues"
+        target: "0"
+        critical_threshold: "> 5"
+      
+      - name: "High-Priority Code Smells"
+        target: "< 10"
+        critical_threshold: "> 50"
+    
+    performance:
+      - name: "P95 Response Time"
+        target: "< 500ms"
+        critical_threshold: "> 2s"
+      
+      - name: "Error Rate"
+        target: "< 0.1%"
+        critical_threshold: "> 1%"
+
+  best_practices:
+    - "Ejecutar análisis en rama separada (no en main/develop)"
+    - "Involucrar al equipo actual en el proceso (no solo auditar desde fuera)"
+    - "Priorizar findings por impacto en negocio, no solo por severidad técnica"
+    - "Crear plan de remediación realista (no intentar arreglar todo a la vez)"
+    - "Automatizar auditorías para ejecución periódica (trimestral/semestral)"
+    - "Documentar decisiones arquitectónicas previas antes de recomendar cambios"
+
+  templates:
+    - "technical-audit-report.md"
+    - "code-review-checklist.md"
+    - "security-audit-checklist.md"
+    - "remediation-roadmap.xlsx"
+    - "architecture-c4-template.md"
+
+  tools:
+    code_analysis:
+      - "SonarQube"
+      - "ESLint"
+      - "PMD"
+      - "SpotBugs"
+      - "Checkstyle"
+    
+    security:
+      - "OWASP ZAP"
+      - "Snyk"
+      - "Burp Suite"
+      - "OWASP Dependency-Check"
+    
+    performance:
+      - "JMeter"
+      - "Gatling"
+      - "K6"
+      - "Lighthouse"
+    
+    documentation:
+      - "Structurizr (C4 diagrams)"
+      - "Mermaid"
+      - "PlantUML"
+
+  risks:
+    - risk: "Resistencia del equipo actual a findings negativos"
+      mitigation: "Enfocar en mejoras, no en culpas. Sesiones colaborativas."
+      
+    - risk: "Auditoría demasiado superficial"
+      mitigation: "Dedicar tiempo suficiente (mínimo 1 semana). No apurar."
+      
+    - risk: "Recomendaciones no accionables"
+      mitigation: "Priorizar por ROI. Crear plan incremental realista."
+      
+    - risk: "Falta de acceso a código/infraestructura"
+      mitigation: "Coordinar accesos antes de iniciar. Firmar NDAs si es necesario."
+
+  success_criteria:
+    - "Roadmap de mejoras aprobado por stakeholders"
+    - "Top 10 issues críticos identificados y priorizados"
+    - "Plan de remediación con budget y timeline acordados"
+    - "Equipo de desarrollo alineado con recomendaciones"
+    - "Baseline de métricas establecido para seguimiento"

@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-01-08
+
+### ✨ UX Improvements
+
+- **Professional AWC Logo** with ASCII art and ZNS-MTD branding
+- **Enhanced visual design** with Unicode borders (╭─╮│╰╯) and boxes
+- **Color hierarchy** with bright, dim, backgrounds for better readability
+- **Contextual messages** with emojis and smart suggestions 💡
+- **Highlighted Copilot command** with double-border visual box
+- **Improved workflows display** - Shows first 5 with detailed descriptions
+- **Visual progress** during workspace initialization
+
+### 🚀 New Features
+
+- Command aliases: `ls` (list), `use` (load), `find` (search)
+- `--version` option to display CLI version
+- Complete help with step-by-step workflow guide
+- Command validation with correction suggestions
+
+### 🐛 Bug Fixes
+
+- Improved error handling with clearer messages
+- Optimized spacing and formatting in all outputs
+
 ## [1.0.0] - 2026-01-07
 
 ### Added

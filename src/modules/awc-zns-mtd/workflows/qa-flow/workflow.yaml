@@ -1,0 +1,291 @@
+workflow:
+  name: "QA Flow - Aseguramiento de Calidad"
+  id: "qa-flow"
+  version: "1.0.0"
+  description: "Workflow de testing y aseguramiento de calidad integral"
+  
+  metadata:
+    duration: "Continuo durante desarrollo + 1 semana intensiva pre-release"
+    complexity: "high"
+    team_size: "1-3 QA Engineers"
+  
+  phases:
+    - id: "test-planning"
+      name: "Test Planning"
+      
+    - id: "automated-testing"
+      name: "Automated Testing"
+      
+    - id: "manual-testing"
+      name: "Manual & Exploratory Testing"
+      
+    - id: "uat"
+      name: "User Acceptance Testing"
+
+  agents:
+    primary:
+      - "qa-test-automation-engineer"
+      - "security-specialist"
+      - "performance-engineer"
+
+  steps:
+    - id: "qa-01"
+      name: "Crear Test Plan"
+      phase: "test-planning"
+      agent: "qa-test-automation-engineer"
+      duration: "2-4 horas"
+      when: "Inicio de sprint o inicio de release"
+      
+      actions:
+        - type: "analyze"
+          description: "Analizar user stories del sprint"
+        
+        - type: "design"
+          description: "Diseñar casos de prueba"
+          coverage:
+            - "Happy paths"
+            - "Edge cases"
+            - "Error scenarios"
+        
+        - type: "prioritize"
+          description: "Priorizar testing por criticidad"
+      
+      deliverables:
+        - "Test Plan document"
+        - "Test cases en test management tool"
+
+    - id: "qa-02"
+      name: "Unit Testing (Developers)"
+      phase: "automated-testing"
+      agent: "senior-backend-developer"
+      duration: "Continuo durante desarrollo"
+      
+      actions:
+        - type: "write"
+          description: "Escribir unit tests (TDD)"
+          target: ">80% code coverage"
+        
+        - type: "run"
+          description: "Ejecutar tests en cada commit (CI/CD)"
+      
+      deliverables:
+        - "Unit tests con >80% coverage"
+
+    - id: "qa-03"
+      name: "Integration Testing"
+      phase: "automated-testing"
+      agent: "qa-test-automation-engineer"
+      duration: "2-4 horas por feature"
+      
+      actions:
+        - type: "write"
+          description: "Escribir integration tests"
+          tools:
+            - "Postman/Newman (API testing)"
+            - "Jest/JUnit (integration tests)"
+        
+        - type: "automate"
+          description: "Integrar tests al CI/CD pipeline"
+      
+      deliverables:
+        - "Integration test suite"
+
+    - id: "qa-04"
+      name: "End-to-End Testing"
+      phase: "automated-testing"
+      agent: "qa-test-automation-engineer"
+      duration: "1-2 días por flujo crítico"
+      
+      actions:
+        - type: "write"
+          description: "Escribir E2E tests para flujos críticos"
+          tools:
+            - "Cypress"
+            - "Playwright"
+            - "Selenium"
+        
+        - type: "maintain"
+          description: "Mantener tests estables (evitar flakiness)"
+      
+      deliverables:
+        - "E2E test suite para flujos críticos"
+
+    - id: "qa-05"
+      name: "Performance Testing"
+      phase: "automated-testing"
+      agent: "performance-engineer"
+      duration: "1-2 días"
+      when: "Pre-release o cuando hay cambios de performance"
+      
+      actions:
+        - type: "test"
+          description: "Ejecutar load testing"
+          tools: "JMeter, Gatling, K6"
+          scenarios:
+            - "Normal load (usuarios promedio)"
+            - "Peak load (tráfico pico)"
+            - "Stress test (hasta breaking point)"
+        
+        - type: "analyze"
+          description: "Analizar resultados y bottlenecks"
+      
+      deliverables:
+        - "Performance test report"
+
+    - id: "qa-06"
+      name: "Security Testing"
+      phase: "automated-testing"
+      agent: "security-specialist"
+      duration: "1 día"
+      when: "Pre-release"
+      
+      actions:
+        - type: "scan"
+          description: "Ejecutar security scans"
+          tools:
+            - "OWASP ZAP"
+            - "Snyk"
+            - "Burp Suite"
+        
+        - type: "audit"
+          description: "Revisar OWASP Top 10"
+      
+      deliverables:
+        - "Security scan report"
+        - "Vulnerabilities list (priorizado por CVSS)"
+
+    - id: "qa-07"
+      name: "Exploratory Testing"
+      phase: "manual-testing"
+      agent: "qa-test-automation-engineer"
+      duration: "4-8 horas por sprint"
+      
+      actions:
+        - type: "explore"
+          description: "Testing exploratorio sin script"
+          approach: "Thinking like a user, intentar romper el sistema"
+        
+        - type: "document"
+          description: "Documentar bugs encontrados"
+      
+      deliverables:
+        - "Bug reports en Jira"
+
+    - id: "qa-08"
+      name: "Regression Testing"
+      phase: "manual-testing"
+      agent: "qa-test-automation-engineer"
+      duration: "Automático (CI/CD)"
+      when: "Cada deployment"
+      
+      actions:
+        - type: "run"
+          description: "Ejecutar regression test suite completa"
+        
+        - type: "verify"
+          description: "Verificar que no se rompió nada existente"
+      
+      deliverables:
+        - "Regression test results"
+
+    - id: "qa-09"
+      name: "User Acceptance Testing (UAT)"
+      phase: "uat"
+      agent: "product-owner-business-analyst"
+      duration: "3-5 días"
+      when: "Pre-release"
+      attendees: "Stakeholders + usuarios finales"
+      
+      actions:
+        - type: "prepare"
+          description: "Preparar ambiente de UAT"
+        
+        - type: "test"
+          description: "Usuarios finales prueban features"
+        
+        - type: "collect"
+          description: "Recolectar feedback y bugs"
+        
+        - type: "approve"
+          description: "Stakeholders aprueban para producción"
+      
+      deliverables:
+        - "UAT sign-off document"
+        - "Lista de bugs encontrados en UAT"
+
+    - id: "qa-10"
+      name: "Test Report & Go/No-Go Decision"
+      phase: "uat"
+      agent: "qa-test-automation-engineer"
+      duration: "2 horas"
+      
+      actions:
+        - type: "compile"
+          description: "Compilar resultados de todos los tests"
+          metrics:
+            - "Test pass rate"
+            - "Critical bugs open"
+            - "Code coverage"
+            - "Performance benchmarks"
+        
+        - type: "decide"
+          description: "Go/No-Go decision para producción"
+          criteria:
+            - "0 critical bugs"
+            - "< 5 high priority bugs"
+            - "Test pass rate > 95%"
+      
+      deliverables:
+        - "Final QA Report"
+        - "Go/No-Go recommendation"
+
+  deliverables:
+    - "Test Plan"
+    - "Automated test suites (unit, integration, E2E)"
+    - "Performance test results"
+    - "Security scan report"
+    - "Bug reports"
+    - "Final QA Report"
+    - "UAT sign-off"
+
+  metrics:
+    - name: "Test Coverage"
+      target: "> 80%"
+    
+    - name: "Test Pass Rate"
+      target: "> 95%"
+    
+    - name: "Bug Detection Rate"
+      description: "% de bugs encontrados en QA vs producción"
+      target: "> 90% (pocos bugs escapan a producción)"
+    
+    - name: "Regression Test Execution Time"
+      target: "< 30 minutos"
+
+  best_practices:
+    - "Shift-left testing: involucrar QA desde el inicio"
+    - "Automatizar todo lo que sea repetible"
+    - "Mantener tests estables y rápidos"
+    - "Testing en pirámide: muchos unit, algunos integration, pocos E2E"
+    - "Usar feature flags para testing en producción"
+
+  tools:
+    unit_testing:
+      - "Jest (JavaScript)"
+      - "JUnit (Java)"
+      - "PyTest (Python)"
+    
+    e2e_testing:
+      - "Cypress"
+      - "Playwright"
+      - "Selenium"
+    
+    performance:
+      - "JMeter"
+      - "Gatling"
+      - "K6"
+    
+    security:
+      - "OWASP ZAP"
+      - "Snyk"
+      - "Burp Suite"

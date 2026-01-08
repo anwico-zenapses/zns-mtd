@@ -1,0 +1,526 @@
+workflow:
+  name: "Planning Flow - Gestión de Sprints y Releases"
+  id: "planificacion-flow"
+  version: "1.0.0"
+  description: "Workflow de planificación iterativa para sprints, releases y roadmap de producto"
+  
+  metadata:
+    duration: "Continuo (cada 2 semanas para sprints)"
+    complexity: "medium"
+    team_size: "Todo el equipo"
+    cadence: "Bi-weekly (sprints de 2 semanas)"
+  
+  phases:
+    - id: "sprint-planning"
+      name: "Sprint Planning"
+      duration: "2 horas cada 2 semanas"
+      
+    - id: "backlog-refinement"
+      name: "Backlog Refinement"
+      duration: "1 hora semanal"
+      
+    - id: "release-planning"
+      name: "Release Planning"
+      duration: "4 horas cada 6-8 semanas"
+      
+    - id: "roadmap-update"
+      name: "Roadmap Update"
+      duration: "2 horas mensual"
+
+  agents:
+    primary:
+      - "product-owner-business-analyst"
+      - "tech-lead-full-stack"
+      - "technical-stories-architect"
+    
+    supporting:
+      - "solution-architect-senior"
+      - "ux-ui-designer"
+      - "qa-test-automation-engineer"
+
+  # ============================================
+  # FASE 1: SPRINT PLANNING
+  # ============================================
+  steps:
+    - id: "sprint-01"
+      name: "Pre-Planning: Backlog Review"
+      phase: "sprint-planning"
+      agent: "product-owner-business-analyst"
+      duration: "30 minutos"
+      when: "1 día antes del Sprint Planning"
+      
+      actions:
+        - type: "review"
+          description: "Revisar top 20-30 historias del backlog"
+          criteria:
+            - "Historias tienen criterios de aceptación claros"
+            - "Historias están estimadas (story points)"
+            - "Dependencias identificadas"
+            - "Historias priorizadas (MoSCoW o similar)"
+          
+        - type: "prepare"
+          description: "Preparar agenda de Sprint Planning"
+          include:
+            - "Objetivos del sprint (Sprint Goal)"
+            - "User stories candidatas (priorizadas)"
+            - "Capacity del equipo (días disponibles)"
+      
+      deliverables:
+        - "Agenda de Sprint Planning"
+        - "Top 30 historias priorizadas y ready"
+
+    - id: "sprint-02"
+      name: "Sprint Planning Part 1: What (Qué vamos a hacer)"
+      phase: "sprint-planning"
+      agent: "product-owner-business-analyst"
+      duration: "1 hora"
+      attendees:
+        - "Product Owner"
+        - "Scrum Master / Tech Lead"
+        - "Development Team (todos)"
+      
+      actions:
+        - type: "define"
+          description: "Definir Sprint Goal"
+          example: "Completar autenticación y onboarding de usuarios"
+          
+        - type: "select"
+          description: "Seleccionar User Stories para el sprint"
+          process:
+            - "PO presenta cada historia"
+            - "Equipo hace preguntas de clarificación"
+            - "Equipo confirma que la historia está 'ready'"
+            - "Equipo compromete la historia"
+          
+        - type: "validate"
+          description: "Validar capacity vs commitment"
+          formula: "Story Points comprometidos ≤ Velocity histórica"
+      
+      deliverables:
+        - "Sprint Goal definido"
+        - "Lista de User Stories comprometidas"
+        - "Sprint Backlog inicial"
+
+    - id: "sprint-03"
+      name: "Sprint Planning Part 2: How (Cómo lo vamos a hacer)"
+      phase: "sprint-planning"
+      agent: "tech-lead-full-stack"
+      duration: "1 hora"
+      attendees: "Development Team + Tech Lead"
+      
+      actions:
+        - type: "breakdown"
+          description: "Descomponer User Stories en tareas técnicas"
+          granularity: "Tareas de 2-8 horas"
+          example:
+            - "US-001: Login con Google OAuth"
+            - "  → Tarea 1: Configurar Google OAuth en backend (4h)"
+            - "  → Tarea 2: Implementar botón de login en frontend (2h)"
+            - "  → Tarea 3: Crear tests de integración (3h)"
+          
+        - type: "assign"
+          description: "Asignar owners a cada tarea (opcional)"
+          note: "En equipos maduros, las tareas se toman del board durante el sprint"
+          
+        - type: "identify"
+          description: "Identificar riesgos y dependencias"
+          blockers:
+            - "Dependencias externas (APIs, servicios)"
+            - "Dependencias de otras historias"
+            - "Necesidad de investigación técnica"
+      
+      deliverables:
+        - "Sprint Backlog completo (User Stories + Tareas)"
+        - "Registro de riesgos y dependencias"
+        - "Plan de mitigación de riesgos"
+
+    - id: "sprint-04"
+      name: "Sprint Kickoff & Board Setup"
+      phase: "sprint-planning"
+      agent: "tech-lead-full-stack"
+      duration: "15 minutos"
+      
+      actions:
+        - type: "setup"
+          description: "Configurar Sprint Board en Jira/Azure DevOps"
+          columns:
+            - "To Do"
+            - "In Progress"
+            - "In Review"
+            - "Done"
+          
+        - type: "communicate"
+          description: "Comunicar Sprint Goal al equipo extendido"
+          channels:
+            - "Slack/Teams announcement"
+            - "Email a stakeholders"
+            - "Update wiki/confluence"
+      
+      deliverables:
+        - "Sprint Board configurado"
+        - "Comunicación de Sprint Goal enviada"
+
+    # ============================================
+    # FASE 2: BACKLOG REFINEMENT (GROOMING)
+    # ============================================
+    - id: "refine-01"
+      name: "Grooming Session Semanal"
+      phase: "backlog-refinement"
+      agent: "product-owner-business-analyst"
+      duration: "1 hora"
+      cadence: "Semanal (mitad de sprint)"
+      attendees:
+        - "Product Owner"
+        - "Tech Lead"
+        - "2-3 Developers (rotativo)"
+      
+      actions:
+        - type: "review"
+          description: "Revisar nuevas historias agregadas al backlog"
+          
+        - type: "clarify"
+          description: "Aclarar requisitos y criterios de aceptación"
+          technique: "Conversación colaborativa, no solo lectura"
+          
+        - type: "estimate"
+          description: "Estimar historias usando Planning Poker"
+          scale: "Fibonacci (1, 2, 3, 5, 8, 13, 21)"
+          
+        - type: "prioritize"
+          description: "Re-priorizar backlog según cambios de negocio"
+          
+        - type: "split"
+          description: "Dividir historias grandes (>13 pts) en historias más pequeñas"
+      
+      deliverables:
+        - "20-30 historias 'ready' para próximos 2-3 sprints"
+        - "Historias estimadas y priorizadas"
+        - "Criterios de aceptación claros"
+
+    - id: "refine-02"
+      name: "Technical Grooming (Opcional)"
+      phase: "backlog-refinement"
+      agent: "tech-lead-full-stack"
+      duration: "30 minutos"
+      cadence: "Semanal (después de grooming con PO)"
+      attendees: "Tech Lead + Development Team"
+      
+      actions:
+        - type: "analyze"
+          description: "Analizar complejidad técnica de historias"
+          
+        - type: "identify"
+          description: "Identificar technical spikes necesarios"
+          when: "Incertidumbre técnica alta (>50%)"
+          
+        - type: "plan"
+          description: "Planificar arquitectura de features complejas"
+          output: "Mini tech spec o diagrama de secuencia"
+      
+      deliverables:
+        - "Technical spikes identificados"
+        - "Notas técnicas para historias complejas"
+
+    # ============================================
+    # FASE 3: RELEASE PLANNING
+    # ============================================
+    - id: "release-01"
+      name: "Release Planning Kickoff"
+      phase: "release-planning"
+      agent: "product-owner-business-analyst"
+      duration: "4 horas"
+      cadence: "Cada 6-8 semanas (3-4 sprints)"
+      attendees:
+        - "Product Owner"
+        - "Tech Lead"
+        - "Solution Architect"
+        - "Stakeholders clave"
+      
+      actions:
+        - type: "define"
+          description: "Definir objetivos de la release"
+          questions:
+            - "¿Qué valor de negocio entregamos?"
+            - "¿Qué épicas completamos?"
+            - "¿Qué features son must-have vs nice-to-have?"
+          
+        - type: "scope"
+          description: "Definir alcance de la release"
+          approach: "Theme-based planning (agrupar por temas/épicas)"
+          
+        - type: "estimate"
+          description: "Estimar esfuerzo total de la release"
+          formula: "Total Story Points / Velocity Promedio = Sprints Necesarios"
+          
+        - type: "schedule"
+          description: "Crear calendario de la release"
+          include:
+            - "Sprint breakdown"
+            - "Milestones clave"
+            - "Fecha de code freeze"
+            - "Fecha de QA/UAT"
+            - "Fecha de go-live"
+      
+      deliverables:
+        - "Release Plan Document (5-10 páginas)"
+        - "Release Roadmap Visual (Gantt/Timeline)"
+        - "Lista de épicas y features por sprint"
+
+    - id: "release-02"
+      name: "Dependency Mapping & Risk Assessment"
+      phase: "release-planning"
+      agent: "solution-architect-senior"
+      duration: "2 horas"
+      
+      actions:
+        - type: "map"
+          description: "Mapear dependencias entre features"
+          tool: "Dependency Graph o Mermaid diagram"
+          
+        - type: "identify"
+          description: "Identificar riesgos de la release"
+          categories:
+            - "Riesgos técnicos (complejidad, deuda técnica)"
+            - "Riesgos de negocio (cambios de prioridad)"
+            - "Riesgos de equipo (disponibilidad, vacaciones)"
+            - "Riesgos externos (APIs de terceros, integraciones)"
+          
+        - type: "plan"
+          description: "Crear plan de mitigación de riesgos"
+          approach: "Para cada riesgo Alto: definir plan B"
+      
+      deliverables:
+        - "Dependency Map"
+        - "Risk Register (riesgos + mitigaciones)"
+
+    - id: "release-03"
+      name: "Release Review Meeting"
+      phase: "release-planning"
+      agent: "product-owner-business-analyst"
+      duration: "1 hora"
+      cadence: "Mid-release checkpoint (sprint 2 de 4)"
+      
+      actions:
+        - type: "review"
+          description: "Revisar progreso vs plan"
+          metrics:
+            - "Story Points completados vs planeados"
+            - "Velocity real vs esperada"
+            - "Burndown chart"
+          
+        - type: "adjust"
+          description: "Ajustar alcance si es necesario"
+          decisions:
+            - "¿Movemos features a siguiente release?"
+            - "¿Necesitamos agregar un sprint más?"
+            - "¿Cambiamos prioridades?"
+          
+        - type: "communicate"
+          description: "Comunicar cambios a stakeholders"
+      
+      deliverables:
+        - "Updated Release Plan"
+        - "Comunicación a stakeholders"
+
+    # ============================================
+    # FASE 4: ROADMAP UPDATE
+    # ============================================
+    - id: "roadmap-01"
+      name: "Monthly Roadmap Review"
+      phase: "roadmap-update"
+      agent: "product-owner-business-analyst"
+      duration: "2 horas"
+      cadence: "Mensual"
+      attendees:
+        - "Product Owner"
+        - "CTO / VP Engineering"
+        - "Key Stakeholders"
+      
+      actions:
+        - type: "review"
+          description: "Revisar progreso del roadmap trimestral"
+          
+        - type: "update"
+          description: "Actualizar roadmap con nuevas prioridades"
+          horizon:
+            - "Próximo mes (detallado)"
+            - "Próximo trimestre (épicas)"
+            - "Próximos 6-12 meses (themes/iniciativas)"
+          
+        - type: "align"
+          description: "Alinear roadmap con objetivos de negocio"
+          check: "¿El roadmap sigue soportando los OKRs del quarter?"
+          
+        - type: "communicate"
+          description: "Publicar roadmap actualizado"
+          channels:
+            - "Wiki/Confluence"
+            - "Roadmap tool (Aha!, ProductBoard, Jira Portfolio)"
+            - "All-hands presentation"
+      
+      deliverables:
+        - "Updated Product Roadmap"
+        - "Roadmap presentation deck"
+        - "Communication to stakeholders"
+
+    - id: "roadmap-02"
+      name: "Quarterly Planning (OKR Review)"
+      phase: "roadmap-update"
+      agent: "product-owner-business-analyst"
+      duration: "4 horas"
+      cadence: "Trimestral"
+      
+      actions:
+        - type: "review"
+          description: "Revisar OKRs del quarter anterior"
+          metrics: "% de Key Results alcanzados"
+          
+        - type: "define"
+          description: "Definir OKRs del próximo quarter"
+          format:
+            - "Objective 1: {Qué queremos lograr}"
+            - "  → KR1: {Métrica medible 1}"
+            - "  → KR2: {Métrica medible 2}"
+            - "  → KR3: {Métrica medible 3}"
+          
+        - type: "plan"
+          description: "Mapear iniciativas a OKRs"
+          question: "¿Qué features/épicas soportan cada OKR?"
+          
+        - type: "allocate"
+          description: "Asignar recursos por iniciativa"
+          approach: "% de capacity del equipo por OKR"
+      
+      deliverables:
+        - "Quarterly OKRs"
+        - "Quarterly Roadmap (épicas por mes)"
+        - "Resource allocation plan"
+
+  deliverables:
+    sprint_planning:
+      - "Sprint Goal"
+      - "Sprint Backlog (User Stories + Tareas)"
+      - "Sprint Board configurado"
+      - "Riesgos y dependencias identificados"
+    
+    backlog_refinement:
+      - "Backlog priorizado (top 30 historias ready)"
+      - "Historias estimadas (story points)"
+      - "Criterios de aceptación claros"
+      - "Technical spikes identificados"
+    
+    release_planning:
+      - "Release Plan Document"
+      - "Release Roadmap Visual"
+      - "Dependency Map"
+      - "Risk Register"
+    
+    roadmap:
+      - "Product Roadmap (3-12 meses)"
+      - "Quarterly OKRs"
+      - "Resource allocation plan"
+
+  metrics:
+    sprint:
+      - name: "Velocity"
+        description: "Story points completados por sprint"
+        target: "Estable (+/- 20% entre sprints)"
+      
+      - name: "Sprint Goal Success Rate"
+        description: "% de sprints donde se cumple el Sprint Goal"
+        target: "> 80%"
+      
+      - name: "Carryover Rate"
+        description: "% de historias que no se completan y pasan al siguiente sprint"
+        target: "< 10%"
+    
+    backlog:
+      - name: "Backlog Health"
+        description: "% de historias en backlog que están 'ready' (estimadas + con AC)"
+        target: "> 70% del top 30"
+      
+      - name: "Aging"
+        description: "Tiempo promedio que una historia permanece en backlog antes de ser trabajada"
+        target: "< 60 días"
+    
+    release:
+      - name: "On-Time Delivery"
+        description: "% de releases entregadas en fecha comprometida"
+        target: "> 90%"
+      
+      - name: "Scope Stability"
+        description: "% de cambio de alcance mid-release"
+        target: "< 20%"
+
+  best_practices:
+    sprint_planning:
+      - "Sprint Goal debe ser claro y alcanzable"
+      - "No sobre-comprometer: usar velocity histórica como guía"
+      - "Dejar 20% de buffer para bugs/imprevistos"
+      - "Confirmar que todas las historias están 'ready' (DoR - Definition of Ready)"
+    
+    backlog_refinement:
+      - "Grooming debe ser continuo, no solo antes de planning"
+      - "Usar Planning Poker para estimaciones colaborativas"
+      - "Dividir historias grandes (>13 pts): son épicas disfrazadas"
+      - "Mantener backlog limpio: archivar historias viejas (>6 meses sin trabajar)"
+    
+    release_planning:
+      - "Fijar fecha de release temprano (crea urgencia saludable)"
+      - "Planificar code freeze 1 semana antes de go-live"
+      - "Buffer de 1 sprint para QA/UAT intensivo"
+      - "Tener plan B para features críticas"
+    
+    roadmap:
+      - "Roadmap es un plan, no una promesa: debe ser flexible"
+      - "Near-term (1-2 meses) detallado, long-term (6-12 meses) de alto nivel"
+      - "Revisar y comunicar cambios mensualmente"
+      - "Alinear roadmap con OKRs/objetivos de negocio"
+
+  templates:
+    - "sprint-planning-agenda.md"
+    - "sprint-goal-template.md"
+    - "release-plan-template.md"
+    - "product-roadmap-template.xlsx"
+    - "okr-planning-template.md"
+
+  tools:
+    planning:
+      - "Jira / Azure DevOps"
+      - "Miro / Mural (Planning Poker remoto)"
+      - "Confluence / Notion (Documentación)"
+    
+    roadmap:
+      - "Aha!"
+      - "ProductBoard"
+      - "Roadmunk"
+      - "Jira Portfolio"
+    
+    estimation:
+      - "Planning Poker (físico o digital)"
+      - "Scrumpoker.online"
+      - "Pointing Poker (Jira plugin)"
+
+  ceremonies_calendar:
+    weekly:
+      - "Backlog Refinement (1h, mitad de sprint)"
+      - "Daily Standup (15 min, diario)"
+    
+    bi_weekly:
+      - "Sprint Planning (2h, inicio de sprint)"
+      - "Sprint Review (1h, fin de sprint)"
+      - "Sprint Retrospective (1h, fin de sprint)"
+    
+    monthly:
+      - "Roadmap Review (2h)"
+    
+    quarterly:
+      - "OKR Planning & Review (4h)"
+      - "Release Planning (4h, si aplica)"
+
+  success_criteria:
+    - "Velocity estable entre sprints (+/- 20%)"
+    - "Sprint Goal cumplido >80% de los sprints"
+    - "Backlog saludable (>70% de top 30 historias ready)"
+    - "Releases entregadas on-time >90%"
+    - "Equipo alineado con roadmap y OKRs"

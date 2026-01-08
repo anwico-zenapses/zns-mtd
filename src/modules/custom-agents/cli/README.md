@@ -1,9 +1,9 @@
 # AWC Agent CLI
 
-[![npm version](https://badge.fury.io/js/@awc%2Fagent-cli.svg)](https://www.npmjs.com/package/@awc/agent-cli)
+[![npm version](https://badge.fury.io/js/awc-agent-cli.svg)](https://www.npmjs.com/package/awc-agent-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node Version](https://img.shields.io/node/v/@awc/agent-cli)](https://nodejs.org)
-[![Downloads](https://img.shields.io/npm/dm/@awc/agent-cli)](https://www.npmjs.com/package/@awc/agent-cli)
+[![Node Version](https://img.shields.io/node/v/awc-agent-cli)](https://nodejs.org)
+[![Downloads](https://img.shields.io/npm/dm/awc-agent-cli)](https://www.npmjs.com/package/awc-agent-cli)
 
 CLI tool profesional para gestionar y usar los **22 agentes especializados** de AWC-ZNS-MTD Framework.
 
@@ -14,7 +14,7 @@ CLI tool profesional para gestionar y usar los **22 agentes especializados** de 
 ### Instalación Global (Recomendado)
 
 ```bash
-npm install -g @awc/agent-cli
+npm install -g awc-agent-cli
 ```
 
 ### Verificar Instalación
@@ -35,9 +35,28 @@ npm link
 
 ## 🚀 Uso
 
-### 1. Listar todos los agentes
+### 1. Inicializar Workspace (Primera Vez)
 
-```powershell
+```bash
+awc-agent init
+```
+
+Esto crea la carpeta `.awc-agents/` en tu proyecto con los 22 agentes YAML listos para usar con GitHub Copilot.
+
+**Output:**
+```
+✅ WORKSPACE INICIALIZADO
+
+Carpeta: D:\tu-proyecto\.awc-agents
+Agentes copiados: 22/22
+
+💡 Ahora puedes usar:
+   #file:.awc-agents/frontend-react-senior.agent.yaml
+```
+
+### 2. Listar todos los agentes
+
+```bash
 awc-agent list
 ```
 
@@ -55,15 +74,15 @@ awc-agent list
   ...
 ```
 
-### 2. Cargar un agente
+### 3. Cargar un agente
 
 **Por número:**
-```powershell
+```bash
 awc-agent load 1
 ```
 
 **Por ID:**
-```powershell
+```bash
 awc-agent load backend-java-senior
 ```
 
@@ -75,10 +94,11 @@ Nombre: BACKEND JAVA SENIOR - Developer & Architect
 ID: backend-java-senior
 Stack: Java 21 LTS, Spring Boot 3.4, PostgreSQL 16, Kafka
 Workflows: 17 disponibles
+Ubicación: D:\tu-proyecto\.awc-agents\backend-java-senior.agent.yaml
 
 📋 COPIAR Y PEGAR EN GITHUB COPILOT CHAT:
 
-#file:backend-java-senior.agent.yaml actúa como este agente, muestra *help
+#file:.awc-agents/backend-java-senior.agent.yaml actúa como este agente, muestra *help
 
 🎯 WORKFLOWS DISPONIBLES:
 
@@ -88,7 +108,14 @@ Workflows: 17 disponibles
   ...
 ```
 
-### 3. Buscar por tecnología
+### 4. Usar en GitHub Copilot Chat
+
+1. Copia el comando generado por `awc-agent load`
+2. Pega en GitHub Copilot Chat (Ctrl+I o ventana de chat)
+3. El agente cargará y mostrará los workflows disponibles
+4. Usa comandos como `*help`, `*implement-hut`, etc.
+
+### 5. Buscar por tecnología
 
 ```powershell
 awc-agent search react

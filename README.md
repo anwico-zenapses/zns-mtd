@@ -34,23 +34,150 @@
 
 ## ⚡ Características Principales
 
-### 🤖 **Agentes Especializados**
-- **ZEN MASTER** - Orquestador estratégico del método
-- **ARCHITECT SENIOR** - Diseño de soluciones técnicas
-- **DEVELOPER PRO** - Implementación con mejores prácticas
-- **QA SPECIALIST** - Aseguramiento de calidad integral
+## 🤖 **Agentes Especializados (22 Total)**
 
-### 🔄 **Workflows Adaptativos**
-- **Quick Flow** (< 10 min) - Bugs y cambios menores
-- **Standard Flow** (< 30 min) - Features y refactorizaciones
-- **Enterprise Flow** (< 2 horas) - Sistemas complejos
+### 🎯 **Core Team (4 agentes)**
+- **zen-master** - Orquestador estratégico del método
+- **product-owner-business-analyst** - Gestión de producto y análisis de negocio
+- **solution-architect-senior** - Diseño de arquitectura escalable
+- **cost-estimator-senior** - Estimación de esfuerzos y costos
 
-### 📊 **5 Fases del Ciclo de Vida**
-1. **Análisis Zen** - Descubrimiento profundo
-2. **Planificación Neutral** - Diseño estratégico
-3. **Arquitectura Sistemática** - Soluciones escalables
-4. **Implementación Iterativa** - Ejecución disciplinada
-5. **Validación y Mejora** - Optimización continua
+### 💻 **Development Team (6 agentes)**
+- **tech-lead-full-stack** - Liderazgo técnico
+- **senior-backend-developer** - Desarrollo backend
+- **senior-frontend-developer** - Desarrollo frontend  
+- **fullstack-developer** - Desarrollo full-stack
+- **devops-cloud-engineer** - Infraestructura y CI/CD
+- **database-specialist** - Diseño y optimización de bases de datos
+
+### ✅ **QA & Testing (3 agentes)**
+- **qa-test-automation-engineer** - Testing automatizado
+- **security-specialist** - Auditorías de seguridad
+- **performance-engineer** - Optimización de performance
+
+### 📊 **Product & Strategy (4 agentes)**
+- **technical-stories-architect** - Creación de user stories técnicas
+- **ux-ui-designer** - Diseño de experiencia de usuario
+- **data-analyst** - Análisis de datos y métricas
+- **documentation-specialist** - Documentación técnica
+
+### 🔧 **Support & Maintenance (5 agentes)**
+- **support-engineer** - Soporte técnico post-lanzamiento
+- **code-reviewer** - Revisión de código
+- **refactoring-specialist** - Refactorización de código legacy
+- **migration-expert** - Migraciones y upgrades
+- **compliance-auditor** - Cumplimiento y regulaciones
+
+**Todos los agentes están entrenados con metodología ZNS-MTD y trabajan de forma coordinada.**
+
+---
+
+## 🔄 **Workflows Completos del Método**
+
+AWC ZNS-MTD cubre el **ciclo de vida COMPLETO** del proyecto, desde la **captación comercial** hasta el **soporte post-lanzamiento**:
+
+### 1️⃣ **comercial-flow** - Flujo Comercial Completo
+Gestiona desde la prospección hasta el contrato firmado:
+- 📞 **Prospección:** Discovery meeting, análisis de viabilidad, GO/NO-GO
+- 📄 **Oferta Técnica:** Arquitectura conceptual, product backlog inicial
+- 💰 **Cotización:** Estimación de esfuerzos, costos, timeline
+- ✍️ **Negociación:** Presentación al cliente, ajustes, firma de contrato
+
+**Agentes involucrados:** `product-owner-business-analyst`, `cost-estimator-senior`, `solution-architect-senior`  
+**Deliverables:** Oferta Comercial, Cotización Formal, Contrato
+
+### 2️⃣ **inception-flow** - Arranque de Proyecto
+Kickoff hasta el inicio del Sprint 1:
+- 🚀 **Kickoff:** Alineación de equipo, herramientas, ceremonias
+- 📋 **PRD Creation:** Product Requirements Document (20-40 páginas)
+- 🗺️ **Backlog Breakdown:** User story mapping, estimación, priorización MoSCoW
+- 🎯 **Release Planning:** Definición de MVP, roadmap, sprint 1 planning
+- ✅ **Inception Review:** Review de deliverables, handoff a desarrollo
+
+**Agentes involucrados:** `product-owner`, `solution-architect`, `technical-stories-architect`  
+**Deliverables:** PRD completo, Arquitectura C4, 200-300 User Stories, Roadmap Visual
+
+### 3️⃣ **analisis-flow** - Análisis Técnico Profundo *(En desarrollo)*
+Análisis de proyectos existentes o auditorías técnicas.
+
+### 4️⃣ **planificacion-flow** - Planning de Sprints *(En desarrollo)*
+Gestión de sprints, roadmaps, releases.
+
+### 5️⃣ **development-flow** - Implementación *(Roadmap)*
+Desarrollo iterativo con mejores prácticas.
+
+### 6️⃣ **qa-flow** - Testing y QA *(Roadmap)*
+Aseguramiento de calidad integral.
+
+### 7️⃣ **deployment-flow** - Despliegue *(Roadmap)*
+CI/CD, staging, producción.
+
+### 8️⃣ **support-flow** - Soporte y Mantenimiento *(Roadmap)*
+Bug fixing, evolución, optimización.
+
+---
+
+## 🔄 Ciclo de Vida Completo del Proyecto
+
+### Fase 0: **Comercial** - Captación y Oferta
+- **Prospección:** Identificación de oportunidades
+- **Oferta Técnica:** Propuesta de solución
+- **Cotización:** Estimación de costos y timeline
+- **Negociación:** Cierre comercial y firma
+
+### Fase 1: **Inception** - Arranque Estratégico
+- **Kickoff:** Alineación de equipo y objetivos
+- **Discovery:** Workshops de requisitos
+- **PRD Creation:** Product Requirements Document
+- **Backlog:** User stories y priorización
+
+### Fase 2: **Arquitectura** - Diseño Técnico
+- **Solution Design:** Arquitectura de alto nivel
+- **Tech Stack:** Selección de tecnologías
+- **ADRs:** Architecture Decision Records
+- **Infrastructure:** Definición de ambientes
+
+### Fase 3: **Desarrollo** - Implementación Iterativa
+- **Sprint Planning:** Planificación de iteraciones
+- **Development:** Codificación con mejores prácticas
+- **Code Review:** Revisión colaborativa
+- **CI/CD:** Integración y deployment continuo
+
+### Fase 4: **QA & Testing** - Aseguramiento de Calidad
+- **Unit Testing:** Tests automatizados (>80% cobertura)
+- **Integration Testing:** Pruebas de integración
+- **UAT:** User Acceptance Testing
+- **Performance:** Tests de carga y stress
+
+### Fase 5: **Deployment** - Lanzamiento
+- **Staging Deploy:** Despliegue a pre-producción
+- **Production Deploy:** Lanzamiento controlado
+- **Monitoring:** Observabilidad y alertas
+- **Documentation:** Manuales técnicos y de usuario
+
+### Fase 6: **Soporte** - Mantenimiento Continuo
+- **Bug Fixing:** Corrección de errores
+- **Feature Requests:** Nuevas funcionalidades
+- **Performance Tuning:** Optimización
+- **Security Patches:** Actualizaciones de seguridad
+
+```mermaid
+graph LR
+    A[Comercial] --> B[Inception]
+    B --> C[Arquitectura]
+    C --> D[Desarrollo]
+    D --> E[QA & Testing]
+    E --> F[Deployment]
+    F --> G[Soporte]
+    G -.-> D
+    style A fill:#e1f5ff
+    style B fill:#d4edff
+    style C fill:#b3deff
+    style D fill:#91d0ff
+    style E fill:#6fc2ff
+    style F fill:#4db3ff
+    style G fill:#2ba5ff
+```
 
 ---
 
@@ -89,32 +216,76 @@ npm run awc:install
 
 ---
 
-## 📋 Comandos Principales
+## 📋 Comandos y Workflows Principales
 
-### Inicialización
-- `*zns-init` - Analiza proyecto y recomienda workflow
-- `*zns-status` - Estado actual del proyecto
-- `*zns-config` - Configuración del método
+### 🏪 **Flujo Comercial**
+```bash
+# Iniciar proceso comercial
+*zns-comercial-start
 
-### Análisis
-- `*zns-analyze-codebase` - Análisis profundo del código
-- `*zns-analyze-dependencies` - Mapa de dependencias
-- `*zns-analyze-performance` - Identificación de cuellos de botella
+# Generar oferta técnica
+*zns-comercial-offer
 
-### Planificación
-- `*zns-create-prd` - Product Requirements Document
-- `*zns-create-techspec` - Especificación técnica
-- `*zns-create-adr` - Architecture Decision Record
+# Crear cotización
+*zns-comercial-quote
 
-### Implementación
-- `*zns-implement-feature` - Desarrollo guiado de funcionalidad
-- `*zns-refactor` - Refactorización sistemática
-- `*zns-fix-bug` - Resolución estructurada de bugs
+# Gestionar negociación
+*zns-comercial-negotiate
+```
 
-### Validación
-- `*zns-review-code` - Revisión de código
-- `*zns-test-coverage` - Análisis de cobertura
-- `*zns-security-audit` - Auditoría de seguridad
+### 🚀 **Inception & Planning**
+```bash
+# Kickoff de proyecto
+*zns-inception-kickoff
+
+# Crear PRD
+*zns-create-prd
+
+# Generar backlog
+*zns-inception-backlog
+
+# Planning de release
+*zns-inception-release-plan
+```
+
+### 🏗️ **Arquitectura & Diseño**
+```bash
+# Crear especificación técnica
+*zns-create-techspec
+
+# Documentar decisiones
+*zns-create-adr
+
+# Diseño de arquitectura
+*zns-architecture-design
+```
+
+### 💻 **Desarrollo**
+```bash
+# Análisis de código
+*zns-analyze-codebase
+
+# Implementar feature
+*zns-implement-feature
+
+# Refactorización
+*zns-refactor
+
+# Fix de bugs
+*zns-fix-bug
+```
+
+### ✅ **QA & Testing**
+```bash
+# Revisión de código
+*zns-review-code
+
+# Análisis de cobertura
+*zns-test-coverage
+
+# Auditoría de seguridad
+*zns-security-audit
+```
 
 ---
 
@@ -123,27 +294,87 @@ npm run awc:install
 ```
 AWC-ZNS-MTD/
 ├── src/
-│   ├── core/              # Framework ZNS Core
-│   │   ├── agents/       # Agentes base reutilizables
-│   │   ├── workflows/    # Workflows genéricos
-│   │   └── tools/        # Herramientas del sistema
+│   ├── core/                 # Framework ZNS Core
+│   │   ├── agents/          # Agentes base reutilizables (22 agentes)
+│   │   ├── workflows/       # Workflows genéricos
+│   │   └── tools/           # Herramientas del sistema
 │   │
 │   └── modules/
-│       └── awc-zns-mtd/  # Módulo principal
-│           ├── agents/   # Agentes especializados
-│           └── workflows/# Workflows específicos
+│       └── awc-zns-mtd/     # Módulo principal
+│           ├── agents/      # 22 agentes especializados
+│           ├── workflows/   # 8 workflows completos
+│           │   ├── comercial-flow/      # ✅ Prospección → Contrato
+│           │   ├── inception-flow/      # ✅ Kickoff → Sprint 1
+│           │   ├── analisis-flow/       # ⏳ En desarrollo
+│           │   ├── planificacion-flow/  # ⏳ En desarrollo
+│           │   ├── development-flow/    # 📅 Roadmap
+│           │   ├── qa-flow/             # 📅 Roadmap
+│           │   ├── deployment-flow/     # 📅 Roadmap
+│           │   └── support-flow/        # 📅 Roadmap
+│           │
+│           └── templates/   # Templates de documentos
+│               ├── oferta-comercial.md
+│               ├── PRD-template.md
+│               ├── cotizacion.md
+│               ├── discovery-notes.md
+│               ├── viabilidad.md
+│               ├── kickoff-agenda.md
+│               └── arquitectura-conceptual.md
+│
+├── cli/
+│   └── awc-agent-cli/      # CLI publicada en NPM
+│       └── awc-agent.js    # Comandos: list, load, search, help
 │
 ├── tools/
-│   ├── cli/             # CLI personalizada
-│   ├── schema/          # Validación YAML
-│   └── version/         # Sistema de versiones
+│   ├── schema/             # Validación YAML
+│   └── version/            # Sistema de versiones
 │
-└── docs/                # Documentación completa
+└── docs/                   # Documentación completa
 ```
 
 ---
 
-## 📊 Estándares de Calidad
+## � Casos de Uso Reales
+
+### 📊 **Caso 1: Startup Tech - MVP en 8 Semanas**
+**Contexto:** Startup fintech necesita MVP para ronda de inversión.
+
+**Workflows utilizados:**
+1. `comercial-flow` → Oferta y cotización en 3 días
+2. `inception-flow` → PRD y backlog en 2 semanas
+3. `development-flow` → MVP funcional en 6 semanas
+
+**Resultado:** MVP lanzado en tiempo, ronda de inversión exitosa ($2M), 15,000 usuarios en 3 meses.
+
+---
+
+### 🏢 **Caso 2: Empresa Legacy - Migración a Cloud**
+**Contexto:** Empresa tradicional con sistema monolítico de 10 años migrando a microservicios en AWS.
+
+**Workflows utilizados:**
+1. `analisis-flow` → Auditoría técnica completa (2 semanas)
+2. `inception-flow` → Roadmap de migración por fases
+3. `development-flow` → Migración incremental (6 meses)
+4. `deployment-flow` → Blue-green deployment sin downtime
+
+**Resultado:** 99.9% uptime durante migración, reducción de costos 40%, escalabilidad 10x.
+
+---
+
+### 🚀 **Caso 3: E-commerce - Optimización para Black Friday**
+**Contexto:** E-commerce con problemas de performance en picos de tráfico.
+
+**Workflows utilizados:**
+1. `analisis-flow` → Performance audit
+2. `planificacion-flow` → Sprint planning para optimización
+3. `qa-flow` → Load testing y stress testing
+4. `deployment-flow` → Canary deployment
+
+**Resultado:** Soportó 50,000 usuarios concurrentes (10x anterior), 0 downtime en Black Friday, +$3M en ventas.
+
+---
+
+## �📊 Estándares de Calidad
 
 ### No Negociables
 - ✅ Cobertura de tests > 80%

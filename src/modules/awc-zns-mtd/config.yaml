@@ -4,7 +4,7 @@
 
 module_name: "AWC ZNS-MTD Method"
 module_code: "awc-zns-mtd"
-version: "1.0.0"
+version: "2.0.0"
 author: "AWC Team"
 description: "Metodología de Transformación Digital - Zen, Neutro, Sistemático"
 
@@ -15,24 +15,225 @@ installer_path: "{project-root}/src/modules/awc-zns-mtd/_module-installer"
 # Component structure
 agents:
   path: "{module_root}/agents"
+  total_count: 22
+  
+  # === CORE TEAM (4 agentes) ===
   core:
     - "zen-master"
-    - "architect-senior"
-    - "developer-pro"
-    - "qa-specialist"
-  contextual:
-    - "ux-strategist"
-    - "data-engineer"
-    - "security-auditor"
-    - "performance-tuner"
-    - "tech-writer"
+    - "product-owner-business-analyst"
+    - "solution-architect-senior"
+    - "cost-estimator-senior"
+  
+  # === DEVELOPMENT TEAM (6 agentes) ===
+  development:
+    - "tech-lead-full-stack"
+    - "senior-backend-developer"
+    - "senior-frontend-developer"
+    - "fullstack-developer"
+    - "devops-cloud-engineer"
+    - "database-specialist"
+  
+  # === QA & TESTING (3 agentes) ===
+  qa_testing:
+    - "qa-test-automation-engineer"
+    - "security-specialist"
+    - "performance-engineer"
+  
+  # === PRODUCT & STRATEGY (4 agentes) ===
+  product_strategy:
+    - "technical-stories-architect"
+    - "ux-ui-designer"
+    - "data-analyst"
+    - "documentation-specialist"
+  
+  # === SUPPORT & MAINTENANCE (5 agentes) ===
+  support_maintenance:
+    - "support-engineer"
+    - "code-reviewer"
+    - "refactoring-specialist"
+    - "migration-expert"
+    - "compliance-auditor"
 
 workflows:
   path: "{module_root}/workflows"
   tracks:
+    # === FASE 0: COMERCIAL ===
+    comercial_flow:
+      path: "{module_root}/workflows/comercial-flow"
+      description: "Flujo comercial completo: Prospección → Oferta → Cotización → Contrato"
+      status: "active"
+      deliverables:
+        - "discovery-notes.md"
+        - "viabilidad.md"
+        - "oferta-comercial.md"
+        - "cotizacion.md"
+        - "contrato.pdf"
+      phases:
+        - "prospección"
+        - "oferta-técnica"
+        - "cotización"
+        - "negociación"
+      agents:
+        - "product-owner-business-analyst"
+        - "cost-estimator-senior"
+        - "solution-architect-senior"
+      duration: "7-15 días"
+
+    # === FASE 1: INCEPTION ===
+    inception_flow:
+      path: "{module_root}/workflows/inception-flow"
+      description: "Arranque de proyecto: Kickoff → PRD → Backlog → Sprint 1"
+      status: "active"
+      deliverables:
+        - "kickoff-agenda.md"
+        - "PRD-template.md"
+        - "arquitectura-conceptual.md"
+        - "user-story-map.md"
+        - "roadmap.md"
+      phases:
+        - "kickoff"
+        - "prd-creation"
+        - "backlog-breakdown"
+        - "release-planning"
+        - "inception-review"
+      agents:
+        - "product-owner-business-analyst"
+        - "solution-architect-senior"
+        - "technical-stories-architect"
+      duration: "2-3 semanas"
+
+    # === FASE 2: ANÁLISIS ===
+    analisis_flow:
+      path: "{module_root}/workflows/analisis-flow"
+      description: "Análisis técnico profundo de proyectos existentes"
+      status: "active"
+      deliverables:
+        - "technical-audit-report.md"
+        - "remediation-roadmap.md"
+        - "budget-estimation.xlsx"
+      phases:
+        - "code-audit"
+        - "architecture-review"
+        - "technical-debt-assessment"
+        - "recommendations"
+      agents:
+        - "solution-architect-senior"
+        - "tech-lead-full-stack"
+        - "code-reviewer"
+        - "security-specialist"
+      duration: "1-2 semanas"
+
+    # === FASE 3: PLANIFICACIÓN ===
+    planificacion_flow:
+      path: "{module_root}/workflows/planificacion-flow"
+      description: "Sprint planning, roadmap, releases"
+      status: "active"
+      deliverables:
+        - "sprint-goal.md"
+        - "sprint-backlog.md"
+        - "release-plan.md"
+        - "product-roadmap.md"
+      phases:
+        - "sprint-planning"
+        - "backlog-refinement"
+        - "release-planning"
+        - "roadmap-update"
+      agents:
+        - "product-owner-business-analyst"
+        - "tech-lead-full-stack"
+        - "technical-stories-architect"
+      duration: "Continuo (ceremonias bi-weekly)"
+
+    # === FASE 4: DESARROLLO ===
+    development_flow:
+      path: "{module_root}/workflows/development-flow"
+      description: "Implementación iterativa con mejores prácticas"
+      status: "active"
+      deliverables:
+        - "feature-implementation.md"
+        - "unit-tests.spec"
+        - "pull-request.md"
+      phases:
+        - "feature-kickoff"
+        - "development"
+        - "code-review"
+        - "integration"
+      agents:
+        - "tech-lead-full-stack"
+        - "senior-backend-developer"
+        - "code-reviewer"
+        - "devops-cloud-engineer"
+      duration: "Por story (2-5 días)"
+
+    # === FASE 5: QA ===
+    qa_flow:
+      path: "{module_root}/workflows/qa-flow"
+      description: "Testing y aseguramiento de calidad"
+      status: "active"
+      deliverables:
+        - "test-plan.md"
+        - "test-suites"
+        - "performance-report.md"
+        - "security-scan-results.md"
+        - "uat-signoff.pdf"
+      phases:
+        - "test-planning"
+        - "automated-testing"
+        - "manual-testing"
+        - "uat"
+      agents:
+        - "qa-test-automation-engineer"
+        - "security-specialist"
+        - "performance-engineer"
+      duration: "Continuo durante sprint"
+
+    # === FASE 6: DEPLOYMENT ===
+    deployment_flow:
+      path: "{module_root}/workflows/deployment-flow"
+      description: "CI/CD, staging, producción"
+      status: "active"
+      deliverables:
+        - "deployment-plan.md"
+        - "smoke-tests.spec"
+        - "rollback-procedures.md"
+        - "release-notes.md"
+      phases:
+        - "pre-deployment"
+        - "staging-deploy"
+        - "production-deploy"
+        - "post-deployment"
+      agents:
+        - "devops-cloud-engineer"
+        - "tech-lead-full-stack"
+        - "qa-test-automation-engineer"
+      duration: "30 min - 2 horas"
+
+    # === FASE 7: SOPORTE ===
+    support_flow:
+      path: "{module_root}/workflows/support-flow"
+      description: "Bug fixing, evolución, optimización"
+      status: "active"
+      deliverables:
+        - "incident-reports.md"
+        - "post-mortems.md"
+        - "bug-fixes"
+        - "performance-optimizations"
+      phases:
+        - "incident-response"
+        - "bug-fixing"
+        - "maintenance"
+        - "monitoring"
+      agents:
+        - "support-engineer"
+        - "senior-backend-developer"
+        - "devops-cloud-engineer"
+      duration: "Continuo (post-lanzamiento)"
+
+    # === WORKFLOWS LEGACY (Mantener por compatibilidad) ===
     quick_flow:
       path: "{module_root}/workflows/quick-flow"
-      description: "Workflow rápido para bugs y cambios menores (< 10 min)"
+      description: "[LEGACY] Workflow rápido para bugs y cambios menores (< 10 min)"
+      status: "deprecated"
       steps:
         - "quick-init"
         - "quick-spec"
@@ -41,7 +242,8 @@ workflows:
 
     standard_flow:
       path: "{module_root}/workflows/standard-flow"
-      description: "Workflow estándar para features y refactorizaciones (< 30 min)"
+      description: "[LEGACY] Workflow estándar para features y refactorizaciones (< 30 min)"
+      status: "deprecated"
       steps:
         - "analyze"
         - "plan"
@@ -51,7 +253,8 @@ workflows:
 
     enterprise_flow:
       path: "{module_root}/workflows/enterprise-flow"
-      description: "Workflow empresarial para sistemas complejos (< 2 horas)"
+      description: "[LEGACY] Workflow empresarial para sistemas complejos (< 2 horas)"
+      status: "deprecated"
       steps:
         - "discovery"
         - "requirements"

@@ -1,6 +1,6 @@
 {
-  "name": "@awc/agent-cli",
-  "version": "1.0.0",
+  "name": "awc-agent-cli",
+  "version": "1.1.0",
   "description": "CLI profesional para gestionar y usar los 22 agentes especializados de AWC-ZNS-MTD Framework",
   "main": "awc-agent.js",
   "bin": {

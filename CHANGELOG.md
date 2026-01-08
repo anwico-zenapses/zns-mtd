@@ -5,6 +5,94 @@ Todos los cambios notables en el proyecto AWC ZNS-MTD serán documentados en est
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
+---
+
+## [2.0.0] - 2026-01-08
+
+### 🚀 MAJOR RELEASE - Método Completo End-to-End
+
+Esta versión transforma AWC ZNS-MTD de un framework de desarrollo a un **método integral de gestión de proyectos** cubriendo todo el ciclo de vida desde prospección comercial hasta soporte post-lanzamiento.
+
+### ✨ Añadido
+
+#### **Workflows Comerciales & Inception**
+- ✅ **comercial-flow** (400 líneas YAML)
+  - 4 fases: prospección, oferta-técnica, cotización, negociación
+  - Agentes: product-owner, cost-estimator, solution-architect
+  - Deliverables: Discovery notes, viabilidad, oferta comercial, cotización
+  - Duración: 7-15 días
+
+- ✅ **inception-flow** (600 líneas YAML)
+  - 5 fases: kickoff, prd-creation, backlog-breakdown, release-planning, inception-review
+  - Agentes: product-owner, solution-architect, technical-stories-architect
+  - Deliverables: Kickoff agenda, PRD, arquitectura conceptual, user story map, roadmap
+  - Duración: 2-3 semanas
+
+#### **Workflows Técnicos**
+- ✅ **analisis-flow** (450 líneas YAML)
+  - 4 fases: code-audit, architecture-review, technical-debt, recommendations
+  - Deliverables: Technical Audit Report (30-50 págs), Remediation Roadmap
+  - Tools: SonarQube, OWASP ZAP, JMeter, ESLint, Snyk
+
+- ✅ **planificacion-flow** (550 líneas YAML)
+  - Ceremonias Agile completas: Sprint Planning, Grooming, Release Planning
+  - Deliverables: Sprint Goal, Sprint Backlog, Release Plan, OKRs
+
+- ✅ **development-flow** (350 líneas YAML)
+  - Enfoque TDD: Red → Green → Refactor
+  - Métricas: Code Coverage >80%, Review Time <24h
+
+- ✅ **qa-flow** (300 líneas YAML)
+  - Testing Pyramid: Unit → Integration → E2E
+  - Tools: Cypress, Playwright, JMeter, OWASP ZAP
+
+- ✅ **deployment-flow** (340 líneas YAML)
+  - Estrategias: Blue-Green, Rolling, Canary deployments
+  - Métricas DORA: Change Failure Rate <5%, MTTR <1h
+
+- ✅ **support-flow** (330 líneas YAML)
+  - Incident triage: P0 <15 min, P1 <1h, P2 <4h
+  - Métricas: MTTD <5 min, MTTR <4h, Uptime >99.9%
+
+#### **Templates Profesionales** (7 documentos)
+- `oferta-comercial.md`, `PRD-template.md`, `cotizacion.md`
+- `discovery-notes.md`, `viabilidad.md`, `kickoff-agenda.md`
+- `arquitectura-conceptual.md`
+
+### 🔄 Modificado
+
+- **README.md**
+  - Agregado diagrama Mermaid del ciclo de vida completo (7 fases)
+  - 8 workflows documentados con casos de uso reales
+
+- **config.yaml**
+  - Versión actualizada: `1.0.0` → `2.0.0`
+  - Workflows legacy marcados como `deprecated`
+  - 8 workflows nuevos marcados como `active`
+
+### 📊 Métricas del Release
+
+| Componente | Líneas de código | Archivos |
+|------------|------------------|----------|
+| Workflows YAML | ~2,920 líneas | 6 workflows |
+| Templates Markdown | ~1,500 líneas | 7 templates |
+| Documentación | ~800 líneas | README, CHANGELOG |
+| **TOTAL** | **~5,220 líneas** | **15 archivos** |
+
+### 🎯 Cobertura del Ciclo de Vida
+
+✅ Fase 0: Comercial → ✅ Fase 1: Inception → ✅ Fase 2: Análisis → ✅ Fase 3: Planificación  
+✅ Fase 4: Desarrollo → ✅ Fase 5: QA → ✅ Fase 6: Deployment → ✅ Fase 7: Soporte  
+
+**Cobertura: 100% del ciclo de vida end-to-end** 🎉
+
+### 🔧 Compatibilidad
+
+- ✅ Compatible con awc-agent-cli `v1.1.0`
+- ⚠️ **Breaking change**: Estructura de workflows reorganizada
+
+---
+
 ## [1.0.0] - 2026-01-07
 
 ### Añadido

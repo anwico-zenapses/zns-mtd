@@ -1,0 +1,444 @@
+# AWC ZNS-MTD - Workflow Comercial
+# Fase: Pre-desarrollo (Prospección → Oferta → Cotización)
+# Autor: AWC Team
+# Versión: 1.0.0
+
+workflow:
+  name: "Flujo Comercial Completo"
+  id: "comercial-flow"
+  version: "1.0.0"
+  category: "comercial"
+  description: "Gestión integral del proceso comercial desde prospección hasta firma de contrato"
+  
+  metadata:
+    author: "AWC Team"
+    created: "2026-01-08"
+    duration: "2-5 días hábiles"
+    complexity: "media"
+    tags:
+      - "comercial"
+      - "ventas"
+      - "oferta"
+      - "cotizacion"
+      - "estimacion"
+    
+  prerequisites:
+    - "Contacto inicial con cliente/prospecto"
+    - "Acceso a información básica del requerimiento"
+    - "Aprobación comercial para elaborar propuesta"
+    
+  agents:
+    primary:
+      - id: "product-owner-business-analyst"
+        role: "Análisis de negocio y requisitos"
+        when: "Análisis de viabilidad y elaboración de oferta"
+      
+      - id: "cost-estimator-senior"
+        role: "Estimación de costos y esfuerzos"
+        when: "Cotización y presupuestos"
+      
+      - id: "solution-architect-senior"
+        role: "Definición de solución técnica"
+        when: "Arquitectura de alto nivel para oferta"
+    
+    supporting:
+      - id: "technical-stories-architect"
+        role: "Desglose inicial de épicas"
+        when: "Estimación detallada de esfuerzos"
+
+  phases:
+    # ============================================
+    # FASE 1: PROSPECCIÓN Y ANÁLISIS
+    # ============================================
+    - id: "prospeccion"
+      name: "Prospección y Análisis de Oportunidad"
+      order: 1
+      duration: "4-8 horas"
+      
+      objectives:
+        - "Comprender necesidad del cliente"
+        - "Evaluar viabilidad técnica y comercial"
+        - "Identificar stakeholders clave"
+        - "Definir alcance preliminar"
+      
+      inputs:
+        - "Contacto inicial (email, reunión, RFP)"
+        - "Información básica del requerimiento"
+        - "Contexto del negocio del cliente"
+      
+      steps:
+        - step: 1
+          name: "Reunión de Discovery"
+          agent: "product-owner-business-analyst"
+          actions:
+            - "Agendar reunión con stakeholders"
+            - "Preparar cuestionario de discovery"
+            - "Ejecutar entrevista de descubrimiento"
+            - "Identificar pain points y objetivos"
+            - "Documentar expectativas y restricciones"
+          
+          deliverable:
+            name: "Discovery Notes"
+            template: "templates/discovery-notes.md"
+            location: "{project-root}/docs/comercial/discovery-notes.md"
+        
+        - step: 2
+          name: "Análisis de Viabilidad"
+          agent: "solution-architect-senior"
+          actions:
+            - "Evaluar factibilidad técnica"
+            - "Identificar riesgos tecnológicos"
+            - "Verificar capacidades del equipo"
+            - "Validar restricciones (tiempo, presupuesto, recursos)"
+            - "Clasificar oportunidad (GO/NO-GO)"
+          
+          deliverable:
+            name: "Análisis de Viabilidad"
+            template: "templates/viabilidad.md"
+            location: "{project-root}/docs/comercial/viabilidad.md"
+          
+          decision_gate:
+            condition: "Viabilidad >= 70% y alineación estratégica"
+            on_pass: "Continuar a Fase 2"
+            on_fail: "Declinar oportunidad educadamente"
+      
+      outputs:
+        - "Discovery notes completo"
+        - "Análisis de viabilidad (GO/NO-GO)"
+        - "Lista de stakeholders"
+        - "Alcance preliminar documentado"
+      
+      validation:
+        - "Aprobación comercial para continuar"
+        - "Sponsor identificado del lado del cliente"
+        - "Budget aproximado confirmado"
+
+    # ============================================
+    # FASE 2: ELABORACIÓN DE OFERTA TÉCNICA
+    # ============================================
+    - id: "oferta-tecnica"
+      name: "Elaboración de Oferta Técnica"
+      order: 2
+      duration: "8-16 horas"
+      
+      objectives:
+        - "Diseñar solución técnica de alto nivel"
+        - "Definir propuesta de valor"
+        - "Documentar enfoque y metodología"
+        - "Crear presentación comercial"
+      
+      inputs:
+        - "Discovery notes aprobado"
+        - "Análisis de viabilidad positivo"
+        - "Requerimientos preliminares"
+      
+      steps:
+        - step: 1
+          name: "Arquitectura de Solución (Alto Nivel)"
+          agent: "solution-architect-senior"
+          actions:
+            - "Diseñar arquitectura conceptual"
+            - "Definir stack tecnológico propuesto"
+            - "Identificar componentes principales"
+            - "Crear diagrama C4 Level 1 (Context)"
+            - "Documentar decisiones arquitectónicas clave"
+          
+          deliverable:
+            name: "Arquitectura Conceptual"
+            template: "templates/arquitectura-conceptual.md"
+            location: "{project-root}/docs/comercial/arquitectura-conceptual.md"
+        
+        - step: 2
+          name: "Desglose de Épicas y Features"
+          agent: "technical-stories-architect"
+          actions:
+            - "Identificar épicas principales (5-10)"
+            - "Listar features de alto nivel por épica"
+            - "Estimar complejidad relativa (S/M/L/XL)"
+            - "Priorizar por valor de negocio"
+            - "Documentar supuestos y exclusiones"
+          
+          deliverable:
+            name: "Product Backlog Inicial"
+            template: "templates/backlog-inicial.md"
+            location: "{project-root}/docs/comercial/backlog-inicial.md"
+        
+        - step: 3
+          name: "Redacción de Oferta Comercial"
+          agent: "product-owner-business-analyst"
+          actions:
+            - "Usar template de oferta comercial"
+            - "Redactar resumen ejecutivo"
+            - "Documentar alcance y exclusiones"
+            - "Describir enfoque metodológico (ZNS-MTD)"
+            - "Incluir casos de éxito similares"
+            - "Definir criterios de aceptación"
+            - "Establecer hitos y entregables"
+          
+          deliverable:
+            name: "Oferta Técnico-Comercial"
+            template: "templates/oferta-comercial.md"
+            location: "{project-root}/docs/comercial/oferta-comercial.md"
+      
+      outputs:
+        - "Arquitectura conceptual con diagrama C4"
+        - "Product Backlog inicial (épicas + features)"
+        - "Oferta técnico-comercial completa (10-20 páginas)"
+      
+      validation:
+        - "Revisión interna por arquitecto senior"
+        - "Aprobación por gerencia comercial"
+        - "Alineación con capacidades del equipo"
+
+    # ============================================
+    # FASE 3: ESTIMACIÓN Y COTIZACIÓN
+    # ============================================
+    - id: "cotizacion"
+      name: "Estimación de Costos y Cotización"
+      order: 3
+      duration: "4-8 horas"
+      
+      objectives:
+        - "Estimar esfuerzos en horas/días"
+        - "Calcular costos totales"
+        - "Generar cotización formal"
+        - "Preparar presentación comercial"
+      
+      inputs:
+        - "Oferta técnico-comercial aprobada"
+        - "Product Backlog inicial"
+        - "Arquitectura conceptual"
+      
+      steps:
+        - step: 1
+          name: "Estimación de Esfuerzos"
+          agent: "cost-estimator-senior"
+          actions:
+            - "Usar método Planning Poker o Story Points"
+            - "Estimar cada épica/feature en días-persona"
+            - "Aplicar factor de contingencia (15-25%)"
+            - "Calcular esfuerzo total del proyecto"
+            - "Distribuir esfuerzos por rol (Dev, QA, Arch, PM)"
+            - "Definir duración del proyecto (semanas/meses)"
+          
+          deliverable:
+            name: "Estimación Detallada"
+            template: "templates/estimacion-detallada.xlsx"
+            location: "{project-root}/docs/comercial/estimacion.xlsx"
+        
+        - step: 2
+          name: "Cálculo de Costos"
+          agent: "cost-estimator-senior"
+          actions:
+            - "Definir tarifas por rol ($/hora)"
+            - "Calcular costos de desarrollo"
+            - "Agregar costos de infraestructura"
+            - "Incluir licencias y herramientas"
+            - "Sumar costos indirectos (overhead)"
+            - "Calcular margen de utilidad (20-40%)"
+            - "Generar precio final"
+          
+          deliverable:
+            name: "Desglose de Costos"
+            template: "templates/costos.xlsx"
+            location: "{project-root}/docs/comercial/costos.xlsx"
+        
+        - step: 3
+          name: "Generación de Cotización Formal"
+          agent: "product-owner-business-analyst"
+          actions:
+            - "Usar template de cotización corporativa"
+            - "Incluir resumen ejecutivo"
+            - "Detallar alcance y entregables"
+            - "Presentar desglose de costos"
+            - "Definir esquema de pagos (hitos)"
+            - "Establecer condiciones comerciales"
+            - "Incluir vigencia de la oferta (30-60 días)"
+            - "Agregar términos y condiciones"
+          
+          deliverable:
+            name: "Cotización Formal"
+            template: "templates/cotizacion.md"
+            location: "{project-root}/docs/comercial/cotizacion.pdf"
+      
+      outputs:
+        - "Estimación detallada (Excel con épicas/features)"
+        - "Desglose de costos por fase/rol"
+        - "Cotización formal PDF (lista para enviar)"
+      
+      validation:
+        - "Revisión financiera por gerencia"
+        - "Aprobación de margen de utilidad"
+        - "Verificación de viabilidad operativa"
+
+    # ============================================
+    # FASE 4: NEGOCIACIÓN Y CIERRE
+    # ============================================
+    - id: "negociacion"
+      name: "Negociación y Cierre Comercial"
+      order: 4
+      duration: "1-3 días"
+      
+      objectives:
+        - "Presentar propuesta al cliente"
+        - "Negociar alcance y costos"
+        - "Cerrar acuerdo comercial"
+        - "Firmar contrato"
+      
+      inputs:
+        - "Oferta técnico-comercial"
+        - "Cotización formal"
+        - "Presentación comercial"
+      
+      steps:
+        - step: 1
+          name: "Presentación al Cliente"
+          agent: "product-owner-business-analyst"
+          actions:
+            - "Agendar reunión con stakeholders clave"
+            - "Preparar presentación ejecutiva (PPT)"
+            - "Presentar solución propuesta"
+            - "Resolver dudas técnicas y comerciales"
+            - "Documentar feedback y objeciones"
+          
+          deliverable:
+            name: "Minuta de Presentación"
+            location: "{project-root}/docs/comercial/minuta-presentacion.md"
+        
+        - step: 2
+          name: "Negociación"
+          agent: "product-owner-business-analyst"
+          actions:
+            - "Analizar objeciones del cliente"
+            - "Evaluar ajustes de alcance posibles"
+            - "Negociar condiciones comerciales"
+            - "Revisar esquema de pagos"
+            - "Definir SLAs y garantías"
+            - "Documentar acuerdos negociados"
+          
+          deliverable:
+            name: "Acta de Negociación"
+            location: "{project-root}/docs/comercial/acta-negociacion.md"
+        
+        - step: 3
+          name: "Cierre y Firma de Contrato"
+          agent: "product-owner-business-analyst"
+          actions:
+            - "Generar contrato formal (con legal)"
+            - "Revisar términos finales"
+            - "Obtener aprobaciones internas"
+            - "Coordinar firma del contrato"
+            - "Establecer fecha de kickoff"
+            - "Notificar al equipo de entrega"
+          
+          deliverable:
+            name: "Contrato Firmado"
+            location: "{project-root}/docs/comercial/contrato.pdf"
+      
+      outputs:
+        - "Contrato firmado"
+        - "Acuerdos documentados"
+        - "Fecha de kickoff definida"
+        - "Proyecto creado en sistema de gestión"
+      
+      validation:
+        - "Firma de ambas partes"
+        - "Pago inicial recibido (si aplica)"
+        - "Equipo de entrega notificado"
+
+  # ============================================
+  # ENTREGABLES FINALES DEL WORKFLOW
+  # ============================================
+  deliverables:
+    - name: "Discovery Notes"
+      type: "documento"
+      format: "Markdown"
+      template: "templates/discovery-notes.md"
+    
+    - name: "Análisis de Viabilidad"
+      type: "documento"
+      format: "Markdown"
+      template: "templates/viabilidad.md"
+    
+    - name: "Oferta Técnico-Comercial"
+      type: "documento"
+      format: "Markdown/PDF"
+      template: "templates/oferta-comercial.md"
+      pages: "10-20"
+    
+    - name: "Arquitectura Conceptual"
+      type: "diagrama + documento"
+      format: "Mermaid/PlantUML + Markdown"
+      template: "templates/arquitectura-conceptual.md"
+    
+    - name: "Product Backlog Inicial"
+      type: "documento"
+      format: "Markdown/Excel"
+      template: "templates/backlog-inicial.md"
+    
+    - name: "Estimación Detallada"
+      type: "hoja de cálculo"
+      format: "Excel/Google Sheets"
+      template: "templates/estimacion-detallada.xlsx"
+    
+    - name: "Cotización Formal"
+      type: "documento"
+      format: "PDF"
+      template: "templates/cotizacion.md"
+    
+    - name: "Contrato Firmado"
+      type: "legal"
+      format: "PDF"
+  
+  # ============================================
+  # MÉTRICAS Y KPIs
+  # ============================================
+  metrics:
+    - name: "Tasa de Conversión"
+      description: "% de propuestas que se convierten en contratos"
+      target: "> 30%"
+    
+    - name: "Tiempo Promedio de Cierre"
+      description: "Días desde discovery hasta contrato firmado"
+      target: "< 15 días hábiles"
+    
+    - name: "Precisión de Estimación"
+      description: "Variación entre estimación y ejecución real"
+      target: "+/- 15%"
+    
+    - name: "Margen de Utilidad"
+      description: "% de ganancia sobre costos del proyecto"
+      target: "> 25%"
+
+  # ============================================
+  # ERRORES COMUNES Y MEJORES PRÁCTICAS
+  # ============================================
+  common_mistakes:
+    - mistake: "Subestimar esfuerzos de QA y testing"
+      solution: "Asignar mínimo 25% del tiempo de desarrollo a QA"
+    
+    - mistake: "No documentar exclusiones de alcance"
+      solution: "Sección explícita de 'Fuera de Alcance' en oferta"
+    
+    - mistake: "Cotizar sin contingencia"
+      solution: "Aplicar factor de riesgo del 15-25% sobre estimación"
+    
+    - mistake: "Prometer fechas irreales"
+      solution: "Usar estimación pesimista + buffer de 20%"
+    
+    - mistake: "No validar con arquitecto antes de cotizar"
+      solution: "Revisión técnica obligatoria antes de enviar oferta"
+
+  best_practices:
+    - "Siempre realizar discovery call antes de cotizar"
+    - "Documentar supuestos claramente en la oferta"
+    - "Incluir casos de éxito similares en la propuesta"
+    - "Presentar 2-3 opciones de alcance (básico/completo/premium)"
+    - "Establecer hitos de pago ligados a entregables"
+    - "Mantener comunicación constante durante negociación"
+    - "Usar templates corporativos para imagen profesional"
+    
+  next_workflow:
+    id: "inception-flow"
+    trigger: "Contrato firmado"
+    description: "Iniciar Inception con Kickoff Meeting y elaboración de PRD"

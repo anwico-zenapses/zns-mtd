@@ -1,0 +1,321 @@
+workflow:
+  name: "Development Flow - Implementación Iterativa"
+  id: "development-flow"
+  version: "1.0.0"
+  description: "Workflow de desarrollo siguiendo mejores prácticas de ingeniería de software"
+  
+  metadata:
+    duration: "Continuo (durante sprints)"
+    complexity: "medium-high"
+    team_size: "2-10 developers"
+  
+  phases:
+    - id: "feature-kickoff"
+      name: "Feature Kickoff"
+      
+    - id: "development"
+      name: "Development & Code"
+      
+    - id: "code-review"
+      name: "Code Review"
+      
+    - id: "integration"
+      name: "Integration & Testing"
+
+  agents:
+    primary:
+      - "tech-lead-full-stack"
+      - "senior-backend-developer"
+      - "senior-frontend-developer"
+    
+    supporting:
+      - "database-specialist"
+      - "devops-cloud-engineer"
+      - "code-reviewer"
+
+  steps:
+    - id: "dev-01"
+      name: "Selección de User Story del Sprint Backlog"
+      phase: "feature-kickoff"
+      agent: "senior-backend-developer"
+      duration: "15 minutos"
+      
+      actions:
+        - type: "select"
+          description: "Tomar siguiente historia de mayor prioridad"
+          criteria: "Historia debe estar en estado 'To Do' y cumplir Definition of Ready"
+        
+        - type: "understand"
+          description: "Leer y entender requisitos y criterios de aceptación"
+        
+        - type: "clarify"
+          description: "Si hay dudas, consultar con PO antes de comenzar"
+      
+      deliverables:
+        - "Historia asignada al developer"
+        - "Historia movida a 'In Progress'"
+
+    - id: "dev-02"
+      name: "Diseño Técnico (para features complejas)"
+      phase: "feature-kickoff"
+      agent: "tech-lead-full-stack"
+      duration: "30-60 minutos"
+      when: "Historias >8 story points o con alta complejidad técnica"
+      
+      actions:
+        - type: "design"
+          description: "Diseñar solución técnica"
+          output:
+            - "Diagrama de secuencia (si aplica)"
+            - "Decisión de patrón de diseño a usar"
+            - "Identificar interfaces/contratos"
+        
+        - type: "review"
+          description: "Quick review con Tech Lead (15 min)"
+      
+      deliverables:
+        - "Mini tech spec o diagrama en whiteboard"
+
+    - id: "dev-03"
+      name: "Desarrollo TDD (Test-Driven Development)"
+      phase: "development"
+      agent: "senior-backend-developer"
+      duration: "Variable según complejidad"
+      
+      actions:
+        - type: "test"
+          description: "Escribir test que falla (Red)"
+          approach: "Test unitario que valida el comportamiento esperado"
+        
+        - type: "code"
+          description: "Escribir código mínimo para pasar test (Green)"
+        
+        - type: "refactor"
+          description: "Refactorizar manteniendo tests en verde (Refactor)"
+        
+        - type: "commit"
+          description: "Commit frecuentes con mensajes descriptivos"
+          format: "type(scope): message"
+          examples:
+            - "feat(auth): add Google OAuth login"
+            - "fix(payment): handle null pointer in calculateTotal"
+            - "refactor(user): extract validation to separate service"
+      
+      best_practices:
+        - "Commits pequeños y frecuentes (cada 1-2 horas)"
+        - "Tests primero, código después"
+        - "Cobertura >80% en código nuevo"
+        - "Seguir SOLID principles"
+
+    - id: "dev-04"
+      name: "Code Quality Checks"
+      phase: "development"
+      agent: "senior-backend-developer"
+      duration: "Continuo"
+      
+      actions:
+        - type: "lint"
+          description: "Ejecutar linter antes de commit"
+          tools:
+            - "ESLint (JavaScript/TypeScript)"
+            - "Checkstyle/PMD (Java)"
+            - "Pylint/Black (Python)"
+        
+        - type: "format"
+          description: "Auto-formatear código"
+          tools:
+            - "Prettier"
+            - "Black (Python)"
+            - "google-java-format"
+        
+        - type: "analyze"
+          description: "Ejecutar análisis estático local"
+          tools:
+            - "SonarLint"
+            - "SpotBugs"
+
+    - id: "dev-05"
+      name: "Create Pull Request"
+      phase: "code-review"
+      agent: "senior-backend-developer"
+      duration: "30 minutos"
+      
+      actions:
+        - type: "prepare"
+          description: "Preparar PR para revisión"
+          checklist:
+            - "[ ] Todos los tests pasan"
+            - "[ ] Cobertura >80%"
+            - "[ ] No hay conflictos con main/develop"
+            - "[ ] Código formateado"
+            - "[ ] No hay warnings del linter"
+        
+        - type: "document"
+          description: "Escribir descripción completa del PR"
+          template: |
+            ## Qué hace este PR
+            {Descripción de la funcionalidad}
+            
+            ## User Story / Jira Ticket
+            Closes #{issue_number}
+            
+            ## Cómo probarlo
+            1. {Paso 1}
+            2. {Paso 2}
+            
+            ## Screenshots (si aplica)
+            {Imágenes}
+            
+            ## Checklist
+            - [ ] Tests agregados
+            - [ ] Documentación actualizada
+        
+        - type: "request"
+          description: "Solicitar revisión de 2+ reviewers"
+      
+      deliverables:
+        - "Pull Request creado"
+        - "Reviewers asignados"
+
+    - id: "dev-06"
+      name: "Code Review Process"
+      phase: "code-review"
+      agent: "code-reviewer"
+      duration: "1-2 horas"
+      
+      actions:
+        - type: "review"
+          description: "Revisar código línea por línea"
+          focus:
+            - "Correctness: ¿El código hace lo que debe?"
+            - "Readability: ¿Es fácil de entender?"
+            - "Maintainability: ¿Es fácil de modificar?"
+            - "Performance: ¿Hay problemas evidentes?"
+            - "Security: ¿Hay vulnerabilidades?"
+        
+        - type: "comment"
+          description: "Dejar comentarios constructivos"
+          types:
+            - "💡 Suggestion (opcional)"
+            - "❓ Question (requiere respuesta)"
+            - "🚨 Must fix (bloqueante)"
+        
+        - type: "approve"
+          description: "Aprobar o solicitar cambios"
+          criteria: "Mínimo 2 aprobaciones antes de merge"
+      
+      best_practices:
+        - "Review en <24 horas"
+        - "Comentarios constructivos, no destructivos"
+        - "Aprobar si cambios menores pendientes (nits)"
+
+    - id: "dev-07"
+      name: "Address Review Comments"
+      phase: "code-review"
+      agent: "senior-backend-developer"
+      duration: "1-4 horas"
+      
+      actions:
+        - type: "resolve"
+          description: "Resolver comentarios del review"
+        
+        - type: "update"
+          description: "Pushear cambios al PR"
+        
+        - type: "discuss"
+          description: "Si hay desacuerdo, discutir con revisor"
+
+    - id: "dev-08"
+      name: "Merge to Main/Develop"
+      phase: "integration"
+      agent: "tech-lead-full-stack"
+      duration: "15 minutos"
+      
+      actions:
+        - type: "validate"
+          description: "Validar que CI/CD pipeline pasó"
+          checks:
+            - "✅ Build successful"
+            - "✅ All tests pass"
+            - "✅ Code coverage >80%"
+            - "✅ No security vulnerabilities"
+        
+        - type: "merge"
+          description: "Merge PR usando estrategia acordada"
+          strategies:
+            - "Squash and merge (preferido para features)"
+            - "Merge commit (para releases)"
+            - "Rebase and merge (para mantener historia lineal)"
+        
+        - type: "cleanup"
+          description: "Borrar branch feature después de merge"
+      
+      deliverables:
+        - "Código integrado en main/develop"
+        - "Branch feature eliminada"
+
+    - id: "dev-09"
+      name: "Deploy to Dev/Staging"
+      phase: "integration"
+      agent: "devops-cloud-engineer"
+      duration: "Automático (CI/CD)"
+      
+      actions:
+        - type: "trigger"
+          description: "CI/CD pipeline se ejecuta automáticamente al merge"
+        
+        - type: "deploy"
+          description: "Deploy automático a ambiente de desarrollo"
+        
+        - type: "verify"
+          description: "Smoke tests automáticos post-deployment"
+      
+      deliverables:
+        - "Feature desplegada en dev/staging"
+
+  deliverables:
+    - "Código funcional y testeado"
+    - "Tests automatizados (>80% cobertura)"
+    - "Pull Request mergeado"
+    - "Feature desplegada en dev/staging"
+    - "Documentación actualizada (si aplica)"
+
+  metrics:
+    - name: "Code Review Time"
+      target: "< 24 horas"
+    
+    - name: "PR Size"
+      target: "< 400 líneas de código"
+      note: "PRs grandes son difíciles de revisar"
+    
+    - name: "Code Coverage"
+      target: "> 80%"
+    
+    - name: "Technical Debt Ratio"
+      target: "< 5%"
+
+  best_practices:
+    - "Feature branches, no commits directos a main"
+    - "PR pequeños (<400 líneas) para facilitar review"
+    - "TDD: tests primero, código después"
+    - "Commits frecuentes con mensajes descriptivos"
+    - "Code review obligatorio (mínimo 2 aprobaciones)"
+    - "Automatizar todo lo que se pueda (CI/CD)"
+    - "Documentar decisiones técnicas complejas"
+
+  tools:
+    version_control:
+      - "Git"
+      - "GitHub / GitLab / Bitbucket"
+    
+    ci_cd:
+      - "GitHub Actions"
+      - "GitLab CI"
+      - "Jenkins"
+      - "CircleCI"
+    
+    quality:
+      - "SonarQube"
+      - "ESLint"
+      - "Prettier"
+      - "Jest / JUnit / PyTest"

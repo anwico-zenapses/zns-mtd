@@ -1,0 +1,395 @@
+workflow:
+  name: "Deployment Flow - CI/CD y Lanzamiento"
+  id: "deployment-flow"
+  version: "1.0.0"
+  description: "Workflow de deployment automatizado desde staging hasta producción"
+  
+  metadata:
+    duration: "30 min - 2 horas (según estrategia)"
+    complexity: "high"
+    team_size: "DevOps + Tech Lead"
+  
+  phases:
+    - id: "pre-deployment"
+      name: "Pre-Deployment Preparation"
+      
+    - id: "staging-deploy"
+      name: "Staging Deployment"
+      
+    - id: "production-deploy"
+      name: "Production Deployment"
+      
+    - id: "post-deployment"
+      name: "Post-Deployment Verification"
+
+  agents:
+    primary:
+      - "devops-cloud-engineer"
+      - "tech-lead-full-stack"
+    
+    supporting:
+      - "qa-test-automation-engineer"
+      - "database-specialist"
+
+  steps:
+    - id: "deploy-01"
+      name: "Pre-Deployment Checklist"
+      phase: "pre-deployment"
+      agent: "devops-cloud-engineer"
+      duration: "30 minutos"
+      
+      actions:
+        - type: "verify"
+          description: "Verificar que todos los criterios de deployment se cumplen"
+          checklist:
+            - "[ ] QA sign-off obtenido"
+            - "[ ] UAT completado"
+            - "[ ] 0 critical bugs abiertos"
+            - "[ ] Code freeze activado (no más merges a release branch)"
+            - "[ ] Backup de base de datos realizado"
+            - "[ ] Rollback plan documentado"
+            - "[ ] Stakeholders notificados de la ventana de deployment"
+        
+        - type: "communicate"
+          description: "Notificar deployment a stakeholders"
+          channels:
+            - "Email a stakeholders"
+            - "Slack/Teams announcement"
+            - "Status page update (si aplica)"
+      
+      deliverables:
+        - "Pre-deployment checklist completo"
+        - "Comunicación enviada"
+
+    - id: "deploy-02"
+      name: "Database Migrations (si aplica)"
+      phase: "pre-deployment"
+      agent: "database-specialist"
+      duration: "15-60 minutos"
+      when: "Cuando hay cambios de schema"
+      
+      actions:
+        - type: "backup"
+          description: "Backup completo de base de datos"
+          verification: "Verificar que backup es restaurable"
+        
+        - type: "test"
+          description: "Probar migrations en staging"
+        
+        - type: "prepare"
+          description: "Preparar scripts de rollback"
+      
+      deliverables:
+        - "Database backup"
+        - "Migration scripts ready"
+        - "Rollback scripts ready"
+
+    - id: "deploy-03"
+      name: "Build & Package"
+      phase: "pre-deployment"
+      agent: "devops-cloud-engineer"
+      duration: "Automático (5-15 min)"
+      
+      actions:
+        - type: "build"
+          description: "CI/CD pipeline ejecuta build"
+          steps:
+            - "Compilar código"
+            - "Ejecutar tests"
+            - "Build Docker image"
+            - "Push a container registry"
+        
+        - type: "tag"
+          description: "Taggear imagen con versión"
+          format: "v{major}.{minor}.{patch} (SemVer)"
+          example: "v1.2.3"
+      
+      deliverables:
+        - "Docker image tagged y pusheada"
+        - "Build artifacts"
+
+    - id: "deploy-04"
+      name: "Deploy to Staging"
+      phase: "staging-deploy"
+      agent: "devops-cloud-engineer"
+      duration: "10-20 minutos"
+      
+      actions:
+        - type: "deploy"
+          description: "Deploy automático a staging"
+          method: "Blue-Green | Rolling | Canary"
+        
+        - type: "verify"
+          description: "Smoke tests automáticos"
+          checks:
+            - "Health check endpoint responde 200"
+            - "Database connectivity OK"
+            - "Critical API endpoints funcionan"
+      
+      deliverables:
+        - "Aplicación desplegada en staging"
+        - "Smoke tests pasados"
+
+    - id: "deploy-05"
+      name: "Staging Validation"
+      phase: "staging-deploy"
+      agent: "qa-test-automation-engineer"
+      duration: "30-60 minutos"
+      
+      actions:
+        - type: "test"
+          description: "Ejecutar regression test suite en staging"
+        
+        - type: "validate"
+          description: "Validar manualmente flujos críticos"
+        
+        - type: "approve"
+          description: "Sign-off para producción"
+      
+      deliverables:
+        - "Staging validation report"
+        - "Go/No-Go para producción"
+
+    - id: "deploy-06"
+      name: "Production Deployment"
+      phase: "production-deploy"
+      agent: "devops-cloud-engineer"
+      duration: "20-60 minutos"
+      
+      deployment_strategies:
+        blue_green:
+          description: "Deploy a ambiente 'green', switch traffic cuando esté listo"
+          downtime: "~0 segundos"
+          rollback_time: "< 1 minuto (switch back to blue)"
+          
+        rolling:
+          description: "Deploy gradual a instancias, una a la vez"
+          downtime: "0 (rolling update)"
+          rollback_time: "5-10 minutos"
+          
+        canary:
+          description: "Deploy a subset pequeño (5-10%), monitorear, luego full rollout"
+          downtime: "0"
+          rollback_time: "< 5 minutos"
+          stages:
+            - "5% de tráfico → 15 min monitoring"
+            - "25% de tráfico → 30 min monitoring"
+            - "50% de tráfico → 30 min monitoring"
+            - "100% de tráfico"
+      
+      actions:
+        - type: "deploy"
+          description: "Ejecutar deployment strategy elegida"
+          preferred: "Blue-Green para releases grandes, Canary para cambios críticos"
+        
+        - type: "monitor"
+          description: "Monitorear métricas durante deployment"
+          watch:
+            - "Error rate"
+            - "Response time (P95)"
+            - "CPU/Memory usage"
+            - "Request rate"
+      
+      deliverables:
+        - "Aplicación desplegada en producción"
+
+    - id: "deploy-07"
+      name: "Post-Deployment Verification"
+      phase: "post-deployment"
+      agent: "devops-cloud-engineer"
+      duration: "30 minutos"
+      
+      actions:
+        - type: "verify"
+          description: "Verificación post-deployment"
+          checks:
+            - "[ ] Health checks OK (all instances)"
+            - "[ ] Smoke tests pasados en producción"
+            - "[ ] Error rate < baseline"
+            - "[ ] P95 latency < baseline + 20%"
+            - "[ ] Critical features funcionando"
+        
+        - type: "monitor"
+          description: "Monitoreo intensivo por 2-4 horas"
+          alerts: "Configurar alertas temporales más sensibles"
+      
+      deliverables:
+        - "Post-deployment verification report"
+
+    - id: "deploy-08"
+      name: "Rollback (si es necesario)"
+      phase: "post-deployment"
+      agent: "devops-cloud-engineer"
+      duration: "5-15 minutos"
+      when: "Si hay problemas críticos detectados"
+      
+      trigger_conditions:
+        - "Error rate > 5% por más de 5 minutos"
+        - "P95 latency > 5 segundos"
+        - "Critical feature no funciona"
+        - "Database corruption detectada"
+      
+      actions:
+        - type: "rollback"
+          description: "Ejecutar rollback strategy"
+          methods:
+            - "Blue-Green: Switch back to blue environment"
+            - "Rolling: Deploy previous version"
+            - "Canary: Stop rollout, revert canary instances"
+        
+        - type: "investigate"
+          description: "Post-mortem inmediato"
+        
+        - type: "communicate"
+          description: "Notificar rollback a stakeholders"
+      
+      deliverables:
+        - "Rollback completado"
+        - "Post-mortem report"
+
+    - id: "deploy-09"
+      name: "Post-Deployment Communication"
+      phase: "post-deployment"
+      agent: "tech-lead-full-stack"
+      duration: "15 minutos"
+      
+      actions:
+        - type: "announce"
+          description: "Anunciar deployment exitoso"
+          channels:
+            - "Email a stakeholders"
+            - "Slack/Teams announcement"
+            - "Status page update"
+            - "Changelog/Release notes publicados"
+        
+        - type: "document"
+          description: "Documentar deployment"
+          include:
+            - "Versión desplegada"
+            - "Features nuevas incluidas"
+            - "Bugs corregidos"
+            - "Known issues (si aplica)"
+      
+      deliverables:
+        - "Deployment announcement"
+        - "Release notes publicadas"
+
+  deliverables:
+    - "Aplicación desplegada en producción"
+    - "Database migrations ejecutadas"
+    - "Smoke tests pasados"
+    - "Post-deployment verification report"
+    - "Release notes publicadas"
+    - "Rollback plan documentado"
+
+  metrics:
+    - name: "Deployment Frequency"
+      target: "> 1 por semana (ideal: daily)"
+    
+    - name: "Lead Time for Changes"
+      description: "Tiempo desde commit hasta producción"
+      target: "< 1 día"
+    
+    - name: "Change Failure Rate"
+      description: "% de deployments que requieren rollback"
+      target: "< 5%"
+    
+    - name: "Mean Time to Recovery (MTTR)"
+      description: "Tiempo promedio para rollback/fix en caso de falla"
+      target: "< 1 hora"
+    
+    - name: "Deployment Success Rate"
+      target: "> 95%"
+
+  best_practices:
+    - "Automatizar todo el proceso de deployment"
+    - "Zero-downtime deployments (Blue-Green o Rolling)"
+    - "Canary releases para cambios de alto riesgo"
+    - "Feature flags para controlar rollout de features"
+    - "Database migrations backward-compatible"
+    - "Rollback plan siempre listo"
+    - "Monitoreo intensivo post-deployment (2-4 horas)"
+    - "Deployments durante horario de baja actividad (si es posible)"
+
+  tools:
+    ci_cd:
+      - "GitHub Actions"
+      - "GitLab CI/CD"
+      - "Jenkins"
+      - "CircleCI"
+    
+    orchestration:
+      - "Kubernetes"
+      - "Docker Swarm"
+      - "AWS ECS/Fargate"
+      - "Azure Container Apps"
+    
+    infrastructure:
+      - "Terraform"
+      - "AWS CloudFormation"
+      - "Azure Bicep"
+      - "Pulumi"
+    
+    monitoring:
+      - "Datadog"
+      - "New Relic"
+      - "Prometheus + Grafana"
+      - "CloudWatch"
+    
+    feature_flags:
+      - "LaunchDarkly"
+      - "Split.io"
+      - "Unleash"
+
+  deployment_patterns:
+    blue_green:
+      pros:
+        - "Rollback instantáneo"
+        - "Zero downtime"
+        - "Testing completo antes de switch"
+      cons:
+        - "Requiere doble infraestructura (costoso)"
+        - "Database migrations complejas"
+      
+    rolling:
+      pros:
+        - "No requiere doble infraestructura"
+        - "Zero downtime"
+      cons:
+        - "Rollback más lento"
+        - "Múltiples versiones corriendo simultáneamente"
+      
+    canary:
+      pros:
+        - "Riesgo reducido (gradual)"
+        - "Detección temprana de issues"
+      cons:
+        - "Proceso más largo"
+        - "Requiere routing inteligente"
+        - "Más complejo de implementar"
+
+  rollback_plan:
+    preparation:
+      - "Backup de database antes de deployment"
+      - "Previous version tagged y disponible"
+      - "Rollback scripts testeados en staging"
+    
+    triggers:
+      - "Error rate > 5% sostenido"
+      - "Critical feature broken"
+      - "P95 latency > 2x baseline"
+      - "Customer complaints spike"
+    
+    execution:
+      - "Stop deployment inmediatamente"
+      - "Switch back to previous version"
+      - "Verify rollback successful"
+      - "Incident post-mortem"
+
+  success_criteria:
+    - "Deployment completado en ventana de tiempo planificada"
+    - "0 downtime para usuarios"
+    - "Error rate < baseline + 10%"
+    - "P95 latency < baseline + 20%"
+    - "Critical features funcionando correctamente"
+    - "No rollback necesario"

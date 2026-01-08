@@ -1,0 +1,438 @@
+workflow:
+  name: "Support Flow - Soporte y Mantenimiento Post-Lanzamiento"
+  id: "support-flow"
+  version: "1.0.0"
+  description: "Workflow de soporte técnico, bug fixing y mantenimiento evolutivo"
+  
+  metadata:
+    duration: "Continuo (post-lanzamiento)"
+    complexity: "medium"
+    team_size: "1-3 personas (rotation)"
+  
+  phases:
+    - id: "incident-response"
+      name: "Incident Response"
+      
+    - id: "bug-fixing"
+      name: "Bug Fixing"
+      
+    - id: "maintenance"
+      name: "Maintenance & Updates"
+      
+    - id: "monitoring"
+      name: "Monitoring & Optimization"
+
+  agents:
+    primary:
+      - "support-engineer"
+      - "senior-backend-developer"
+      - "devops-cloud-engineer"
+    
+    supporting:
+      - "qa-test-automation-engineer"
+      - "database-specialist"
+      - "security-specialist"
+
+  steps:
+    # === INCIDENT RESPONSE ===
+    - id: "support-01"
+      name: "Incident Detection & Triage"
+      phase: "incident-response"
+      agent: "support-engineer"
+      duration: "5-15 minutos"
+      
+      detection_channels:
+        - "Monitoring alerts (Datadog, New Relic)"
+        - "User reports (support tickets)"
+        - "Error tracking (Sentry, Rollbar)"
+        - "Social media mentions"
+      
+      actions:
+        - type: "detect"
+          description: "Detectar y confirmar el incidente"
+        
+        - type: "assess"
+          description: "Evaluar severidad del incidente"
+          severity_levels:
+            P0_critical:
+              description: "Sistema caído, pérdida de datos, security breach"
+              sla: "Respuesta inmediata (< 15 min)"
+              escalation: "Pager duty, todos on-call"
+            
+            P1_high:
+              description: "Feature crítica no funciona, afecta a muchos usuarios"
+              sla: "Respuesta en < 1 hora"
+              escalation: "On-call engineer"
+            
+            P2_medium:
+              description: "Feature secundaria no funciona, workaround disponible"
+              sla: "Respuesta en < 4 horas"
+              escalation: "Siguiente business day"
+            
+            P3_low:
+              description: "Bugs menores, mejoras"
+              sla: "Respuesta en < 24 horas"
+              escalation: "Backlog para próximo sprint"
+        
+        - type: "communicate"
+          description: "Notificar a stakeholders según severidad"
+      
+      deliverables:
+        - "Incident ticket creado"
+        - "Severidad asignada"
+        - "Stakeholders notificados"
+
+    - id: "support-02"
+      name: "Incident Investigation"
+      phase: "incident-response"
+      agent: "senior-backend-developer"
+      duration: "30 min - 4 horas"
+      
+      actions:
+        - type: "investigate"
+          description: "Investigar causa raíz"
+          tools:
+            - "Application logs (CloudWatch, ELK)"
+            - "Error tracking (Sentry)"
+            - "Database queries"
+            - "APM tools (New Relic, Datadog)"
+        
+        - type: "reproduce"
+          description: "Reproducir el issue en dev/staging"
+        
+        - type: "diagnose"
+          description: "Identificar causa raíz"
+      
+      deliverables:
+        - "Root cause identified"
+        - "Reproduction steps"
+
+    - id: "support-03"
+      name: "Incident Resolution"
+      phase: "incident-response"
+      agent: "senior-backend-developer"
+      duration: "Variable según severidad"
+      
+      actions:
+        - type: "fix"
+          description: "Implementar fix"
+          approach:
+            - "Hotfix branch desde main/production"
+            - "Minimal change principle (solo fix el issue)"
+            - "Emergency code review (1 approver)"
+        
+        - type: "test"
+          description: "Testing rápido pero riguroso"
+          focus: "Feature afectada + regression crítico"
+        
+        - type: "deploy"
+          description: "Hotfix deployment a producción"
+          method: "Fast-track deployment (skip some stages si P0)"
+        
+        - type: "verify"
+          description: "Verificar que el issue está resuelto"
+      
+      deliverables:
+        - "Hotfix desplegado"
+        - "Issue resuelto"
+
+    - id: "support-04"
+      name: "Post-Incident Review"
+      phase: "incident-response"
+      agent: "tech-lead-full-stack"
+      duration: "1-2 horas"
+      when: "Después de incidentes P0/P1"
+      
+      actions:
+        - type: "document"
+          description: "Documentar post-mortem"
+          sections:
+            - "Timeline of events"
+            - "Root cause analysis"
+            - "Impact assessment"
+            - "Actions taken"
+            - "Lessons learned"
+            - "Action items (preventive measures)"
+        
+        - type: "improve"
+          description: "Implementar mejoras para prevenir recurrencia"
+          examples:
+            - "Agregar monitoring/alerting"
+            - "Agregar tests para edge case"
+            - "Refactorizar código problemático"
+      
+      deliverables:
+        - "Post-mortem document"
+        - "Action items para prevención"
+
+    # === BUG FIXING ===
+    - id: "support-05"
+      name: "Bug Triage & Prioritization"
+      phase: "bug-fixing"
+      agent: "product-owner-business-analyst"
+      duration: "30 minutos"
+      cadence: "Diario o bi-weekly"
+      
+      actions:
+        - type: "review"
+          description: "Revisar bugs reportados"
+        
+        - type: "prioritize"
+          description: "Priorizar bugs por impacto"
+          matrix:
+            - "Severity (P0-P3)"
+            - "Frequency (afecta a cuántos usuarios)"
+            - "Workaround available (sí/no)"
+        
+        - type: "assign"
+          description: "Asignar a sprint o backlog"
+          rules:
+            - "P0/P1: Hotfix inmediato"
+            - "P2: Próximo sprint"
+            - "P3: Backlog (si tiene sentido)"
+      
+      deliverables:
+        - "Bugs priorizados"
+        - "Bugs asignados a sprint"
+
+    - id: "support-06"
+      name: "Bug Fix Development"
+      phase: "bug-fixing"
+      agent: "senior-backend-developer"
+      duration: "Variable"
+      
+      actions:
+        - type: "reproduce"
+          description: "Reproducir bug localmente"
+        
+        - type: "fix"
+          description: "Implementar fix"
+          best_practice: "Escribir test que reproduce el bug primero (TDD)"
+        
+        - type: "test"
+          description: "Verificar fix + regression"
+        
+        - type: "pr"
+          description: "Code review normal (no hotfix)"
+      
+      deliverables:
+        - "Bug fix PR"
+        - "Test que valida el fix"
+
+    # === MAINTENANCE ===
+    - id: "support-07"
+      name: "Dependency Updates"
+      phase: "maintenance"
+      agent: "devops-cloud-engineer"
+      duration: "2-4 horas"
+      cadence: "Mensual"
+      
+      actions:
+        - type: "scan"
+          description: "Escanear dependencias obsoletas/vulnerables"
+          tools:
+            - "npm audit"
+            - "Snyk"
+            - "Dependabot"
+        
+        - type: "update"
+          description: "Actualizar dependencias"
+          approach:
+            - "Patch versions: auto-update (bajo riesgo)"
+            - "Minor versions: revisar changelog, update con testing"
+            - "Major versions: spike técnico, puede requerir refactor"
+        
+        - type: "test"
+          description: "Regression testing completo"
+      
+      deliverables:
+        - "Dependencies actualizadas"
+        - "Security vulnerabilities resueltas"
+
+    - id: "support-08"
+      name: "Performance Optimization"
+      phase: "maintenance"
+      agent: "performance-engineer"
+      duration: "1-2 días"
+      cadence: "Trimestral o cuando hay degradación"
+      
+      actions:
+        - type: "analyze"
+          description: "Analizar performance metrics"
+          look_for:
+            - "Slow database queries (N+1 problems)"
+            - "Memory leaks"
+            - "CPU-intensive operations"
+            - "Large payload responses"
+        
+        - type: "optimize"
+          description: "Implementar optimizaciones"
+          examples:
+            - "Add database indexes"
+            - "Implement caching"
+            - "Optimize queries"
+            - "Code refactoring"
+        
+        - type: "measure"
+          description: "Medir mejoras"
+          compare: "Antes vs Después"
+      
+      deliverables:
+        - "Performance optimization PR"
+        - "Performance metrics comparison"
+
+    - id: "support-09"
+      name: "Security Patches"
+      phase: "maintenance"
+      agent: "security-specialist"
+      duration: "Variable"
+      when: "CVE crítico detectado"
+      
+      actions:
+        - type: "assess"
+          description: "Evaluar impacto del CVE"
+          check: "¿Nuestra app está afectada?"
+        
+        - type: "patch"
+          description: "Aplicar security patch"
+          priority: "Alta (puede requerir hotfix deployment)"
+        
+        - type: "verify"
+          description: "Verificar que vulnerabilidad está mitigada"
+      
+      deliverables:
+        - "Security patch aplicado"
+
+    # === MONITORING ===
+    - id: "support-10"
+      name: "Health Monitoring & Alerting"
+      phase: "monitoring"
+      agent: "devops-cloud-engineer"
+      duration: "Continuo"
+      
+      key_metrics:
+        availability:
+          - "Uptime (%)"
+          - "Error rate (%)"
+        
+        performance:
+          - "P50, P95, P99 latency"
+          - "Throughput (requests/sec)"
+        
+        resources:
+          - "CPU usage (%)"
+          - "Memory usage (%)"
+          - "Disk usage (%)"
+        
+        business:
+          - "Active users"
+          - "Transaction volume"
+          - "Conversion rate"
+      
+      alerts:
+        critical:
+          - "Error rate > 5%"
+          - "P95 latency > 5s"
+          - "Uptime < 99%"
+          - "CPU > 90% sustained"
+        
+        warning:
+          - "Error rate > 1%"
+          - "P95 latency > 2s"
+          - "Memory > 80%"
+      
+      actions:
+        - type: "monitor"
+          description: "Monitoreo 24/7 automatizado"
+        
+        - type: "alert"
+          description: "Alertas automáticas cuando thresholds se exceden"
+        
+        - type: "respond"
+          description: "On-call engineer responde a alertas"
+
+  deliverables:
+    - "Incident reports & post-mortems"
+    - "Bug fixes desplegados"
+    - "Dependencies actualizadas"
+    - "Performance optimizations"
+    - "Security patches aplicados"
+    - "Monitoring dashboards"
+
+  metrics:
+    - name: "Mean Time to Detection (MTTD)"
+      description: "Tiempo promedio para detectar un incident"
+      target: "< 5 minutos"
+    
+    - name: "Mean Time to Resolution (MTTR)"
+      description: "Tiempo promedio para resolver un incident"
+      target: "< 4 horas (P1), < 1 hora (P0)"
+    
+    - name: "SLA Compliance"
+      description: "% de incidents resueltos dentro del SLA"
+      target: "> 95%"
+    
+    - name: "Bug Recurrence Rate"
+      description: "% de bugs que reaparecen después de fix"
+      target: "< 5%"
+    
+    - name: "System Uptime"
+      target: "> 99.9%"
+
+  best_practices:
+    - "On-call rotation (evitar burnout)"
+    - "Runbooks documentados para incidentes comunes"
+    - "Post-mortems blameless (focus en el proceso, no en personas)"
+    - "Proactive monitoring (detectar antes que usuarios reporten)"
+    - "Dependency updates regulares (no esperar a CVEs)"
+    - "Performance budgets (establecer targets y alertar cuando se exceden)"
+
+  tools:
+    monitoring:
+      - "Datadog"
+      - "New Relic"
+      - "Prometheus + Grafana"
+    
+    error_tracking:
+      - "Sentry"
+      - "Rollbar"
+      - "Bugsnag"
+    
+    logging:
+      - "ELK Stack"
+      - "Splunk"
+      - "CloudWatch Logs"
+    
+    on_call:
+      - "PagerDuty"
+      - "Opsgenie"
+      - "VictorOps"
+    
+    ticketing:
+      - "Jira Service Management"
+      - "Zendesk"
+      - "Freshdesk"
+
+  sla_commitments:
+    p0_critical:
+      response_time: "< 15 minutos"
+      resolution_time: "< 4 horas"
+      
+    p1_high:
+      response_time: "< 1 hora"
+      resolution_time: "< 24 horas"
+      
+    p2_medium:
+      response_time: "< 4 horas"
+      resolution_time: "< 1 semana"
+      
+    p3_low:
+      response_time: "< 24 horas"
+      resolution_time: "Best effort (backlog)"
+
+  success_criteria:
+    - "Uptime > 99.9%"
+    - "MTTR < 4 horas (P1)"
+    - "SLA compliance > 95%"
+    - "Usuario satisfaction score > 4/5"
+    - "No critical security incidents"

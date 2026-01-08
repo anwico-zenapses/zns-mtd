@@ -1,0 +1,588 @@
+# AWC ZNS-MTD - Workflow Inception
+# Fase: Inicio de Proyecto (Kickoff → PRD → Planificación)
+# Autor: AWC Team
+# Versión: 1.0.0
+
+workflow:
+  name: "Inception Flow - Arranque de Proyecto"
+  id: "inception-flow"
+  version: "1.0.0"
+  category: "planificacion"
+  description: "Proceso estructurado de inicio de proyecto: desde kickoff meeting hasta PRD completo y planificación inicial"
+  
+  metadata:
+    author: "AWC Team"
+    created: "2026-01-08"
+    duration: "1-2 semanas"
+    complexity: "alta"
+    tags:
+      - "inception"
+      - "kickoff"
+      - "PRD"
+      - "planificacion"
+      - "roadmap"
+    
+  prerequisites:
+    - "Contrato firmado con cliente"
+    - "Oferta técnico-comercial aprobada"
+    - "Equipo de proyecto asignado"
+    - "Acceso a stakeholders del cliente"
+    
+  agents:
+    primary:
+      - id: "product-owner-business-analyst"
+        role: "Facilitador de kickoff y creación de PRD"
+        when: "Durante todo el inception"
+      
+      - id: "solution-architect-senior"
+        role: "Definición de arquitectura detallada"
+        when: "Arquitectura técnica y ADRs"
+      
+      - id: "technical-stories-architect"
+        role: "Creación de épicas y user stories"
+        when: "Desglose del backlog"
+    
+    supporting:
+      - id: "frontend-react-senior"
+        role: "Evaluación técnica frontend"
+        when: "Si el proyecto incluye frontend"
+      
+      - id: "backend-java-senior"
+        role: "Evaluación técnica backend"
+        when: "Si el proyecto incluye backend"
+      
+      - id: "cost-estimator-senior"
+        role: "Refinamiento de estimaciones"
+        when: "Planificación de sprints"
+
+  phases:
+    # ============================================
+    # FASE 1: KICKOFF MEETING
+    # ============================================
+    - id: "kickoff"
+      name: "Kickoff Meeting - Alineación Inicial"
+      order: 1
+      duration: "1 día"
+      
+      objectives:
+        - "Alinear expectativas con stakeholders"
+        - "Presentar al equipo de proyecto"
+        - "Definir canales de comunicación"
+        - "Establecer ceremonias y rituales"
+        - "Confirmar alcance y entregables"
+      
+      inputs:
+        - "Contrato firmado"
+        - "Oferta técnico-comercial"
+        - "Product Backlog inicial (de fase comercial)"
+      
+      steps:
+        - step: 1
+          name: "Preparación del Kickoff"
+          agent: "product-owner-business-analyst"
+          actions:
+            - "Agendar sesión de 2-3 horas con stakeholders"
+            - "Preparar agenda del kickoff"
+            - "Revisar documentación comercial"
+            - "Preparar presentación del equipo"
+            - "Definir objetivos de la sesión"
+          
+          deliverable:
+            name: "Agenda de Kickoff"
+            template: "templates/kickoff-agenda.md"
+            location: "{project-root}/docs/inception/kickoff-agenda.md"
+        
+        - step: 2
+          name: "Ejecución del Kickoff Meeting"
+          agent: "product-owner-business-analyst"
+          duration: "2-3 horas"
+          actions:
+            - "Presentación del equipo de proyecto"
+            - "Revisión del alcance y objetivos"
+            - "Presentación de metodología ZNS-MTD"
+            - "Definición de canales de comunicación (Slack, Teams, etc.)"
+            - "Establecimiento de ceremonias (dailies, sprint planning, etc.)"
+            - "Identificación de stakeholders clave y decisores"
+            - "Q&A y resolución de dudas"
+            - "Definición de próximos pasos"
+          
+          deliverable:
+            name: "Minuta de Kickoff"
+            template: "templates/kickoff-minuta.md"
+            location: "{project-root}/docs/inception/kickoff-minuta.md"
+        
+        - step: 3
+          name: "Setup de Herramientas"
+          agent: "product-owner-business-analyst"
+          actions:
+            - "Crear proyecto en Jira/Azure DevOps/Linear"
+            - "Configurar repositorio Git (GitHub/GitLab/Bitbucket)"
+            - "Crear canales de comunicación (Slack/Teams)"
+            - "Configurar tablero Kanban/Scrum"
+            - "Dar accesos al equipo y stakeholders"
+            - "Configurar CI/CD inicial (si aplica)"
+          
+          deliverable:
+            name: "Checklist de Setup"
+            template: "templates/setup-checklist.md"
+            location: "{project-root}/docs/inception/setup-checklist.md"
+      
+      outputs:
+        - "Minuta de kickoff con acuerdos"
+        - "Equipo y stakeholders presentados"
+        - "Herramientas configuradas y accesos otorgados"
+        - "Calendario de ceremonias definido"
+      
+      validation:
+        - "Todos los stakeholders alineados"
+        - "Canales de comunicación activos"
+        - "Proyecto creado en herramientas de gestión"
+
+    # ============================================
+    # FASE 2: CREACIÓN DE PRD (Product Requirements Document)
+    # ============================================
+    - id: "prd-creation"
+      name: "Elaboración del PRD Completo"
+      order: 2
+      duration: "3-5 días"
+      
+      objectives:
+        - "Documentar requisitos funcionales y no funcionales"
+        - "Definir user personas y user journeys"
+        - "Establecer criterios de aceptación"
+        - "Priorizar features por valor de negocio"
+        - "Identificar dependencias y riesgos"
+      
+      inputs:
+        - "Minuta de kickoff"
+        - "Product Backlog inicial"
+        - "Discovery notes (de fase comercial)"
+      
+      steps:
+        - step: 1
+          name: "Workshops de Discovery Profundo"
+          agent: "product-owner-business-analyst"
+          duration: "2-3 sesiones de 2 horas"
+          actions:
+            - "Event Storming o Design Thinking workshops"
+            - "Identificar user personas (3-5 personas)"
+            - "Mapear user journeys críticos"
+            - "Documentar workflows de negocio"
+            - "Identificar pain points y oportunidades"
+            - "Definir métricas de éxito (KPIs)"
+          
+          deliverable:
+            name: "Discovery Profundo"
+            template: "templates/discovery-profundo.md"
+            location: "{project-root}/docs/inception/discovery-profundo.md"
+        
+        - step: 2
+          name: "Documentación de Requisitos"
+          agent: "product-owner-business-analyst"
+          actions:
+            - "Usar template de PRD estándar"
+            - "Redactar resumen ejecutivo"
+            - "Documentar objetivos del producto"
+            - "Listar requisitos funcionales (RF-001, RF-002...)"
+            - "Listar requisitos no funcionales (RNF-001...)"
+            - "Definir user stories de alto nivel"
+            - "Establecer criterios de aceptación generales"
+            - "Documentar exclusiones explícitas"
+          
+          deliverable:
+            name: "PRD - Product Requirements Document"
+            template: "templates/PRD-template.md"
+            location: "{project-root}/docs/inception/PRD.md"
+            pages: "20-40 páginas"
+        
+        - step: 3
+          name: "Definición de Arquitectura Técnica"
+          agent: "solution-architect-senior"
+          actions:
+            - "Crear diagrama C4 (Context, Container, Component)"
+            - "Definir stack tecnológico completo"
+            - "Documentar decisiones arquitectónicas (ADRs)"
+            - "Identificar patrones de diseño a usar"
+            - "Definir estrategia de datos"
+            - "Especificar integraciones externas"
+            - "Documentar consideraciones de seguridad"
+          
+          deliverable:
+            name: "Documento de Arquitectura"
+            template: "templates/arquitectura-detallada.md"
+            location: "{project-root}/docs/inception/arquitectura.md"
+        
+        - step: 4
+          name: "Revisión y Aprobación del PRD"
+          agent: "product-owner-business-analyst"
+          actions:
+            - "Presentar PRD a stakeholders"
+            - "Incorporar feedback"
+            - "Resolver ambigüedades"
+            - "Obtener firma/aprobación formal"
+            - "Congelar versión 1.0 del PRD"
+          
+          deliverable:
+            name: "PRD Aprobado v1.0"
+            location: "{project-root}/docs/inception/PRD-v1.0.md"
+      
+      outputs:
+        - "PRD completo y aprobado (20-40 páginas)"
+        - "User personas definidas"
+        - "User journeys mapeados"
+        - "Documento de arquitectura con diagramas C4"
+        - "ADRs documentados"
+      
+      validation:
+        - "PRD aprobado por product owner del cliente"
+        - "Arquitectura validada por CTO/arquitecto del cliente"
+        - "Equipo técnico alineado con el diseño"
+
+    # ============================================
+    # FASE 3: DESGLOSE DE BACKLOG
+    # ============================================
+    - id: "backlog-breakdown"
+      name: "Desglose Detallado del Product Backlog"
+      order: 3
+      duration: "2-3 días"
+      
+      objectives:
+        - "Convertir épicas en user stories"
+        - "Estimar esfuerzos con story points"
+        - "Priorizar backlog por valor"
+        - "Crear roadmap de releases"
+      
+      inputs:
+        - "PRD aprobado"
+        - "Documento de arquitectura"
+        - "Product Backlog inicial (épicas)"
+      
+      steps:
+        - step: 1
+          name: "User Story Mapping"
+          agent: "technical-stories-architect"
+          actions:
+            - "Organizar workshop de story mapping (4 horas)"
+            - "Descomponer épicas en user stories"
+            - "Escribir user stories con formato estándar"
+            - "Definir criterios de aceptación por story"
+            - "Identificar dependencias entre stories"
+            - "Agrupar stories en sprints lógicos"
+          
+          deliverable:
+            name: "User Story Map"
+            template: "templates/user-story-map.md"
+            location: "{project-root}/docs/inception/user-story-map.md"
+        
+        - step: 2
+          name: "Estimación con Planning Poker"
+          agent: "technical-stories-architect"
+          duration: "4-6 horas"
+          actions:
+            - "Organizar sesión de Planning Poker"
+            - "Estimar cada user story en story points (1,2,3,5,8,13)"
+            - "Resolver discrepancias en estimaciones"
+            - "Identificar stories con alta incertidumbre"
+            - "Marcar spikes técnicos necesarios"
+            - "Calcular velocity estimada del equipo"
+          
+          deliverable:
+            name: "Backlog Estimado"
+            template: "templates/backlog-estimado.xlsx"
+            location: "{project-root}/docs/inception/backlog-estimado.xlsx"
+        
+        - step: 3
+          name: "Priorización del Backlog"
+          agent: "product-owner-business-analyst"
+          actions:
+            - "Aplicar framework MoSCoW (Must/Should/Could/Won't)"
+            - "Ordenar stories por valor de negocio"
+            - "Considerar dependencias técnicas"
+            - "Balancear riesgo vs valor"
+            - "Crear backlog priorizado final"
+          
+          deliverable:
+            name: "Product Backlog Priorizado"
+            location: "{project-root}/docs/inception/backlog-priorizado.md"
+      
+      outputs:
+        - "User story map completo"
+        - "200-300+ user stories documentadas"
+        - "Backlog estimado con story points"
+        - "Backlog priorizado por valor"
+      
+      validation:
+        - "Todas las stories tienen criterios de aceptación"
+        - "Estimaciones validadas por equipo técnico"
+        - "Priorización aprobada por product owner"
+
+    # ============================================
+    # FASE 4: PLANIFICACIÓN DE RELEASES
+    # ============================================
+    - id: "release-planning"
+      name: "Planificación de Releases y Roadmap"
+      order: 4
+      duration: "1-2 días"
+      
+      objectives:
+        - "Definir releases del proyecto (MVP, v1.0, v2.0...)"
+        - "Crear roadmap visual"
+        - "Establecer hitos y fechas clave"
+        - "Planificar primeros 2-3 sprints"
+      
+      inputs:
+        - "Product Backlog priorizado"
+        - "Velocity estimada del equipo"
+        - "Restricciones de tiempo del contrato"
+      
+      steps:
+        - step: 1
+          name: "Definición de MVP"
+          agent: "product-owner-business-analyst"
+          actions:
+            - "Identificar features críticas para MVP"
+            - "Definir criterios de éxito del MVP"
+            - "Establecer fecha objetivo de MVP"
+            - "Calcular sprints necesarios para MVP"
+            - "Documentar scope de MVP vs releases futuras"
+          
+          deliverable:
+            name: "Definición de MVP"
+            template: "templates/mvp-definition.md"
+            location: "{project-root}/docs/inception/mvp-definition.md"
+        
+        - step: 2
+          name: "Creación de Roadmap"
+          agent: "product-owner-business-analyst"
+          actions:
+            - "Dividir proyecto en releases (MVP, v1.0, v1.1, v2.0)"
+            - "Asignar épicas/features a cada release"
+            - "Definir fechas objetivo de cada release"
+            - "Crear roadmap visual (Mermaid/Gantt)"
+            - "Identificar hitos clave y demos"
+            - "Documentar riesgos y dependencias"
+          
+          deliverable:
+            name: "Product Roadmap"
+            template: "templates/roadmap.md"
+            location: "{project-root}/docs/inception/roadmap.md"
+        
+        - step: 3
+          name: "Sprint Planning (Primeros Sprints)"
+          agent: "technical-stories-architect"
+          actions:
+            - "Planificar Sprint 1 (selección de stories)"
+            - "Planificar Sprint 2 (tentativo)"
+            - "Definir objetivos de cada sprint"
+            - "Asignar stories a desarrolladores"
+            - "Identificar blockers potenciales"
+            - "Establecer Definition of Done (DoD)"
+          
+          deliverable:
+            name: "Sprint Planning - Sprint 1 & 2"
+            location: "{project-root}/docs/inception/sprint-planning.md"
+      
+      outputs:
+        - "MVP definido con scope claro"
+        - "Roadmap de releases visual"
+        - "Primeros 2 sprints planificados"
+        - "Definition of Done establecida"
+      
+      validation:
+        - "Roadmap alineado con fechas del contrato"
+        - "MVP alcanzable con recursos asignados"
+        - "Sprint 1 listo para comenzar desarrollo"
+
+    # ============================================
+    # FASE 5: INCEPTION REVIEW Y CIERRE
+    # ============================================
+    - id: "inception-review"
+      name: "Revisión de Inception y Transición a Desarrollo"
+      order: 5
+      duration: "4 horas"
+      
+      objectives:
+        - "Revisar todos los entregables del inception"
+        - "Obtener aprobación para iniciar desarrollo"
+        - "Realizar handoff al equipo de desarrollo"
+        - "Establecer métricas y criterios de éxito"
+      
+      inputs:
+        - "PRD aprobado"
+        - "Documento de arquitectura"
+        - "Product Backlog priorizado"
+        - "Roadmap de releases"
+      
+      steps:
+        - step: 1
+          name: "Inception Review Meeting"
+          agent: "product-owner-business-analyst"
+          duration: "2 horas"
+          actions:
+            - "Presentar resumen del inception"
+            - "Revisar PRD y arquitectura"
+            - "Presentar roadmap y plan de releases"
+            - "Validar que todo está documentado"
+            - "Resolver últimas dudas"
+            - "Obtener GO para desarrollo"
+          
+          deliverable:
+            name: "Minuta de Inception Review"
+            location: "{project-root}/docs/inception/inception-review.md"
+        
+        - step: 2
+          name: "Handoff a Desarrollo"
+          agent: "solution-architect-senior"
+          actions:
+            - "Sesión de onboarding técnico al equipo"
+            - "Explicar arquitectura y decisiones técnicas"
+            - "Configurar ambientes (dev, staging, prod)"
+            - "Crear repositorio base con estructura"
+            - "Configurar pipeline CI/CD básico"
+            - "Documentar guías de desarrollo"
+          
+          deliverable:
+            name: "Development Setup Guide"
+            template: "templates/dev-setup-guide.md"
+            location: "{project-root}/docs/inception/dev-setup-guide.md"
+        
+        - step: 3
+          name: "Establecimiento de Métricas"
+          agent: "product-owner-business-analyst"
+          actions:
+            - "Definir KPIs del proyecto"
+            - "Configurar dashboards de métricas"
+            - "Establecer criterios de éxito por release"
+            - "Definir proceso de tracking de progreso"
+            - "Documentar estrategia de reporting"
+          
+          deliverable:
+            name: "Métricas y KPIs"
+            template: "templates/kpis.md"
+            location: "{project-root}/docs/inception/kpis.md"
+      
+      outputs:
+        - "Inception completo aprobado"
+        - "Equipo de desarrollo onboarded"
+        - "Ambientes configurados"
+        - "Métricas y KPIs definidos"
+        - "¡Proyecto listo para Sprint 1!"
+      
+      validation:
+        - "Aprobación formal para iniciar desarrollo"
+        - "Equipo técnico listo para Sprint 1"
+        - "Todos los accesos y herramientas configurados"
+
+  # ============================================
+  # ENTREGABLES FINALES DEL INCEPTION
+  # ============================================
+  deliverables:
+    - name: "Minuta de Kickoff"
+      type: "documento"
+      format: "Markdown"
+      template: "templates/kickoff-minuta.md"
+    
+    - name: "PRD - Product Requirements Document"
+      type: "documento"
+      format: "Markdown/PDF"
+      template: "templates/PRD-template.md"
+      pages: "20-40"
+      criticality: "alta"
+    
+    - name: "Documento de Arquitectura"
+      type: "diagrama + documento"
+      format: "Mermaid/PlantUML + Markdown"
+      template: "templates/arquitectura-detallada.md"
+      criticality: "alta"
+    
+    - name: "User Story Map"
+      type: "diagrama + documento"
+      format: "Markdown/Miro"
+      template: "templates/user-story-map.md"
+    
+    - name: "Product Backlog Priorizado"
+      type: "documento + hoja de cálculo"
+      format: "Markdown + Excel"
+      template: "templates/backlog-estimado.xlsx"
+      criticality: "alta"
+    
+    - name: "Product Roadmap"
+      type: "diagrama"
+      format: "Mermaid/Gantt"
+      template: "templates/roadmap.md"
+    
+    - name: "MVP Definition"
+      type: "documento"
+      format: "Markdown"
+      template: "templates/mvp-definition.md"
+    
+    - name: "Sprint Planning (Sprint 1 & 2)"
+      type: "documento"
+      format: "Markdown"
+    
+    - name: "Development Setup Guide"
+      type: "guía técnica"
+      format: "Markdown"
+      template: "templates/dev-setup-guide.md"
+    
+    - name: "KPIs y Métricas"
+      type: "documento"
+      format: "Markdown"
+      template: "templates/kpis.md"
+  
+  # ============================================
+  # MÉTRICAS Y KPIs DEL INCEPTION
+  # ============================================
+  metrics:
+    - name: "Completitud del PRD"
+      description: "% de requisitos documentados vs total identificado"
+      target: "100%"
+    
+    - name: "Cobertura de User Stories"
+      description: "% de épicas desglosadas en stories"
+      target: "100%"
+    
+    - name: "Precisión de Estimación"
+      description: "Variación entre estimación inception vs real"
+      target: "+/- 20%"
+    
+    - name: "Tiempo de Inception"
+      description: "Días desde kickoff hasta inicio de Sprint 1"
+      target: "< 10 días hábiles"
+
+  # ============================================
+  # ERRORES COMUNES Y MEJORES PRÁCTICAS
+  # ============================================
+  common_mistakes:
+    - mistake: "Kickoff sin agenda clara"
+      solution: "Preparar agenda detallada y enviarla 2 días antes"
+    
+    - mistake: "PRD demasiado técnico"
+      solution: "Enfocarlo en el QUÉ, no en el CÓMO (eso va en arquitectura)"
+    
+    - mistake: "Saltar el desglose de user stories"
+      solution: "Invertir tiempo en story mapping, vale la pena"
+    
+    - mistake: "Estimar sin participación del equipo"
+      solution: "Planning Poker con todo el equipo técnico"
+    
+    - mistake: "MVP demasiado ambicioso"
+      solution: "MVP debe ser lo MÍNIMO viable, no TODO lo deseable"
+    
+    - mistake: "No documentar decisiones arquitectónicas"
+      solution: "Usar ADRs (Architecture Decision Records) siempre"
+
+  best_practices:
+    - "Hacer kickoff presencial o por video, nunca solo email"
+    - "Incluir diseñadores en workshops de user personas"
+    - "Validar PRD con usuarios reales, no solo stakeholders"
+    - "Usar diagramas C4 para comunicar arquitectura"
+    - "Priorizar con criterio MoSCoW + valor de negocio"
+    - "Definir Definition of Done antes de Sprint 1"
+    - "Crear template de repo con estructura base"
+    - "Automatizar setup de ambientes con Docker/scripts"
+    
+  next_workflow:
+    id: "development-flow"
+    trigger: "Inception Review aprobado"
+    description: "Iniciar Sprint 1 con desarrollo iterativo"
