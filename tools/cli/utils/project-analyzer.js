@@ -50,7 +50,6 @@ async function analyzeProject(projectPath) {
 
     // Calcular tamaño
     analysis.size = calculateSize(analysis);
-
   } catch (error) {
     console.error('Error en análisis:', error.message);
   }
@@ -69,16 +68,16 @@ async function detectTechnologies(projectPath) {
     'yarn.lock': ['Yarn'],
     'pnpm-lock.yaml': ['pnpm'],
     'requirements.txt': ['Python', 'pip'],
-    'Pipfile': ['Python', 'Pipenv'],
+    Pipfile: ['Python', 'Pipenv'],
     'pyproject.toml': ['Python', 'Poetry'],
-    'Gemfile': ['Ruby', 'Bundler'],
+    Gemfile: ['Ruby', 'Bundler'],
     'Cargo.toml': ['Rust', 'Cargo'],
     'go.mod': ['Go'],
     'pom.xml': ['Java', 'Maven'],
     'build.gradle': ['Java/Kotlin', 'Gradle'],
     'composer.json': ['PHP', 'Composer'],
     '.csproj': ['C#', '.NET'],
-    'Dockerfile': ['Docker'],
+    Dockerfile: ['Docker'],
     'docker-compose.yml': ['Docker Compose'],
     '.gitignore': ['Git'],
     'tsconfig.json': ['TypeScript'],
@@ -198,7 +197,7 @@ async function detectBuildTools(projectPath) {
     'rollup.config.js': 'Rollup',
     'gulpfile.js': 'Gulp',
     'Gruntfile.js': 'Grunt',
-    'Makefile': 'Make',
+    Makefile: 'Make',
     'CMakeLists.txt': 'CMake'
   };
 
@@ -220,21 +219,35 @@ function calculateComplexity(analysis) {
   let score = 0;
 
   // Basado en cantidad de archivos
-  if (fileCount > 1000) score += 3;
-  else if (fileCount > 500) score += 2;
-  else if (fileCount > 100) score += 1;
+  if (fileCount > 1000) {
+    score += 3;
+  } else if (fileCount > 500) {
+    score += 2;
+  } else if (fileCount > 100) {
+    score += 1;
+  }
 
   // Basado en cantidad de directorios
-  if (directoryCount > 100) score += 2;
-  else if (directoryCount > 50) score += 1;
+  if (directoryCount > 100) {
+    score += 2;
+  } else if (directoryCount > 50) {
+    score += 1;
+  }
 
   // Basado en cantidad de tecnologías
-  if (technologies.length > 10) score += 2;
-  else if (technologies.length > 5) score += 1;
+  if (technologies.length > 10) {
+    score += 2;
+  } else if (technologies.length > 5) {
+    score += 1;
+  }
 
   // Determinar nivel de complejidad
-  if (score >= 5) return 'high';
-  if (score >= 3) return 'medium';
+  if (score >= 5) {
+    return 'high';
+  }
+  if (score >= 3) {
+    return 'medium';
+  }
   return 'low';
 }
 
@@ -244,8 +257,12 @@ function calculateComplexity(analysis) {
 function calculateSize(analysis) {
   const { fileCount } = analysis;
 
-  if (fileCount > 1000) return 'large';
-  if (fileCount > 100) return 'medium';
+  if (fileCount > 1000) {
+    return 'large';
+  }
+  if (fileCount > 100) {
+    return 'medium';
+  }
   return 'small';
 }
 

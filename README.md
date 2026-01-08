@@ -1,12 +1,15 @@
-# AWC ZNS-MTD Method
+# ZΞNAPSΞS by ΛNWICO
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/awc/awc-zns-mtd)
+## Minimalismo Estratégico Method
+
+[![Version](https://img.shields.io/badge/version-2.9.0-blue.svg)](https://www.npmjs.com/package/awc-zns-mtd)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org)
+[![NPM](https://img.shields.io/badge/npm-awc--zns--mtd-red.svg)](https://www.npmjs.com/package/awc-zns-mtd)
 
 ## 🎯 Metodología de Transformación Digital: Minimalismo Estratégico
 
-**AWC ZNS-MTD** es un framework avanzado de desarrollo y transformación digital basado en IA, diseñado para contextos empresariales hispanohablantes. Inspirado en BMAD Core V6, implementa una metodología estructurada que escala desde microservicios hasta arquitecturas empresariales complejas.
+**ZΞNAPSΞS by ΛNWICO** es un framework avanzado de desarrollo y transformación digital basado en IA, diseñado para contextos empresariales hispanohablantes. Inspirado en BMAD Core V6, implementa una metodología estructurada que escala desde microservicios hasta arquitecturas empresariales complejas.
 
 ---
 
@@ -31,31 +34,36 @@
 ## 🤖 **Agentes Especializados (22 Total)**
 
 ### 🎯 **Core Team (4 agentes)**
+
 - **zen-master** - Orquestador estratégico del método
 - **product-owner-business-analyst** - Gestión de producto y análisis de negocio
 - **solution-architect-senior** - Diseño de arquitectura escalable
 - **cost-estimator-senior** - Estimación de esfuerzos y costos
 
 ### 💻 **Development Team (6 agentes)**
+
 - **tech-lead-full-stack** - Liderazgo técnico
 - **senior-backend-developer** - Desarrollo backend
-- **senior-frontend-developer** - Desarrollo frontend  
+- **senior-frontend-developer** - Desarrollo frontend
 - **fullstack-developer** - Desarrollo full-stack
 - **devops-cloud-engineer** - Infraestructura y CI/CD
 - **database-specialist** - Diseño y optimización de bases de datos
 
 ### ✅ **QA & Testing (3 agentes)**
+
 - **qa-test-automation-engineer** - Testing automatizado
 - **security-specialist** - Auditorías de seguridad
 - **performance-engineer** - Optimización de performance
 
 ### 📊 **Product & Strategy (4 agentes)**
+
 - **technical-stories-architect** - Creación de user stories técnicas
 - **ux-ui-designer** - Diseño de experiencia de usuario
 - **data-analyst** - Análisis de datos y métricas
 - **documentation-specialist** - Documentación técnica
 
 ### 🔧 **Support & Maintenance (5 agentes)**
+
 - **support-engineer** - Soporte técnico post-lanzamiento
 - **code-reviewer** - Revisión de código
 - **refactoring-specialist** - Refactorización de código legacy
@@ -68,10 +76,12 @@
 
 ## 🔄 **Workflows Completos del Método**
 
-AWC ZNS-MTD cubre el **ciclo de vida COMPLETO** del proyecto, desde la **captación comercial** hasta el **soporte post-lanzamiento**:
+**ZΞNAPSΞS by ΛNWICO** cubre el **ciclo de vida COMPLETO** del proyecto, desde la **captación comercial** hasta el **soporte post-lanzamiento**:
 
 ### 1️⃣ **comercial-flow** - Flujo Comercial Completo
+
 Gestiona desde la prospección hasta el contrato firmado:
+
 - 📞 **Prospección:** Discovery meeting, análisis de viabilidad, GO/NO-GO
 - 📄 **Oferta Técnica:** Arquitectura conceptual, product backlog inicial
 - 💰 **Cotización:** Estimación de esfuerzos, costos, timeline
@@ -81,7 +91,9 @@ Gestiona desde la prospección hasta el contrato firmado:
 **Deliverables:** Oferta Comercial, Cotización Formal, Contrato
 
 ### 2️⃣ **inception-flow** - Arranque de Proyecto
+
 Kickoff hasta el inicio del Sprint 1:
+
 - 🚀 **Kickoff:** Alineación de equipo, herramientas, ceremonias
 - 📋 **PRD Creation:** Product Requirements Document (20-40 páginas)
 - 🗺️ **Backlog Breakdown:** User story mapping, estimación, priorización MoSCoW
@@ -91,22 +103,28 @@ Kickoff hasta el inicio del Sprint 1:
 **Agentes involucrados:** `product-owner`, `solution-architect`, `technical-stories-architect`  
 **Deliverables:** PRD completo, Arquitectura C4, 200-300 User Stories, Roadmap Visual
 
-### 3️⃣ **analisis-flow** - Análisis Técnico Profundo *(En desarrollo)*
+### 3️⃣ **analisis-flow** - Análisis Técnico Profundo _(En desarrollo)_
+
 Análisis de proyectos existentes o auditorías técnicas.
 
-### 4️⃣ **planificacion-flow** - Planning de Sprints *(En desarrollo)*
+### 4️⃣ **planificacion-flow** - Planning de Sprints _(En desarrollo)_
+
 Gestión de sprints, roadmaps, releases.
 
-### 5️⃣ **development-flow** - Implementación *(Roadmap)*
+### 5️⃣ **development-flow** - Implementación _(Roadmap)_
+
 Desarrollo iterativo con mejores prácticas.
 
-### 6️⃣ **qa-flow** - Testing y QA *(Roadmap)*
+### 6️⃣ **qa-flow** - Testing y QA _(Roadmap)_
+
 Aseguramiento de calidad integral.
 
-### 7️⃣ **deployment-flow** - Despliegue *(Roadmap)*
+### 7️⃣ **deployment-flow** - Despliegue _(Roadmap)_
+
 CI/CD, staging, producción.
 
-### 8️⃣ **support-flow** - Soporte y Mantenimiento *(Roadmap)*
+### 8️⃣ **support-flow** - Soporte y Mantenimiento _(Roadmap)_
+
 Bug fixing, evolución, optimización.
 
 ---
@@ -114,42 +132,49 @@ Bug fixing, evolución, optimización.
 ## 🔄 Ciclo de Vida Completo del Proyecto
 
 ### Fase 0: **Comercial** - Captación y Oferta
+
 - **Prospección:** Identificación de oportunidades
 - **Oferta Técnica:** Propuesta de solución
 - **Cotización:** Estimación de costos y timeline
 - **Negociación:** Cierre comercial y firma
 
 ### Fase 1: **Inception** - Arranque Estratégico
+
 - **Kickoff:** Alineación de equipo y objetivos
 - **Discovery:** Workshops de requisitos
 - **PRD Creation:** Product Requirements Document
 - **Backlog:** User stories y priorización
 
 ### Fase 2: **Arquitectura** - Diseño Técnico
+
 - **Solution Design:** Arquitectura de alto nivel
 - **Tech Stack:** Selección de tecnologías
 - **ADRs:** Architecture Decision Records
 - **Infrastructure:** Definición de ambientes
 
 ### Fase 3: **Desarrollo** - Implementación Iterativa
+
 - **Sprint Planning:** Planificación de iteraciones
 - **Development:** Codificación con mejores prácticas
 - **Code Review:** Revisión colaborativa
 - **CI/CD:** Integración y deployment continuo
 
 ### Fase 4: **QA & Testing** - Aseguramiento de Calidad
+
 - **Unit Testing:** Tests automatizados (>80% cobertura)
 - **Integration Testing:** Pruebas de integración
 - **UAT:** User Acceptance Testing
 - **Performance:** Tests de carga y stress
 
 ### Fase 5: **Deployment** - Lanzamiento
+
 - **Staging Deploy:** Despliegue a pre-producción
 - **Production Deploy:** Lanzamiento controlado
 - **Monitoring:** Observabilidad y alertas
 - **Documentation:** Manuales técnicos y de usuario
 
 ### Fase 6: **Soporte** - Mantenimiento Continuo
+
 - **Bug Fixing:** Corrección de errores
 - **Feature Requests:** Nuevas funcionalidades
 - **Performance Tuning:** Optimización
@@ -178,10 +203,21 @@ graph LR
 ## 🚀 Instalación Rápida
 
 ### Requisitos Previos
+
 - Node.js >= 18.0.0
 - npm >= 9.0.0
 
-### Instalación
+### Instalación Global
+
+```bash
+# Instalar ZΞNAPSΞS globalmente desde NPM
+npm install -g awc-zns-mtd
+
+# Verificar instalación
+zns --version
+```
+
+### Instalación Local (Desarrollo)
 
 ```bash
 # Clonar repositorio
@@ -191,94 +227,102 @@ cd awc-zns-mtd
 # Instalar dependencias
 npm install
 
-# Instalar el método en tu proyecto
-npm run awc:install
+# Enlazar para desarrollo local
+npm link
 ```
 
 ### Uso Básico
 
 ```bash
-# Inicializar en tu proyecto
-*zns-init
+# Crear nuevo proyecto ZΞNAPSΞS
+zns new mi-proyecto
 
-# Ver estado actual
-*zns-status
+# Inicializar estructura personalizada
+zns init
 
-# Obtener configuración
-*zns-config
+# Ver estado del proyecto
+zns status
+
+# Validar configuración
+zns validate
 ```
 
 ---
 
 ## 📋 Comandos y Workflows Principales
 
-### 🏪 **Flujo Comercial**
+### 🏪 **Flujo Comercial** (Próximamente)
+
 ```bash
 # Iniciar proceso comercial
-*zns-comercial-start
+zns comercial start
 
 # Generar oferta técnica
-*zns-comercial-offer
+zns comercial offer
 
 # Crear cotización
-*zns-comercial-quote
+zns comercial quote
 
 # Gestionar negociación
-*zns-comercial-negotiate
+zns comercial negotiate
 ```
 
-### 🚀 **Inception & Planning**
+### 🚀 **Inception & Planning** (Próximamente)
+
 ```bash
 # Kickoff de proyecto
-*zns-inception-kickoff
+zns inception kickoff
 
 # Crear PRD
-*zns-create-prd
+zns create prd
 
 # Generar backlog
-*zns-inception-backlog
+zns inception backlog
 
 # Planning de release
-*zns-inception-release-plan
+zns inception release-plan
 ```
 
-### 🏗️ **Arquitectura & Diseño**
+### 🏗️ **Arquitectura & Diseño** (Próximamente)
+
 ```bash
 # Crear especificación técnica
-*zns-create-techspec
+zns create techspec
 
 # Documentar decisiones
-*zns-create-adr
+zns create adr
 
 # Diseño de arquitectura
-*zns-architecture-design
+zns architecture design
 ```
 
-### 💻 **Desarrollo**
+### 💻 **Desarrollo** (Próximamente)
+
 ```bash
 # Análisis de código
-*zns-analyze-codebase
+zns analyze codebase
 
 # Implementar feature
-*zns-implement-feature
+zns implement feature
 
 # Refactorización
-*zns-refactor
+zns refactor
 
 # Fix de bugs
-*zns-fix-bug
+zns fix bug
 ```
 
-### ✅ **QA & Testing**
+### ✅ **QA & Testing** (Próximamente)
+
 ```bash
 # Revisión de código
-*zns-review-code
+zns review code
 
 # Análisis de cobertura
-*zns-test-coverage
+zns test coverage
 
 # Auditoría de seguridad
-*zns-security-audit
+zns security audit
 ```
 
 ---
@@ -286,7 +330,8 @@ npm run awc:install
 ## 🎨 Arquitectura del Proyecto
 
 ```
-AWC-ZNS-MTD/
+ZΞNAPSΞS/
+(awc-zns-mtd en NPM)
 ├── src/
 │   ├── core/                 # Framework ZNS Core
 │   │   ├── agents/          # Agentes base reutilizables (22 agentes)
@@ -331,9 +376,11 @@ AWC-ZNS-MTD/
 ## � Casos de Uso Reales
 
 ### 📊 **Caso 1: Startup Tech - MVP en 8 Semanas**
+
 **Contexto:** Startup fintech necesita MVP para ronda de inversión.
 
 **Workflows utilizados:**
+
 1. `comercial-flow` → Oferta y cotización en 3 días
 2. `inception-flow` → PRD y backlog en 2 semanas
 3. `development-flow` → MVP funcional en 6 semanas
@@ -343,9 +390,11 @@ AWC-ZNS-MTD/
 ---
 
 ### 🏢 **Caso 2: Empresa Legacy - Migración a Cloud**
+
 **Contexto:** Empresa tradicional con sistema monolítico de 10 años migrando a microservicios en AWS.
 
 **Workflows utilizados:**
+
 1. `analisis-flow` → Auditoría técnica completa (2 semanas)
 2. `inception-flow` → Roadmap de migración por fases
 3. `development-flow` → Migración incremental (6 meses)
@@ -356,9 +405,11 @@ AWC-ZNS-MTD/
 ---
 
 ### 🚀 **Caso 3: E-commerce - Optimización para Black Friday**
+
 **Contexto:** E-commerce con problemas de performance en picos de tráfico.
 
 **Workflows utilizados:**
+
 1. `analisis-flow` → Performance audit
 2. `planificacion-flow` → Sprint planning para optimización
 3. `qa-flow` → Load testing y stress testing
@@ -371,12 +422,14 @@ AWC-ZNS-MTD/
 ## �📊 Estándares de Calidad
 
 ### No Negociables
+
 - ✅ Cobertura de tests > 80%
 - ✅ Deuda técnica < 5% del código
 - ✅ Documentación sincronizada con código
 - ✅ Code reviews obligatorios para producción
 
 ### Multi-Stack Support
+
 - **Backend:** Java, .NET, Node.js, Python
 - **Frontend:** React, Angular, Vue, Next.js
 - **Cloud:** AWS, Azure, GCP
@@ -423,11 +476,21 @@ Distribuido bajo licencia MIT. Ver `LICENSE` para más información.
 
 ## 📞 Contacto
 
-**AWC Team** - [@awc](https://github.com/awc)
+**ΛNWICO Team**
 
+**NPM Package:** [awc-zns-mtd](https://www.npmjs.com/package/awc-zns-mtd)  
 **Project Link:** [https://github.com/awc/awc-zns-mtd](https://github.com/awc/awc-zns-mtd)
 
 ---
 
-*Versión 1.0.0 - 7 de enero de 2026*  
-*Build More, Think Zen, Act Neutral, Be Systematic*
+<div align="center">
+
+### ZΞNAPSΞS by ΛNWICO
+
+**Minimalismo Estratégico Method**
+
+_Versión 2.9.0 - 8 de enero de 2026_
+
+_Máximo impacto con mínima complejidad_
+
+</div>

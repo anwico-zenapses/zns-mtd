@@ -47,8 +47,12 @@ async function checkForUpdates(currentVersion) {
  * @returns {number} -1 si v1 < v2, 0 si v1 === v2, 1 si v1 > v2
  */
 function compareVersions(v1, v2) {
-  if (semver.lt(v1, v2)) return -1;
-  if (semver.gt(v1, v2)) return 1;
+  if (semver.lt(v1, v2)) {
+    return -1;
+  }
+  if (semver.gt(v1, v2)) {
+    return 1;
+  }
   return 0;
 }
 

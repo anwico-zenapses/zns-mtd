@@ -10,12 +10,12 @@ class ChangelogManager {
   constructor(changelogPath = null) {
     this.changelogPath = changelogPath || path.join(__dirname, '../../CHANGELOG.md');
     this.changeTypes = {
-      'added': 'Añadido',
-      'changed': 'Cambiado',
-      'deprecated': 'Obsoleto',
-      'removed': 'Eliminado',
-      'fixed': 'Corregido',
-      'security': 'Seguridad'
+      added: 'Añadido',
+      changed: 'Cambiado',
+      deprecated: 'Obsoleto',
+      removed: 'Eliminado',
+      fixed: 'Corregido',
+      security: 'Seguridad'
     };
   }
 
@@ -39,14 +39,18 @@ class ChangelogManager {
    */
   async getVersionNotes(version) {
     const content = await this.readChangelog();
-    
-    if (!content) return null;
+
+    if (!content) {
+      return null;
+    }
 
     // Buscar sección de la versión
     const versionRegex = new RegExp(`## \\[${version}\\]([\\s\\S]*?)(?=## \\[|$)`, 'i');
     const match = content.match(versionRegex);
 
-    if (!match) return null;
+    if (!match) {
+      return null;
+    }
 
     return this.parseVersionSection(match[1]);
   }
@@ -66,14 +70,14 @@ class ChangelogManager {
     };
 
     // Buscar cada tipo de cambio
-    Object.keys(this.changeTypes).forEach(type => {
+    Object.keys(this.changeTypes).forEach((type) => {
       const typeRegex = new RegExp(`### ${this.changeTypes[type]}([\\s\\S]*?)(?=###|$)`, 'i');
       const match = section.match(typeRegex);
 
       if (match) {
         // Extraer items (líneas que empiezan con -)
         const items = match[1].match(/^- (.+)$/gm) || [];
-        parsed[type] = items.map(item => item.replace(/^- /, '').trim());
+        parsed[type] = items.map((item) => item.replace(/^- /, '').trim());
       }
     });
 
@@ -85,14 +89,18 @@ class ChangelogManager {
    */
   async getLatestRelease() {
     const content = await this.readChangelog();
-    
-    if (!content) return null;
+
+    if (!content) {
+      return null;
+    }
 
     // Buscar primera versión (ignorando Unreleased)
     const versionRegex = /## \[(\d+\.\d+\.\d+)\] - (\d{4}-\d{2}-\d{2})/;
     const match = content.match(versionRegex);
 
-    if (!match) return null;
+    if (!match) {
+      return null;
+    }
 
     const [, version, date] = match;
     const notes = await this.getVersionNotes(version);
@@ -109,7 +117,7 @@ class ChangelogManager {
    */
   async addVersion(version, date, changes) {
     const content = await this.readChangelog();
-    
+
     if (!content) {
       throw new Error('Changelog no encontrado');
     }
@@ -132,10 +140,10 @@ class ChangelogManager {
     let section = `## [${version}] - ${date}\n\n`;
 
     // Agregar cada tipo de cambio si tiene items
-    Object.keys(this.changeTypes).forEach(type => {
+    Object.keys(this.changeTypes).forEach((type) => {
       if (changes[type] && changes[type].length > 0) {
         section += `### ${this.changeTypes[type]}\n\n`;
-        changes[type].forEach(item => {
+        changes[type].forEach((item) => {
           section += `- ${item}\n`;
         });
         section += '\n';
@@ -150,13 +158,17 @@ class ChangelogManager {
    */
   async getUnreleasedChanges() {
     const content = await this.readChangelog();
-    
-    if (!content) return null;
+
+    if (!content) {
+      return null;
+    }
 
     const unreleasedRegex = /## \[Unreleased\]([\s\S]*?)(?=## \[|$)/;
     const match = content.match(unreleasedRegex);
 
-    if (!match) return null;
+    if (!match) {
+      return null;
+    }
 
     return this.parseVersionSection(match[1]);
   }
@@ -166,8 +178,10 @@ class ChangelogManager {
    */
   async hasBreakingChanges(version) {
     const notes = await this.getVersionNotes(version);
-    
-    if (!notes) return false;
+
+    if (!notes) {
+      return false;
+    }
 
     // Buscar indicadores de breaking changes
     const breakingIndicators = [
@@ -179,10 +193,8 @@ class ChangelogManager {
     ];
 
     const allChanges = Object.values(notes).flat().join(' ').toLowerCase();
-    
-    return breakingIndicators.some(indicator => 
-      allChanges.includes(indicator.toLowerCase())
-    );
+
+    return breakingIndicators.some((indicator) => allChanges.includes(indicator.toLowerCase()));
   }
 
   /**
@@ -190,8 +202,10 @@ class ChangelogManager {
    */
   async getChangesSummary(fromVersion, toVersion) {
     const content = await this.readChangelog();
-    
-    if (!content) return null;
+
+    if (!content) {
+      return null;
+    }
 
     const summary = {
       from: fromVersion,
@@ -229,9 +243,9 @@ class ChangelogManager {
     // Agregar cambios de cada versión
     for (const version of versionsInRange) {
       const notes = await this.getVersionNotes(version);
-      
+
       if (notes) {
-        Object.keys(notes).forEach(type => {
+        Object.keys(notes).forEach((type) => {
           summary.changes[type].push(...notes[type]);
         });
 
@@ -249,7 +263,7 @@ class ChangelogManager {
    */
   async validateChangelog() {
     const content = await this.readChangelog();
-    
+
     if (!content) {
       return {
         valid: false,
@@ -271,7 +285,6 @@ class ChangelogManager {
     }
 
     // Verificar tipos de cambio
-    const requiredSections = Object.values(this.changeTypes);
     // No es obligatorio tener todas las secciones, solo verificar que las que existan sean válidas
 
     return {

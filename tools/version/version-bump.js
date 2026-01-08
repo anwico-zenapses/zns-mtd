@@ -3,7 +3,7 @@
 /**
  * Version Bump Script
  * Script para incrementar versión del proyecto AWC ZNS-MTD
- * 
+ *
  * Uso:
  *   node version-bump.js <major|minor|patch> [--message "mensaje"]
  */
@@ -16,7 +16,7 @@ const changelogManager = require('./changelog-manager');
 async function bumpVersion() {
   // Parsear argumentos
   const args = process.argv.slice(2);
-  
+
   if (args.length === 0) {
     console.error('❌ Uso: node version-bump.js <major|minor|patch> [--message "mensaje"]');
     process.exit(1);
@@ -76,10 +76,9 @@ async function bumpVersion() {
     console.log('\n✅ Versión incrementada exitosamente\n');
     console.log('📋 Próximos pasos:');
     console.log('   1. Revisa los cambios en CHANGELOG.md');
-    console.log('   2. Commit: git add . && git commit -m "chore: bump version to ' + newVersion + '"');
-    console.log('   3. Tag: git tag -a v' + newVersion + ' -m "Release v' + newVersion + '"');
+    console.log(`   2. Commit: git add . && git commit -m "chore: bump version to ${newVersion}"`);
+    console.log(`   3. Tag: git tag -a v${newVersion} -m "Release v${newVersion}"`);
     console.log('   4. Push: git push && git push --tags\n');
-
   } catch (error) {
     console.error('❌ Error al incrementar versión:', error.message);
     process.exit(1);

@@ -48,8 +48,12 @@ class VersionManager {
       throw new Error('Versiones inválidas');
     }
 
-    if (semver.lt(v1, v2)) return -1;
-    if (semver.gt(v1, v2)) return 1;
+    if (semver.lt(v1, v2)) {
+      return -1;
+    }
+    if (semver.gt(v1, v2)) {
+      return 1;
+    }
     return 0;
   }
 
@@ -63,7 +67,7 @@ class VersionManager {
 
     try {
       return semver.satisfies(version, requiredVersion);
-    } catch (error) {
+    } catch {
       return false;
     }
   }
@@ -81,9 +85,15 @@ class VersionManager {
 
     const diff = semver.diff(oldVersion, newVersion);
 
-    if (diff === 'major' || diff === 'premajor') return 'major';
-    if (diff === 'minor' || diff === 'preminor') return 'minor';
-    if (diff === 'patch' || diff === 'prepatch') return 'patch';
+    if (diff === 'major' || diff === 'premajor') {
+      return 'major';
+    }
+    if (diff === 'minor' || diff === 'preminor') {
+      return 'minor';
+    }
+    if (diff === 'patch' || diff === 'prepatch') {
+      return 'patch';
+    }
 
     return 'none';
   }
@@ -134,7 +144,7 @@ class VersionManager {
       const content = await fs.readFile(configPath, 'utf8');
       const config = yaml.load(content);
       return config.version || null;
-    } catch (error) {
+    } catch {
       return null;
     }
   }

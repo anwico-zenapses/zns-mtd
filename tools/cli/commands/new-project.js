@@ -10,80 +10,103 @@ const ora = require('ora');
 const inquirer = require('inquirer');
 const { displayLogo } = require('../utils/console-logger');
 const { getVersion } = require('../utils/version');
+const { validateProjectName, validatePath } = require('../utils/validators');
+const { CLILogger } = require('../utils/logger');
+// const ConfigManager = require('../../config/config-manager');
 
 /**
  * Comando principal para crear nuevo proyecto
  */
 async function newProjectCommand(projectName, options = {}) {
-  displayLogo();
+  const startTime = Date.now();
+  let spinner; // Definir spinner al inicio
 
-  console.log(chalk.cyan('\n🚀 Crear Nuevo Proyecto ZΞNAPSΞS\n'));
+  try {
+    CLILogger.commandStart('new-project', { projectName, options });
 
-  // Preguntar nombre del proyecto si no se proporcionó
-  if (!projectName) {
-    const { name } = await inquirer.prompt([
+    displayLogo();
+
+    console.log(chalk.cyan('\n🚀 Crear Nuevo Proyecto ZΞNAPSΞS\n'));
+
+    // Preguntar nombre del proyecto si no se proporcionó
+    if (!projectName) {
+      const { name } = await inquirer.prompt([
+        {
+          type: 'input',
+          name: 'name',
+          message: '📦 Nombre del proyecto:',
+          validate: (input) => {
+            if (!validateProjectName(input)) {
+              return 'Nombre inválido. Solo letras, números, guiones y guiones bajos (3-50 caracteres)';
+            }
+            return true;
+          }
+        }
+      ]);
+      projectName = name;
+    } else {
+      // Validar nombre proporcionado por argumento
+      if (!validateProjectName(projectName)) {
+        console.log(chalk.red('\n❌ Nombre de proyecto inválido\n'));
+        console.log(chalk.yellow('Reglas:'));
+        console.log('  • Solo letras, números, guiones y guiones bajos');
+        console.log('  • Entre 3 y 50 caracteres');
+        console.log('  • No puede ser un nombre reservado\n');
+        CLILogger.commandError('new-project', new Error('Invalid project name'));
+        process.exit(1);
+      }
+    }
+
+    // Verificar si el directorio ya existe
+    const projectPath = path.join(process.cwd(), projectName);
+    if (await fs.pathExists(projectPath)) {
+      console.log(chalk.red(`\n❌ El directorio '${projectName}' ya existe.\n`));
+      CLILogger.commandError('new-project', new Error('Directory already exists'));
+      process.exit(1);
+    }
+
+    // Validar path de seguridad
+    if (!validatePath(projectPath)) {
+      console.log(chalk.red('\n❌ Path no seguro detectado\n'));
+      CLILogger.commandError('new-project', new Error('Unsafe path'));
+      process.exit(1);
+    }
+
+    // Preguntar responsable del proyecto
+    const { responsible, description, gitInit } = await inquirer.prompt([
       {
         type: 'input',
-        name: 'name',
-        message: '📦 Nombre del proyecto:',
+        name: 'responsible',
+        message: '👤 Responsable del proyecto:',
         validate: (input) => {
-          if (!input.trim()) return 'El nombre del proyecto es requerido';
-          if (!/^[a-zA-Z0-9-_]+$/.test(input)) {
-            return 'Solo se permiten letras, números, guiones y guiones bajos';
+          if (!input.trim()) {
+            return 'El responsable es requerido';
           }
           return true;
         }
+      },
+      {
+        type: 'input',
+        name: 'description',
+        message: '📝 Descripción breve (opcional):',
+        default: `Proyecto ${projectName}`
+      },
+      {
+        type: 'confirm',
+        name: 'gitInit',
+        message: '🔧 Inicializar repositorio Git?',
+        default: true
       }
     ]);
-    projectName = name;
-  }
 
-  // Verificar si el directorio ya existe
-  const projectPath = path.join(process.cwd(), projectName);
-  if (await fs.pathExists(projectPath)) {
-    console.log(chalk.red(`\n❌ El directorio '${projectName}' ya existe.\n`));
-    process.exit(1);
-  }
+    const spinner = ora('Creando estructura base del proyecto...').start();
 
-  // Preguntar responsable del proyecto
-  const { responsible, description, gitInit } = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'responsible',
-      message: '👤 Responsable del proyecto:',
-      validate: (input) => {
-        if (!input.trim()) return 'El responsable es requerido';
-        return true;
-      }
-    },
-    {
-      type: 'input',
-      name: 'description',
-      message: '📝 Descripción breve (opcional):',
-      default: `Proyecto ${projectName}`
-    },
-    {
-      type: 'confirm',
-      name: 'gitInit',
-      message: '🔧 Inicializar repositorio Git?',
-      default: true
-    }
-  ]);
-
-  const spinner = ora('Creando estructura base del proyecto...').start();
-
-  try {
     // 1. Crear directorio raíz del proyecto
     await fs.ensureDir(projectPath);
     spinner.text = `Directorio ${projectName} creado`;
 
     // 2. Crear estructura base mínima
-    const baseDirectories = [
-      '.awc/agents',
-      '.awc/workflows',
-      '.awc/templates',
-      'docs'
-    ];
+    const baseDirectories = ['.awc/agents', '.awc/workflows', '.awc/templates', 'docs'];
 
     for (const dir of baseDirectories) {
       await fs.ensureDir(path.join(projectPath, dir));
@@ -93,16 +116,19 @@ async function newProjectCommand(projectName, options = {}) {
     // 3. Copiar agentes base (4 agentes core)
     const srcAgentsPath = path.join(__dirname, '../../../src/modules/awc-zns-mtd/agents');
     const destAgentsPath = path.join(projectPath, '.awc/agents');
-    
+
     if (await fs.pathExists(srcAgentsPath)) {
       await fs.copy(srcAgentsPath, destAgentsPath);
       spinner.text = 'Agentes base copiados';
     }
 
     // 4. Copiar agentes especializados (22 agentes)
-    const srcCustomAgentsPath = path.join(__dirname, '../../../src/modules/custom-agents/cli/.awc-agents');
+    const srcCustomAgentsPath = path.join(
+      __dirname,
+      '../../../src/modules/custom-agents/cli/.awc-agents'
+    );
     const destCustomAgentsPath = path.join(projectPath, '.awc/agents/specialized');
-    
+
     if (await fs.pathExists(srcCustomAgentsPath)) {
       await fs.copy(srcCustomAgentsPath, destCustomAgentsPath);
       spinner.text = 'Agentes especializados copiados';
@@ -111,7 +137,7 @@ async function newProjectCommand(projectName, options = {}) {
     // 5. Copiar workflows
     const srcWorkflowsPath = path.join(__dirname, '../../../src/modules/awc-zns-mtd/workflows');
     const destWorkflowsPath = path.join(projectPath, '.awc/workflows');
-    
+
     if (await fs.pathExists(srcWorkflowsPath)) {
       await fs.copy(srcWorkflowsPath, destWorkflowsPath);
       spinner.text = 'Workflows copiados';
@@ -120,7 +146,7 @@ async function newProjectCommand(projectName, options = {}) {
     // 6. Copiar templates
     const srcTemplatesPath = path.join(__dirname, '../../../src/modules/awc-zns-mtd/templates');
     const destTemplatesPath = path.join(projectPath, '.awc/templates');
-    
+
     if (await fs.pathExists(srcTemplatesPath)) {
       await fs.copy(srcTemplatesPath, destTemplatesPath);
       spinner.text = 'Templates copiados';
@@ -132,8 +158,8 @@ async function newProjectCommand(projectName, options = {}) {
       createdAt: new Date().toISOString(),
       project: {
         name: projectName,
-        description: description,
-        responsible: responsible
+        description,
+        responsible
       },
       projectType: null,
       initialized: false,
@@ -148,11 +174,7 @@ async function newProjectCommand(projectName, options = {}) {
       }
     };
 
-    await fs.writeJson(
-      path.join(projectPath, '.awc/config.json'),
-      awcConfig,
-      { spaces: 2 }
-    );
+    await fs.writeJson(path.join(projectPath, '.awc/config.json'), awcConfig, { spaces: 2 });
     spinner.text = 'Configuración AWC creada';
 
     // 8. Crear README.md del proyecto
@@ -192,7 +214,7 @@ async function newProjectCommand(projectName, options = {}) {
           stdio: 'ignore'
         });
         spinner.text = 'Repositorio Git inicializado';
-      } catch (error) {
+      } catch {
         // Git no está disponible o fallo, continuar sin git
       }
     }
@@ -200,9 +222,9 @@ async function newProjectCommand(projectName, options = {}) {
     spinner.succeed(chalk.green('✅ Proyecto creado exitosamente'));
 
     // Mostrar resumen
-    console.log(chalk.cyan('\n' + '═'.repeat(60)));
+    console.log(chalk.cyan(`\n${'═'.repeat(60)}`));
     console.log(chalk.cyan('📦 Proyecto Creado'));
-    console.log(chalk.cyan('═'.repeat(60) + '\n'));
+    console.log(chalk.cyan(`${'═'.repeat(60)}\n`));
 
     console.log(`${chalk.gray('Nombre:')}        ${chalk.green(projectName)}`);
     console.log(`${chalk.gray('Responsable:')}   ${chalk.yellow(responsible)}`);
@@ -215,11 +237,23 @@ async function newProjectCommand(projectName, options = {}) {
     console.log(`  ${chalk.green('2.')} zns init ${chalk.gray('# Inicializar tipo de proyecto')}`);
     console.log(`  ${chalk.green('3.')} Leer ${chalk.yellow('NEXT_STEPS.md')} para más detalles\n`);
 
-    console.log(chalk.yellow('⚠️  La estructura de fases se creará al ejecutar') + chalk.green(' zns init\n'));
+    console.log(
+      chalk.yellow('⚠️  La estructura de fases se creará al ejecutar') + chalk.green(' zns init\n')
+    );
 
+    const duration = Date.now() - startTime;
+    CLILogger.commandEnd('new-project', true, duration);
+    CLILogger.fileOperation('create-project', projectPath, true);
   } catch (error) {
-    spinner.fail(chalk.red('❌ Error creando proyecto'));
-    console.error(error);
+    if (spinner) {
+      spinner.fail(chalk.red('❌ Error creando proyecto'));
+    }
+    console.error(chalk.red('\n❌ Error:'), error.message);
+
+    const duration = Date.now() - startTime;
+    CLILogger.commandError('new-project', error);
+    CLILogger.commandEnd('new-project', false, duration);
+
     throw error;
   }
 }
@@ -479,77 +513,64 @@ async function createVSCodeConfig(projectPath, projectName) {
 
   // settings.json
   const settings = {
-    "github.copilot.enable": {
-      "*": true
+    'github.copilot.enable': {
+      '*': true
     },
-    "github.copilot.advanced": {},
-    "files.associations": {
-      "*.agent.yaml": "yaml",
-      "copilot-instructions.md": "markdown"
+    'github.copilot.advanced': {},
+    'files.associations': {
+      '*.agent.yaml': 'yaml',
+      'copilot-instructions.md': 'markdown'
     },
-    "files.exclude": {
-      "**/.git": true,
-      "**/.DS_Store": true,
-      "**/node_modules": true
+    'files.exclude': {
+      '**/.git': true,
+      '**/.DS_Store': true,
+      '**/node_modules': true
     },
-    "search.exclude": {
-      "**/node_modules": true,
-      "**/bower_components": true,
-      "**/*.code-search": true
+    'search.exclude': {
+      '**/node_modules': true,
+      '**/bower_components': true,
+      '**/*.code-search': true
     },
-    "awc-zns-mtd.enabled": true,
-    "awc-zns-mtd.autoLoadInstructions": true
+    'awc-zns-mtd.enabled': true,
+    'awc-zns-mtd.autoLoadInstructions': true
   };
 
-  await fs.writeJson(
-    path.join(vscodeDir, 'settings.json'),
-    settings,
-    { spaces: 2 }
-  );
+  await fs.writeJson(path.join(vscodeDir, 'settings.json'), settings, { spaces: 2 });
 
   // extensions.json
   const extensions = {
-    "recommendations": [
-      "github.copilot",
-      "github.copilot-chat",
-      "redhat.vscode-yaml",
-      "yzhang.markdown-all-in-one"
+    recommendations: [
+      'github.copilot',
+      'github.copilot-chat',
+      'redhat.vscode-yaml',
+      'yzhang.markdown-all-in-one'
     ]
   };
 
-  await fs.writeJson(
-    path.join(vscodeDir, 'extensions.json'),
-    extensions,
-    { spaces: 2 }
-  );
+  await fs.writeJson(path.join(vscodeDir, 'extensions.json'), extensions, { spaces: 2 });
 
   // workspace file
   const workspace = {
-    "folders": [
+    folders: [
       {
-        "path": ".",
-        "name": projectName
+        path: '.',
+        name: projectName
       }
     ],
-    "settings": {
-      "github.copilot.enable": {
-        "*": true
+    settings: {
+      'github.copilot.enable': {
+        '*': true
       },
-      "awc-zns-mtd.enabled": true
+      'awc-zns-mtd.enabled': true
     },
-    "extensions": {
-      "recommendations": [
-        "github.copilot",
-        "github.copilot-chat"
-      ]
+    extensions: {
+      recommendations: ['github.copilot', 'github.copilot-chat']
     }
   };
 
-  await fs.writeJson(
-    path.join(projectPath, `${projectName}.code-workspace`),
-    workspace,
-    { spaces: 2 }
-  );
+  await fs.writeJson(path.join(projectPath, `${projectName}.code-workspace`), workspace, {
+    spaces: 2
+  });
 }
 
 /**
@@ -558,7 +579,7 @@ async function createVSCodeConfig(projectPath, projectName) {
 async function generateCopilotInstructions(projectPath) {
   const yaml = require('js-yaml');
   const agentsPath = path.join(projectPath, '.awc/agents');
-  
+
   let content = `# GitHub Copilot - ZΞNAPSΞS by ΛNWICO
 
 > **Instrucciones para GitHub Copilot**: Este proyecto utiliza el método ZΞNAPSΞS con agentes especializados.
@@ -571,32 +592,32 @@ Los siguientes agentes están disponibles en este proyecto. Cada agente tiene un
 
   // Leer agentes base
   const baseAgents = await fs.readdir(agentsPath);
-  for (const agentFile of baseAgents.filter(f => f.endsWith('.agent.yaml'))) {
+  for (const agentFile of baseAgents.filter((f) => f.endsWith('.agent.yaml'))) {
     try {
       const agentPath = path.join(agentsPath, agentFile);
       const agentContent = await fs.readFile(agentPath, 'utf8');
       const agentData = yaml.load(agentContent);
-      
+
       if (agentData && agentData.agent) {
         const meta = agentData.agent.metadata || {};
         const persona = agentData.agent.persona || {};
-        
+
         content += `### ${meta.icon || '🤖'} ${meta.name || agentFile}
 
 **ID**: \`${meta.id || 'unknown'}\`  
 **Cuándo usar**: ${meta.whenToUse || 'No especificado'}
 
 `;
-        
+
         if (persona.role) {
           content += `**Rol**: ${persona.role}\n\n`;
         }
-        
+
         if (persona.identity) {
           content += `**Identidad**: ${persona.identity}\n\n`;
         }
-        
-        content += `---\n\n`;
+
+        content += '---\n\n';
       }
     } catch (error) {
       console.error(`Error leyendo agente ${agentFile}:`, error.message);
@@ -610,15 +631,15 @@ Los siguientes agentes están disponibles en este proyecto. Cada agente tiene un
 
 `;
     const specializedAgents = await fs.readdir(specializedPath);
-    for (const agentFile of specializedAgents.filter(f => f.endsWith('.agent.yaml'))) {
+    for (const agentFile of specializedAgents.filter((f) => f.endsWith('.agent.yaml'))) {
       try {
         const agentPath = path.join(specializedPath, agentFile);
         const agentContent = await fs.readFile(agentPath, 'utf8');
         const agentData = yaml.load(agentContent);
-        
+
         if (agentData && agentData.agent) {
           const meta = agentData.agent.metadata || {};
-          
+
           content += `- **${meta.icon || '🔧'} ${meta.name || agentFile}** (\`${meta.id || 'unknown'}\`): ${meta.whenToUse || 'Agente especializado'}\n`;
         }
       } catch (error) {

@@ -1,0 +1,148 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  # Job 1: Tests y Linting
+  test:
+    name: Test & Lint
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Instalar dependencias
+      run: npm ci
+    
+    - name: Ejecutar linter
+      run: npm run lint
+    
+    - name: Ejecutar tests
+      run: npm test
+    
+    - name: Upload coverage
+      if: matrix.node-version == '20.x'
+      uses: codecov/codecov-action@v4
+      with:
+        file: ./coverage/lcov.info
+        flags: unittests
+        name: codecov-umbrella
+
+  # Job 2: Security Audit
+  security:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+    
+    - name: Instalar dependencias
+      run: npm ci
+    
+    - name: Ejecutar npm audit
+      run: npm run audit:security
+      continue-on-error: true
+    
+    - name: Ejecutar Snyk
+      uses: snyk/actions/node@master
+      continue-on-error: true
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  # Job 3: Validar Schemas
+  validate:
+    name: Validate Schemas
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+    
+    - name: Instalar dependencias
+      run: npm ci
+    
+    - name: Validar schemas de agentes
+      run: npm run validate:schemas
+    
+    - name: Validar agentes YAML
+      run: npm run test:agents
+
+  # Job 4: Build Test
+  build:
+    name: Build Test
+    runs-on: ubuntu-latest
+    needs: [test, security, validate]
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+    
+    - name: Instalar dependencias
+      run: npm ci
+    
+    - name: Test instalación CLI
+      run: |
+        npm link
+        zns --version
+
+  # Job 5: Release (solo en main)
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: [test, security, validate, build]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        registry-url: 'https://registry.npmjs.org'
+    
+    - name: Instalar dependencias
+      run: npm ci
+    
+    - name: Verificar versión
+      run: node tools/cli/awc-cli.js version
+    
+    # Uncomment cuando esté listo para publicar a NPM
+    # - name: Publish to NPM
+    #   run: npm publish
+    #   env:
+    #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

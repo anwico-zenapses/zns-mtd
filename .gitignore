@@ -4,6 +4,7 @@ package-lock.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
 # Runtime directories
 .awc/
@@ -14,6 +15,7 @@ yarn-error.log*
 logs/
 *.log
 *.log.*
+.awc/logs/
 
 # OS files
 .DS_Store
@@ -21,33 +23,71 @@ Thumbs.db
 *.swp
 *.swo
 *~
+desktop.ini
 
 # IDE
 .vscode/
 .idea/
 *.sublime-project
 *.sublime-workspace
+*.code-workspace
 
 # Test coverage
 coverage/
 .nyc_output/
+*.lcov
 
 # Build outputs
 dist/
 build/
 *.tsbuildinfo
+out/
 
 # Temporary files
 tmp/
 temp/
 *.tmp
+*.bak
+*.backup
+*-old.*
+*-broken.*
 
 # Environment variables
 .env
 .env.local
 .env.*.local
+.env.development
+.env.test
+.env.production
+
+# Security
+secrets.yaml
+*.key
+*.pem
+*.cer
+*.crt
+credentials.json
+auth.json
 
 # Custom user configurations
+.awc/user-config.yaml
+
+# macOS
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
 custom/
 *.custom.yaml
 *.user.yaml

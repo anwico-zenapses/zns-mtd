@@ -17,11 +17,7 @@ class UpdateChecker {
    * @param {object} options - Opciones de verificación
    */
   async checkForUpdates(options = {}) {
-    const {
-      registry = 'https://registry.npmjs.org',
-      includePrerelease = false,
-      timeout = 5000
-    } = options;
+    const { registry = 'https://registry.npmjs.org', timeout = 5000 } = options;
 
     try {
       // En producción, esto consultaría el registro de npm
@@ -65,7 +61,7 @@ class UpdateChecker {
    * Obtiene la última versión disponible
    * @private
    */
-  async fetchLatestVersion(registry, timeout) {
+  async fetchLatestVersion(_registry, _timeout) {
     // Simulación - en producción haría fetch real al registro
     // const url = `${registry}/${versionManager.packageName}/latest`;
 
@@ -95,10 +91,10 @@ class UpdateChecker {
    */
   getUpdateSeverity(changeType) {
     const severities = {
-      'major': 'critical',    // Breaking changes
-      'minor': 'important',   // New features
-      'patch': 'low',         // Bug fixes
-      'none': 'none'
+      major: 'critical', // Breaking changes
+      minor: 'important', // New features
+      patch: 'low', // Bug fixes
+      none: 'none'
     };
 
     return severities[changeType] || 'none';
@@ -109,7 +105,9 @@ class UpdateChecker {
    * @param {Date} lastCheck - Última vez que se verificó
    */
   shouldCheckForUpdates(lastCheck) {
-    if (!lastCheck) return true;
+    if (!lastCheck) {
+      return true;
+    }
 
     const now = new Date();
     const timeSinceLastCheck = now - new Date(lastCheck);
@@ -132,20 +130,23 @@ class UpdateChecker {
     }
 
     const messages = {
-      'critical': `🚨 ACTUALIZACIÓN CRÍTICA DISPONIBLE: v${updateInfo.latestVersion}\n` +
-                  `   Versión actual: v${updateInfo.currentVersion}\n` +
-                  `   Esta actualización incluye cambios importantes (breaking changes).\n` +
-                  `   Actualiza con: npm install -g awc-zns-mtd@latest`,
+      critical:
+        `🚨 ACTUALIZACIÓN CRÍTICA DISPONIBLE: v${updateInfo.latestVersion}\n` +
+        `   Versión actual: v${updateInfo.currentVersion}\n` +
+        '   Esta actualización incluye cambios importantes (breaking changes).\n' +
+        '   Actualiza con: npm install -g awc-zns-mtd@latest',
 
-      'important': `⚡ Nueva versión disponible: v${updateInfo.latestVersion}\n` +
-                   `   Versión actual: v${updateInfo.currentVersion}\n` +
-                   `   Incluye nuevas funcionalidades.\n` +
-                   `   Actualiza con: npm install -g awc-zns-mtd@latest`,
+      important:
+        `⚡ Nueva versión disponible: v${updateInfo.latestVersion}\n` +
+        `   Versión actual: v${updateInfo.currentVersion}\n` +
+        '   Incluye nuevas funcionalidades.\n' +
+        '   Actualiza con: npm install -g awc-zns-mtd@latest',
 
-      'low': `💡 Actualización disponible: v${updateInfo.latestVersion}\n` +
-             `   Versión actual: v${updateInfo.currentVersion}\n` +
-             `   Incluye correcciones de bugs.\n` +
-             `   Actualiza con: npm install -g awc-zns-mtd@latest`
+      low:
+        `💡 Actualización disponible: v${updateInfo.latestVersion}\n` +
+        `   Versión actual: v${updateInfo.currentVersion}\n` +
+        '   Incluye correcciones de bugs.\n' +
+        '   Actualiza con: npm install -g awc-zns-mtd@latest'
     };
 
     return {
@@ -184,9 +185,7 @@ class UpdateChecker {
     // Verificar compatibilidad de Node.js
     const requiredNode = versionManager.getVersionInfo().compatibility?.minimumNodeVersion;
     if (requiredNode) {
-      compatibility.recommendations.push(
-        `Asegúrate de tener Node.js ${requiredNode} o superior`
-      );
+      compatibility.recommendations.push(`Asegúrate de tener Node.js ${requiredNode} o superior`);
     }
 
     return compatibility;
@@ -195,7 +194,7 @@ class UpdateChecker {
   /**
    * Obtiene historial de versiones
    */
-  async getVersionHistory(limit = 10) {
+  async getVersionHistory() {
     // En producción, esto consultaría el registro real
     return {
       current: this.currentVersion,
@@ -217,11 +216,12 @@ class UpdateChecker {
   async isVersionDeprecated() {
     const updateInfo = await this.checkForUpdates();
 
-    if (!updateInfo.hasUpdate) return false;
+    if (!updateInfo.hasUpdate) {
+      return false;
+    }
 
     // Versión deprecada si hay 2+ major versions de diferencia
-    const majorDiff = semver.major(updateInfo.latestVersion) -
-                     semver.major(this.currentVersion);
+    const majorDiff = semver.major(updateInfo.latestVersion) - semver.major(this.currentVersion);
 
     return majorDiff >= 2;
   }

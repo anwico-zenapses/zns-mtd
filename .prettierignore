@@ -1,0 +1,31 @@
+# Archivos de seguridad y configuración
+.env
+.env.local
+.env.*.local
+secrets.yaml
+*.key
+*.pem
+*.cer
+*.crt
+
+# Credentials
+credentials.json
+auth.json
+serviceAccountKey.json
+
+# Logs con información sensible
+*.log
+
+# Coverage reports
+coverage/
+
+# Node modules
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

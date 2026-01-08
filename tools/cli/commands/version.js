@@ -4,7 +4,7 @@
  */
 
 const chalk = require('chalk');
-const semver = require('semver');
+// const semver = require('semver');
 const { getVersion, checkForUpdates } = require('../utils/version');
 const { displayLogo } = require('../utils/console-logger');
 
@@ -35,7 +35,7 @@ async function versionCommand() {
     } else {
       console.log(chalk.green('\n✅ Estás usando la versión más reciente\n'));
     }
-  } catch (error) {
+  } catch {
     console.log(chalk.gray('\n  No se pudo verificar actualizaciones (sin conexión)\n'));
   }
 
@@ -43,7 +43,9 @@ async function versionCommand() {
   console.log(chalk.cyan('📚 Más información:\n'));
   console.log(`  Documentación:  ${chalk.blue('https://github.com/awc/awc-zns-mtd')}`);
   console.log(`  Issues:         ${chalk.blue('https://github.com/awc/awc-zns-mtd/issues')}`);
-  console.log(`  Changelog:      ${chalk.blue('https://github.com/awc/awc-zns-mtd/blob/main/CHANGELOG.md')}\n`);
+  console.log(
+    `  Changelog:      ${chalk.blue('https://github.com/awc/awc-zns-mtd/blob/main/CHANGELOG.md')}\n`
+  );
 }
 
 module.exports = { versionCommand };

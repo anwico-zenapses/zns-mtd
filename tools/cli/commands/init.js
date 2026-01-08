@@ -11,7 +11,7 @@ const inquirer = require('inquirer');
 const { displayLogo } = require('../utils/console-logger');
 const { loadConfig, updateConfig } = require('../utils/file-utils');
 
-async function initCommand(options = {}) {
+async function initCommand() {
   const cwd = process.cwd();
   const awcDir = path.join(cwd, '.awc');
 
@@ -39,7 +39,9 @@ async function initCommand(options = {}) {
         default: false
       }
     ]);
-    if (!reinit) return;
+    if (!reinit) {
+      return;
+    }
   }
 
   // Preguntas de inicialización
@@ -93,7 +95,7 @@ async function initCommand(options = {}) {
   try {
     // Crear estructura según tipo de proyecto
     const structure = getProjectStructure(answers.projectType);
-    
+
     for (const dir of structure.directories) {
       await fs.ensureDir(path.join(cwd, dir));
     }
@@ -114,44 +116,53 @@ async function initCommand(options = {}) {
     config.technologies = answers.technologies;
     config.structure = structure;
     config.workflows.current_phase = structure.startPhase;
-    
+
     await updateConfig(awcDir, config);
     spinner.text = 'Configuración actualizada';
 
     spinner.succeed(chalk.green('✅ Proyecto inicializado exitosamente'));
 
     // Mostrar resumen
-    console.log(chalk.cyan('\n' + '═'.repeat(60)));
+    console.log(chalk.cyan(`\n${'═'.repeat(60)}`));
     console.log(chalk.cyan('📊 Resumen de Inicialización'));
-    console.log(chalk.cyan('═'.repeat(60) + '\n'));
+    console.log(chalk.cyan(`${'═'.repeat(60)}\n`));
 
-    console.log(`${chalk.gray('Tipo de Proyecto:')}  ${chalk.green(getProjectTypeName(answers.projectType))}`);
-    console.log(`${chalk.gray('Workflow:')}          ${chalk.yellow(answers.workflow.toUpperCase())}`);
-    console.log(`${chalk.gray('Tecnologías:')}       ${chalk.blue(answers.technologies.join(', ') || 'Ninguna')}`);
+    console.log(
+      `${chalk.gray('Tipo de Proyecto:')}  ${chalk.green(getProjectTypeName(answers.projectType))}`
+    );
+    console.log(
+      `${chalk.gray('Workflow:')}          ${chalk.yellow(answers.workflow.toUpperCase())}`
+    );
+    console.log(
+      `${chalk.gray('Tecnologías:')}       ${chalk.blue(answers.technologies.join(', ') || 'Ninguna')}`
+    );
     console.log(`${chalk.gray('Fases creadas:')}     ${chalk.yellow(structure.phases.length)}\n`);
 
     // Mostrar fases creadas
     console.log(chalk.cyan('📂 Estructura Creada:\n'));
-    structure.phases.forEach((phase, index) => {
+    structure.phases.forEach((phase, _index) => {
       const icon = phase === structure.startPhase ? '👉' : '  ';
-      console.log(`  ${icon} ${chalk.green(phase)} ${phase === structure.startPhase ? chalk.yellow('← INICIAR AQUÍ') : ''}`);
+      console.log(
+        `  ${icon} ${chalk.green(phase)} ${phase === structure.startPhase ? chalk.yellow('← INICIAR AQUÍ') : ''}`
+      );
     });
 
     // Próximos pasos
     console.log(chalk.cyan('\n📚 Próximos Pasos:\n'));
-    console.log(`  ${chalk.green('1.')} Ir a ${chalk.yellow(structure.startPhase + '/')}`);
+    console.log(`  ${chalk.green('1.')} Ir a ${chalk.yellow(`${structure.startPhase}/`)}`);
     console.log(`  ${chalk.green('2.')} Leer ${chalk.yellow('START_HERE.md')}`);
-    console.log(`  ${chalk.green('3.')} Colocar documentación del cliente en ${chalk.yellow('docs/client-docs/')}`);
+    console.log(
+      `  ${chalk.green('3.')} Colocar documentación del cliente en ${chalk.yellow('docs/client-docs/')}`
+    );
     console.log(`  ${chalk.green('4.')} Comenzar a trabajar con los agentes especializados\n`);
 
     // Mostrar agentes recomendados
     const recommendedAgents = getRecommendedAgents(answers.projectType, answers.technologies);
     console.log(chalk.cyan('🤖 Agentes Recomendados para este Proyecto:\n'));
-    recommendedAgents.forEach(agent => {
+    recommendedAgents.forEach((agent) => {
       console.log(`  ${chalk.green('→')} ${agent}`);
     });
     console.log();
-
   } catch (error) {
     spinner.fail(chalk.red('❌ Error inicializando proyecto'));
     throw error;
@@ -175,7 +186,7 @@ function getProjectStructure(projectType) {
         '01-comercial/docs/client-docs/requerimientos',
         '01-comercial/docs/client-docs/presentaciones',
         '01-comercial/docs/client-docs/contratos',
-        
+
         // Analysis (PRINCIPAL para auditoría)
         '03-analysis/01-code-audit',
         '03-analysis/02-architecture-review',
@@ -185,20 +196,28 @@ function getProjectStructure(projectType) {
         '03-analysis/docs/client-docs/databases',
         '03-analysis/docs/client-docs/codigo-fuente',
         '03-analysis/reports',
-        
+
         // Planning (plan de mejoras)
         '04-planning/01-improvement-plan',
         '04-planning/02-priorities',
         '04-planning/docs/client-docs/estimaciones',
-        
+
         // Support (recomendaciones)
         '08-support/recommendations',
         '08-support/docs/client-docs/seguimiento'
       ]
     },
-    
-    'greenfield': {
-      phases: ['01-comercial', '02-inception', '04-planning', '05-development', '06-qa', '07-deployment', '08-support'],
+
+    greenfield: {
+      phases: [
+        '01-comercial',
+        '02-inception',
+        '04-planning',
+        '05-development',
+        '06-qa',
+        '07-deployment',
+        '08-support'
+      ],
       startPhase: '01-comercial',
       directories: [
         // Comercial
@@ -208,7 +227,7 @@ function getProjectStructure(projectType) {
         '01-comercial/04-contract',
         '01-comercial/docs/client-docs/requerimientos',
         '01-comercial/docs/client-docs/presentaciones',
-        
+
         // Inception (PRINCIPAL)
         '02-inception/01-kickoff',
         '02-inception/02-prd',
@@ -217,37 +236,37 @@ function getProjectStructure(projectType) {
         '02-inception/docs/client-docs/procesos',
         '02-inception/docs/client-docs/manuales',
         '02-inception/docs/client-docs/imagenes',
-        
+
         // Planning
         '04-planning/01-sprint-planning',
         '04-planning/02-backlog-refinement',
         '04-planning/docs/client-docs/historias',
-        
+
         // Development (PRINCIPAL)
         '05-development/src',
         '05-development/tests',
         '05-development/docs',
         '05-development/docs/client-docs/recursos',
-        
+
         // QA
         '06-qa/test-plans',
         '06-qa/test-cases',
         '06-qa/test-results',
         '06-qa/docs/client-docs/criterios-aceptacion',
-        
+
         // Deployment
         '07-deployment/environments',
         '07-deployment/scripts',
         '07-deployment/docs/client-docs/infraestructura',
-        
+
         // Support
         '08-support/incidents',
         '08-support/maintenance',
         '08-support/docs/client-docs/incidentes'
       ]
     },
-    
-    'migration': {
+
+    migration: {
       phases: ['01-comercial', '03-analysis', '04-planning', '05-development', '07-deployment'],
       startPhase: '01-comercial',
       directories: [
@@ -256,7 +275,7 @@ function getProjectStructure(projectType) {
         '01-comercial/02-technical-proposal',
         '01-comercial/03-quotation',
         '01-comercial/docs/client-docs/requerimientos',
-        
+
         // Analysis (PRINCIPAL - analizar sistema legacy)
         '03-analysis/01-legacy-assessment',
         '03-analysis/02-migration-plan',
@@ -264,19 +283,19 @@ function getProjectStructure(projectType) {
         '03-analysis/docs/client-docs/arquitectura',
         '03-analysis/docs/client-docs/databases',
         '03-analysis/docs/client-docs/codigo-existente',
-        
+
         // Planning (plan de migración)
         '04-planning/01-migration-phases',
         '04-planning/02-data-migration',
         '04-planning/03-rollback-plan',
         '04-planning/docs/client-docs/cronograma',
-        
+
         // Development (nuevo sistema)
         '05-development/src',
         '05-development/migration-scripts',
         '05-development/tests',
         '05-development/docs/client-docs/apis',
-        
+
         // Deployment (ejecución de migración)
         '07-deployment/pre-migration',
         '07-deployment/migration',
@@ -285,8 +304,8 @@ function getProjectStructure(projectType) {
         '07-deployment/docs/client-docs/accesos'
       ]
     },
-    
-    'maintenance': {
+
+    maintenance: {
       phases: ['01-comercial', '03-analysis', '08-support'],
       startPhase: '08-support',
       directories: [
@@ -294,12 +313,12 @@ function getProjectStructure(projectType) {
         '01-comercial/01-contract',
         '01-comercial/02-sla',
         '01-comercial/docs/client-docs/contratos',
-        
+
         // Analysis (entender sistema)
         '03-analysis/01-system-documentation',
         '03-analysis/docs/client-docs/arquitectura',
         '03-analysis/docs/client-docs/codigo',
-        
+
         // Support (PRINCIPAL)
         '08-support/incidents',
         '08-support/bug-fixes',
@@ -309,15 +328,22 @@ function getProjectStructure(projectType) {
         '08-support/docs/client-docs/cambios'
       ]
     },
-    
-    'mobile': {
-      phases: ['01-comercial', '02-inception', '04-planning', '05-development', '06-qa', '07-deployment'],
+
+    mobile: {
+      phases: [
+        '01-comercial',
+        '02-inception',
+        '04-planning',
+        '05-development',
+        '06-qa',
+        '07-deployment'
+      ],
       startPhase: '02-inception',
       directories: [
         // Comercial
         '01-comercial/01-prospection',
         '01-comercial/docs/client-docs/requerimientos',
-        
+
         // Inception (PRINCIPAL - diseño UX/UI)
         '02-inception/01-ux-design',
         '02-inception/02-ui-design',
@@ -325,39 +351,39 @@ function getProjectStructure(projectType) {
         '02-inception/04-backlog',
         '02-inception/docs/client-docs/mockups',
         '02-inception/docs/client-docs/branding',
-        
+
         // Planning
         '04-planning/01-sprint-planning',
-        
+
         // Development
         '05-development/src/ios',
         '05-development/src/android',
         '05-development/src/shared',
         '05-development/tests',
         '05-development/docs/client-docs/assets',
-        
+
         // QA
         '06-qa/device-testing',
         '06-qa/automation',
-        
+
         // Deployment
         '07-deployment/app-store',
         '07-deployment/play-store'
       ]
     },
-    
-    'api': {
+
+    api: {
       phases: ['01-comercial', '02-inception', '05-development', '06-qa', '07-deployment'],
       startPhase: '02-inception',
       directories: [
         // Comercial
         '01-comercial/01-prospection',
-        
+
         // Inception (diseño API)
         '02-inception/01-api-design',
         '02-inception/02-swagger',
         '02-inception/docs/client-docs/integraciones',
-        
+
         // Development (PRINCIPAL)
         '05-development/src/controllers',
         '05-development/src/services',
@@ -365,19 +391,28 @@ function getProjectStructure(projectType) {
         '05-development/tests/integration',
         '05-development/tests/unit',
         '05-development/docs/api',
-        
+
         // QA
         '06-qa/api-testing',
         '06-qa/performance',
-        
+
         // Deployment
         '07-deployment/kubernetes',
         '07-deployment/docker'
       ]
     },
-    
-    'enterprise': {
-      phases: ['01-comercial', '02-inception', '03-analysis', '04-planning', '05-development', '06-qa', '07-deployment', '08-support'],
+
+    enterprise: {
+      phases: [
+        '01-comercial',
+        '02-inception',
+        '03-analysis',
+        '04-planning',
+        '05-development',
+        '06-qa',
+        '07-deployment',
+        '08-support'
+      ],
       startPhase: '01-comercial',
       directories: [
         // Todas las fases con estructura completa
@@ -388,40 +423,40 @@ function getProjectStructure(projectType) {
         '01-comercial/docs/client-docs/requerimientos',
         '01-comercial/docs/client-docs/presentaciones',
         '01-comercial/docs/client-docs/contratos',
-        
+
         '02-inception/01-kickoff',
         '02-inception/02-prd',
         '02-inception/03-backlog',
         '02-inception/04-release-planning',
         '02-inception/docs/client-docs/procesos',
         '02-inception/docs/client-docs/manuales',
-        
+
         '03-analysis/01-code-audit',
         '03-analysis/02-architecture-review',
         '03-analysis/docs/client-docs/arquitectura',
         '03-analysis/docs/client-docs/databases',
-        
+
         '04-planning/01-sprint-planning',
         '04-planning/02-backlog-refinement',
         '04-planning/03-release-planning',
         '04-planning/docs/client-docs/historias',
-        
+
         '05-development/src',
         '05-development/tests',
         '05-development/docs',
         '05-development/docs/client-docs/apis',
         '05-development/docs/client-docs/integraciones',
-        
+
         '06-qa/test-plans',
         '06-qa/test-cases',
         '06-qa/automation',
         '06-qa/docs/client-docs/criterios-aceptacion',
-        
+
         '07-deployment/environments',
         '07-deployment/scripts',
         '07-deployment/docs/client-docs/infraestructura',
         '07-deployment/docs/client-docs/accesos',
-        
+
         '08-support/incidents',
         '08-support/maintenance',
         '08-support/docs/client-docs/incidentes'
@@ -455,12 +490,12 @@ async function createClientDocsReadmes(projectPath, phases) {
 function getProjectTypeName(projectType) {
   const names = {
     'code-audit': 'Auditoría de Código Existente',
-    'greenfield': 'Desarrollo Desde Cero',
-    'migration': 'Migración/Modernización',
-    'maintenance': 'Mantenimiento/Soporte',
-    'mobile': 'Aplicación Móvil',
-    'api': 'API/Microservicios',
-    'enterprise': 'Sistema Empresarial'
+    greenfield: 'Desarrollo Desde Cero',
+    migration: 'Migración/Modernización',
+    maintenance: 'Mantenimiento/Soporte',
+    mobile: 'Aplicación Móvil',
+    api: 'API/Microservicios',
+    enterprise: 'Sistema Empresarial'
   };
   return names[projectType] || projectType;
 }
@@ -470,20 +505,28 @@ function getProjectTypeName(projectType) {
  */
 function getRecommendedAgents(projectType, technologies) {
   const baseAgents = [];
-  
+
   // Agentes según tipo de proyecto
   if (projectType === 'code-audit') {
     baseAgents.push('backend-audit-master', 'frontend-audit-master', 'obsolescence-analyst-senior');
   } else if (projectType === 'greenfield') {
-    baseAgents.push('product-owner-business-analyst', 'solution-architect-senior', 'technical-stories-architect');
+    baseAgents.push(
+      'product-owner-business-analyst',
+      'solution-architect-senior',
+      'technical-stories-architect'
+    );
   } else if (projectType === 'migration') {
-    baseAgents.push('backend-audit-master', 'solution-architect-senior', 'database-engineer-senior');
+    baseAgents.push(
+      'backend-audit-master',
+      'solution-architect-senior',
+      'database-engineer-senior'
+    );
   } else if (projectType === 'mobile') {
     baseAgents.push('react-native-senior', 'frontend-react-senior');
   } else if (projectType === 'api') {
     baseAgents.push('solution-architect-senior', 'database-engineer-senior');
   }
-  
+
   // Agentes según tecnología
   if (technologies.includes('java')) {
     baseAgents.push('backend-java-senior');
@@ -500,12 +543,12 @@ function getRecommendedAgents(projectType, technologies) {
   if (technologies.includes('sql') || technologies.includes('nosql')) {
     baseAgents.push('database-engineer-senior');
   }
-  
+
   // Agregar agentes base si aún no hay
   if (baseAgents.length === 0) {
     baseAgents.push('zen-master', 'architect-senior', 'developer-pro');
   }
-  
+
   // Remover duplicados
   return [...new Set(baseAgents)];
 }

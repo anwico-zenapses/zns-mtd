@@ -26,10 +26,10 @@ async function validateCommand() {
   checksCount++;
   if (await fs.pathExists(awcDir)) {
     passedCount++;
-    console.log(chalk.green('✓') + ' Directorio .awc existe');
+    console.log(`${chalk.green('✓')} Directorio .awc existe`);
   } else {
     errors.push('Directorio .awc no encontrado');
-    console.log(chalk.red('✗') + ' Directorio .awc no encontrado');
+    console.log(`${chalk.red('✗')} Directorio .awc no encontrado`);
   }
 
   // Check 2: Configuración
@@ -37,10 +37,10 @@ async function validateCommand() {
   const config = await loadConfig(awcDir);
   if (config) {
     passedCount++;
-    console.log(chalk.green('✓') + ' Archivo de configuración válido');
+    console.log(`${chalk.green('✓')} Archivo de configuración válido`);
   } else {
     errors.push('Archivo de configuración inválido o faltante');
-    console.log(chalk.red('✗') + ' Archivo de configuración inválido');
+    console.log(`${chalk.red('✗')} Archivo de configuración inválido`);
   }
 
   // Check 3: Agentes
@@ -48,18 +48,18 @@ async function validateCommand() {
   const agentsPath = path.join(awcDir, 'agents');
   if (await fs.pathExists(agentsPath)) {
     const agentFiles = await fs.readdir(agentsPath);
-    const yamlAgents = agentFiles.filter(f => f.endsWith('.yaml'));
+    const yamlAgents = agentFiles.filter((f) => f.endsWith('.yaml'));
 
     if (yamlAgents.length >= 4) {
       passedCount++;
-      console.log(chalk.green('✓') + ` ${yamlAgents.length} agentes encontrados`);
+      console.log(`${chalk.green('✓')} ${yamlAgents.length} agentes encontrados`);
     } else {
       warnings.push(`Solo ${yamlAgents.length} agentes encontrados (se esperan 4)`);
-      console.log(chalk.yellow('⚠') + ` Solo ${yamlAgents.length} agentes (se esperan 4)`);
+      console.log(`${chalk.yellow('⚠')} Solo ${yamlAgents.length} agentes (se esperan 4)`);
     }
   } else {
     errors.push('Directorio de agentes no encontrado');
-    console.log(chalk.red('✗') + ' Directorio de agentes no encontrado');
+    console.log(`${chalk.red('✗')} Directorio de agentes no encontrado`);
   }
 
   // Check 4: Workflows
@@ -70,14 +70,14 @@ async function validateCommand() {
 
     if (workflowDirs.length >= 3) {
       passedCount++;
-      console.log(chalk.green('✓') + ` ${workflowDirs.length} workflows encontrados`);
+      console.log(`${chalk.green('✓')} ${workflowDirs.length} workflows encontrados`);
     } else {
       warnings.push(`Solo ${workflowDirs.length} workflows encontrados (se esperan 3)`);
-      console.log(chalk.yellow('⚠') + ` Solo ${workflowDirs.length} workflows (se esperan 3)`);
+      console.log(`${chalk.yellow('⚠')} Solo ${workflowDirs.length} workflows (se esperan 3)`);
     }
   } else {
     errors.push('Directorio de workflows no encontrado');
-    console.log(chalk.red('✗') + ' Directorio de workflows no encontrado');
+    console.log(`${chalk.red('✗')} Directorio de workflows no encontrado`);
   }
 
   // Check 5: Documentación
@@ -85,7 +85,7 @@ async function validateCommand() {
   const docsPath = path.join(cwd, 'docs');
   if (await fs.pathExists(docsPath)) {
     passedCount++;
-    console.log(chalk.green('✓') + ' Directorio de documentación existe');
+    console.log(`${chalk.green('✓')} Directorio de documentación existe`);
 
     // Sub-checks de documentación
     const adrPath = path.join(docsPath, 'adr');
@@ -103,7 +103,7 @@ async function validateCommand() {
     }
   } else {
     warnings.push('Directorio de documentación no encontrado');
-    console.log(chalk.yellow('⚠') + ' Directorio de documentación no encontrado');
+    console.log(`${chalk.yellow('⚠')} Directorio de documentación no encontrado`);
   }
 
   // Resumen
