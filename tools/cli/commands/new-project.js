@@ -225,6 +225,19 @@ async function newProjectCommand(projectName, options = {}) {
     await createPhaseGuides(projectPath);
     spinner.text = 'Guías de fase creadas';
 
+    // 9.1. Crear configuración de VS Code
+    await createVSCodeConfig(projectPath);
+    spinner.text = 'Configuración VS Code creada';
+
+    // 9.2. Copiar copilot-instructions.md
+    const githubDir = path.join(projectPath, '.github');
+    await fs.ensureDir(githubDir);
+    const templateCopilotPath = path.join(__dirname, '../../../templates/.github/copilot-instructions.md');
+    if (await fs.pathExists(templateCopilotPath)) {
+      await fs.copy(templateCopilotPath, path.join(githubDir, 'copilot-instructions.md'));
+      spinner.text = 'GitHub Copilot instructions creadas';
+    }
+
     // 10. Inicializar Git si se solicitó
     if (answers.gitInit) {
       const { execSync } = require('child_process');
@@ -624,6 +637,88 @@ Una vez features completas → **06-qa/**
     const filePath = path.join(projectPath, phase.dir, 'START_HERE.md');
     await fs.writeFile(filePath, phase.content);
   }
+}
+
+/**
+ * Crea configuración de VS Code para cargar AWC automáticamente
+ */
+async function createVSCodeConfig(projectPath) {
+  const vscodeDir = path.join(projectPath, '.vscode');
+  await fs.ensureDir(vscodeDir);
+
+  // settings.json - Configuración de workspace
+  const settings = {
+    "github.copilot.enable": {
+      "*": true
+    },
+    "github.copilot.advanced": {},
+    "files.associations": {
+      "*.agent.yaml": "yaml",
+      "copilot-instructions.md": "markdown"
+    },
+    "files.exclude": {
+      "**/.git": true,
+      "**/.DS_Store": true,
+      "**/node_modules": true
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/bower_components": true,
+      "**/*.code-search": true
+    },
+    "awc-zns-mtd.enabled": true,
+    "awc-zns-mtd.autoLoadInstructions": true
+  };
+
+  await fs.writeJson(
+    path.join(vscodeDir, 'settings.json'),
+    settings,
+    { spaces: 2 }
+  );
+
+  // extensions.json - Extensiones recomendadas
+  const extensions = {
+    "recommendations": [
+      "github.copilot",
+      "github.copilot-chat",
+      "redhat.vscode-yaml",
+      "yzhang.markdown-all-in-one"
+    ]
+  };
+
+  await fs.writeJson(
+    path.join(vscodeDir, 'extensions.json'),
+    extensions,
+    { spaces: 2 }
+  );
+
+  // AWC-ZNS-MTD.code-workspace - Workspace file
+  const workspace = {
+    "folders": [
+      {
+        "path": ".",
+        "name": path.basename(projectPath)
+      }
+    ],
+    "settings": {
+      "github.copilot.enable": {
+        "*": true
+      },
+      "awc-zns-mtd.enabled": true
+    },
+    "extensions": {
+      "recommendations": [
+        "github.copilot",
+        "github.copilot-chat"
+      ]
+    }
+  };
+
+  await fs.writeJson(
+    path.join(projectPath, `${path.basename(projectPath)}.code-workspace`),
+    workspace,
+    { spaces: 2 }
+  );
 }
 
 module.exports = { newProjectCommand };

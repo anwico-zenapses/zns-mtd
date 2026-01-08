@@ -7,6 +7,82 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [2.2.0] - 2026-01-08
+
+### 🚀 CONFIGURACIÓN 100% AUTOMÁTICA
+
+#### ✨ Añadido
+
+**Carga Automática de Agentes y Workflows**
+- ✅ `.vscode/settings.json` creado automáticamente
+- ✅ `.vscode/extensions.json` con extensiones recomendadas
+- ✅ `[proyecto].code-workspace` generado
+- ✅ Copilot detecta fase automáticamente (01-comercial → 08-support)
+- ✅ Agentes se cargan según contexto sin intervención manual
+
+**Mejoras en copilot-instructions.md**
+- 🤖 Detección automática de fase del proyecto
+- 🎯 Respuestas contextuales por directorio
+- 💡 Sugerencias proactivas sin que el usuario pregunte
+- 📋 Templates sugeridos automáticamente
+
+**Experiencia Zero-Config**
+```bash
+# Solo esto es necesario
+npm install -g awc-zns-mtd
+awc new mi-proyecto
+
+# Abrir VS Code
+code mi-proyecto
+
+# GitHub Copilot ya está configurado con:
+# - Agentes AWC cargados
+# - Workflows activos
+# - Templates disponibles
+# - Detección de fase automática
+```
+
+#### 🎯 Comportamiento Automático
+
+**Al abrir proyecto en carpeta `01-comercial/`:**
+```
+🎯 Fase Comercial detectada automáticamente
+
+Agente activo: Product Owner + Cost Estimator
+Templates disponibles:
+  • discovery-notes.md
+  • viabilidad.md
+  • oferta-comercial.md
+
+¿En qué te ayudo?
+```
+
+**Al abrir proyecto en carpeta `05-development/`:**
+```
+💻 Modo Desarrollo (TDD) activo
+
+Workflow: development-flow
+Agente: DEVELOPER PRO
+
+¿Qué feature implementamos?
+```
+
+#### 📦 Archivos Generados Automáticamente
+
+Por cada `awc new [proyecto]`:
+- `.vscode/settings.json` - Configuración de workspace
+- `.vscode/extensions.json` - Extensiones recomendadas
+- `.github/copilot-instructions.md` - Instrucciones automáticas
+- `[proyecto].code-workspace` - Workspace de VS Code
+
+### 🔧 Mejoras
+
+- **UX**: Cero configuración manual
+- **DX**: Copilot contextual desde el primer momento
+- **Automatización**: Todo se carga al abrir el proyecto
+
+---
+
 ## [2.1.0] - 2026-01-08
 
 ### ✨ Añadido
