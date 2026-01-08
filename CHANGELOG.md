@@ -7,6 +7,74 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [2.6.0] - 2026-01-08
+
+### 🎯 FLUJO DE INICIALIZACIÓN PROFESIONAL
+
+#### ✨ Cambios Importantes
+
+**awc new → Solo Estructura Base**
+- ✅ Pide únicamente: nombre y responsable del proyecto
+- ✅ Crea directorio base + .awc/ (agentes, workflows, templates)
+- ✅ NO crea estructura de fases todavía
+- ✅ Genera NEXT_STEPS.md explicando qué hacer después
+
+**awc init → Inicialización Inteligente**
+- 🎯 Pregunta tipo de proyecto:
+  * 🔍 Auditoría de Código Existente
+  * 🆕 Desarrollo Desde Cero
+  * 🔄 Migración/Modernización
+  * 🛠️ Mantenimiento/Soporte
+  * 📱 Aplicación Móvil
+  * 🌐 API/Microservicios
+  * 🏢 Sistema Empresarial
+
+- ⚡ Pregunta workflow (Quick, Standard, Enterprise)
+- 🛠️ Pregunta stack tecnológico (Java, .NET, Python, React, etc.)
+
+**Estructura Personalizada**
+- ✅ Crea SOLO las fases necesarias según tipo de proyecto
+- ✅ Auditoría: 01-comercial, 03-analysis (principal), 04-planning, 08-support
+- ✅ Greenfield: 01-comercial, 02-inception, 04-planning, 05-development (principal), 06-qa, 07-deployment
+- ✅ Migración: 01-comercial, 03-analysis (legacy), 04-planning, 05-development, 07-deployment
+- ✅ Maintenance: 08-support (principal), 03-analysis, 01-comercial
+- ✅ Mobile: 02-inception (UX/UI), 05-development (iOS/Android), 06-qa, 07-deployment
+- ✅ API: 02-inception (diseño API), 05-development, 06-qa, 07-deployment
+
+**client-docs/ Específicos**
+- 📂 Solo se crean los directorios client-docs/ relevantes para el tipo de proyecto
+- 📄 README.md contextualizados por tipo de proyecto
+
+**Agentes Recomendados**
+- 🤖 Sugiere agentes especializados según tipo de proyecto y stack
+- 🎯 Auditoría → backend-audit, frontend-audit, obsolescence-analyst
+- 🆕 Greenfield → product-owner, solution-architect, technical-stories
+- 🔄 Migración → backend-audit, solution-architect, database-engineer
+
+#### 📋 Flujo Nuevo
+
+```bash
+# 1. Crear proyecto base
+awc new mi-proyecto
+  → Pide: nombre, responsable
+  → Crea: directorio + .awc/
+  → Mensaje: "Ejecuta 'awc init' para continuar"
+
+# 2. Inicializar tipo de proyecto  
+cd mi-proyecto
+awc init
+  → Pregunta: tipo, workflow, tecnologías
+  → Crea: estructura personalizada
+  → Muestra: agentes recomendados
+
+# 3. Comenzar a trabajar
+  → Ir a fase inicial (ej: 01-comercial/)
+  → Leer START_HERE.md
+  → Usar agentes especializados
+```
+
+---
+
 ## [2.5.0] - 2026-01-08
 
 ### 🎯 ESTRUCTURA CLIENT-DOCS AUTOMÁTICA
