@@ -12,7 +12,7 @@ function displayLogo() {
   console.log();
   console.log(chalk.cyan('╔═══════════════════════════════════════════════════════════╗'));
   console.log(chalk.cyan('║') + chalk.bold.white('                    AWC ZNS-MTD                           ') + chalk.cyan('║'));
-  console.log(chalk.cyan('║') + chalk.gray('          Zen · Neutro · Sistemático Method                ') + chalk.cyan('║'));
+  console.log(chalk.cyan('║') + chalk.gray('            Minimalismo Estratégico Method                 ') + chalk.cyan('║'));
   console.log(chalk.cyan('╚═══════════════════════════════════════════════════════════╝'));
   console.log();
 }

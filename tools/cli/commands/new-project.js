@@ -235,7 +235,7 @@ function createReadmeContent(projectName, responsible, description) {
 ## 📋 Información del Proyecto
 
 - **Responsable**: ${responsible}
-- **Metodología**: AWC ZNS-MTD (Zen, Neutro, Sistemático)
+- **Metodología**: AWC ZNS-MTD (Minimalismo Estratégico)
 - **Estado**: Pendiente de inicialización
 
 ## 🚀 Próximos Pasos
@@ -634,7 +634,7 @@ Los siguientes agentes están disponibles en este proyecto. Cada agente tiene un
 Al trabajar en este proyecto:
 
 1. **Consulta el agente apropiado** según la tarea (ver lista arriba)
-2. **Sigue la metodología ZNS-MTD**: Zen (claro), Neutro (objetivo), Sistemático (documentado)
+2. **Sigue la metodología ZNS-MTD**: Minimalismo Estratégico (máximo impacto, mínima complejidad)
 3. **Usa los templates** disponibles en \`.awc/templates/\`
 4. **Documenta decisiones** arquitectónicas importantes
 5. **Mantén trazabilidad** de cambios y motivaciones

@@ -4,30 +4,24 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org)
 
-## 🎯 Metodología de Transformación Digital: Zen • Neutro • Sistemático
+## 🎯 Metodología de Transformación Digital: Minimalismo Estratégico
 
 **AWC ZNS-MTD** es un framework avanzado de desarrollo y transformación digital basado en IA, diseñado para contextos empresariales hispanohablantes. Inspirado en BMAD Core V6, implementa una metodología estructurada que escala desde microservicios hasta arquitecturas empresariales complejas.
 
 ---
 
-## 🏗️ Filosofía ZNS
+## 🏗️ Filosofía ZNS: Minimalismo Estratégico
 
-### **Z**en - Claridad Mental
-- Decisiones sin ruido
-- Enfoque minimalista
-- Simplicidad deliberada
-- Concentración profunda
+**Máximo impacto con mínima complejidad**
 
-### **N**eutro - Objetividad Técnica
-- Sin sesgos ni preferencias injustificadas
-- Decisiones basadas en evidencia
-- Análisis imparcial de alternativas
-- Métricas cuantificables
+### Principios Fundamentales
 
-### **S**istemático - Procesos Repetibles
-- Documentación rigurosa
-- Trazabilidad completa
-- Calidad predecible
+- **Esencialismo**: Solo lo necesario, nada superfluo
+- **Enfoque láser**: Concentración en lo que realmente importa
+- **Simplicidad deliberada**: Diseños claros sobre soluciones complejas
+- **ROI de decisiones**: Cada elección debe justificar su existencia
+- **Trazabilidad sin ruido**: Documentación precisa, no exhaustiva
+- **Calidad predecible**: Procesos repetibles y validados
 - Mejora continua
 
 ---

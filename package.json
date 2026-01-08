@@ -1,8 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "name": "awc-zns-mtd",
-  "version": "2.7.1",
-  "description": "AWC ZNS-MTD Method - Metodología de Transformación Digital Zen, Neutro y Sistemático",
+  "version": "2.8.0",
+  "description": "AWC ZNS-MTD Method - Metodología de Transformación Digital basada en Minimalismo Estratégico",
   "keywords": [
     "awc",
     "zns-mtd",
