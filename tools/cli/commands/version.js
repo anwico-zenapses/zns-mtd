@@ -17,7 +17,7 @@ async function versionCommand() {
 
   console.log(chalk.gray('─'.repeat(60)));
   console.log(`  Versión actual:     ${chalk.yellow(currentVersion)}`);
-  console.log(`  Método:             ${chalk.cyan('AWC ZNS-MTD')}`);
+  console.log(`  Método:             ${chalk.cyan('ZΞNAPSΞS by ΛNWICO')}`);
   console.log(`  Inspirado en:       ${chalk.gray('BMAD Core V6')}`);
   console.log(chalk.gray('─'.repeat(60)));
 

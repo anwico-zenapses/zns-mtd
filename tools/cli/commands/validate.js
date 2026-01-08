@@ -134,7 +134,7 @@ async function validateCommand() {
   // Resultado final
   console.log();
   if (errors.length === 0 && warnings.length === 0) {
-    console.log(chalk.green('✅ ¡Proyecto AWC ZNS-MTD totalmente válido!\n'));
+    console.log(chalk.green('✅ ¡Proyecto ZΞNAPSΞS totalmente válido!\n'));
   } else if (errors.length === 0) {
     console.log(chalk.yellow('⚠️  Proyecto válido con algunas advertencias\n'));
     console.log(chalk.gray(`   Ejecuta ${chalk.green('zns install --force')} para reparar\n`));

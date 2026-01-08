@@ -17,7 +17,7 @@ async function initCommand(options = {}) {
 
   displayLogo();
 
-  console.log(chalk.cyan('\n🎯 Inicialización de Proyecto AWC ZNS-MTD\n'));
+  console.log(chalk.cyan('\n🎯 Inicialización de Proyecto ZΞNAPSΞS\n'));
 
   // Verificar que existe .awc
   if (!(await fs.pathExists(awcDir))) {

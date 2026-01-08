@@ -16,11 +16,11 @@ async function statusCommand(options = {}) {
 
   displayLogo();
 
-  console.log(chalk.cyan('\n📊 Estado del Proyecto AWC ZNS-MTD\n'));
+  console.log(chalk.cyan('\n📋 Estado del Proyecto ZΞNAPSΞS\n'));
 
   // Verificar si está instalado
   if (!(await fs.pathExists(awcDir))) {
-    console.log(chalk.red('❌ AWC ZNS-MTD no está instalado en este proyecto.'));
+    console.log(chalk.red('❌ ZΞNAPSΞS no está instalado en este proyecto.'));
     console.log(chalk.yellow(`\n💡 Ejecuta ${chalk.green('zns install')} para comenzar.\n`));
     return;
   }
@@ -110,7 +110,7 @@ async function statusCommand(options = {}) {
   console.log(chalk.gray('─'.repeat(60)));
 
   if (allGood) {
-    console.log(chalk.green('  ✅ Sistema AWC ZNS-MTD funcionando correctamente'));
+    console.log(chalk.green('  ✅ Sistema ZΞNAPSΞS funcionando correctamente'));
   } else {
     console.log(chalk.yellow('  ⚠️  Algunos componentes están faltando'));
     console.log(chalk.gray(`     Ejecuta ${chalk.green('zns install --force')} para reparar`));

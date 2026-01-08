@@ -1,6 +1,6 @@
 /**
  * Comando: new
- * Crea un nuevo directorio de proyecto con configuración base AWC ZNS-MTD
+ * Crea un nuevo directorio de proyecto con configuración base ZΞNAPSΞS
  */
 
 const fs = require('fs-extra');
@@ -17,7 +17,7 @@ const { getVersion } = require('../utils/version');
 async function newProjectCommand(projectName, options = {}) {
   displayLogo();
 
-  console.log(chalk.cyan('\n🚀 Crear Nuevo Proyecto AWC ZNS-MTD\n'));
+  console.log(chalk.cyan('\n🚀 Crear Nuevo Proyecto ZΞNAPSΞS\n'));
 
   // Preguntar nombre del proyecto si no se proporcionó
   if (!projectName) {
@@ -187,7 +187,7 @@ async function newProjectCommand(projectName, options = {}) {
       try {
         execSync('git init', { cwd: projectPath, stdio: 'ignore' });
         execSync('git add .', { cwd: projectPath, stdio: 'ignore' });
-        execSync(`git commit -m "feat: Inicializar proyecto ${projectName} con AWC ZNS-MTD"`, {
+        execSync(`git commit -m "feat: Inicializar proyecto ${projectName} con ZΞNAPSΞS"`, {
           cwd: projectPath,
           stdio: 'ignore'
         });
@@ -235,12 +235,12 @@ function createReadmeContent(projectName, responsible, description) {
 ## 📋 Información del Proyecto
 
 - **Responsable**: ${responsible}
-- **Metodología**: AWC ZNS-MTD (Minimalismo Estratégico)
+- **Metodología**: ZΞNAPSΞS by ΛNWICO (Minimalismo Estratégico)
 - **Estado**: Pendiente de inicialización
 
 ## 🚀 Próximos Pasos
 
-Este proyecto ha sido creado con la estructura base de AWC ZNS-MTD.
+Este proyecto ha sido creado con la estructura base de ZΞNAPSΞS.
 
 ### 1. Inicializar Tipo de Proyecto
 
@@ -290,7 +290,7 @@ zns config
 
 ---
 
-Generado con ❤️ usando AWC ZNS-MTD Method v${getVersion()}
+Generado con ❤️ usando ZΞNAPSΞS by ΛNWICO v${getVersion()}
 `;
 }
 
@@ -361,7 +361,7 @@ function createNextStepsContent(projectName) {
 
 ## ¿Qué hacer ahora?
 
-Tu proyecto ha sido creado con la **estructura base** de AWC ZNS-MTD.
+Tu proyecto ha sido creado con la **estructura base** de ZΞNAPSΞS.
 
 ### 📌 Paso 1: Inicializar el Proyecto
 
@@ -559,9 +559,9 @@ async function generateCopilotInstructions(projectPath) {
   const yaml = require('js-yaml');
   const agentsPath = path.join(projectPath, '.awc/agents');
   
-  let content = `# GitHub Copilot - AWC ZNS-MTD Method
+  let content = `# GitHub Copilot - ZΞNAPSΞS by ΛNWICO
 
-> **Instrucciones para GitHub Copilot**: Este proyecto utiliza el método AWC ZNS-MTD con agentes especializados.
+> **Instrucciones para GitHub Copilot**: Este proyecto utiliza el método ZΞNAPSΞS con agentes especializados.
 
 ## 🎯 Agentes Disponibles
 
@@ -650,7 +650,7 @@ zns config     # Configurar preferencias
 
 ---
 
-*Generado automáticamente por AWC ZNS-MTD*
+*Generado automáticamente por ZΞNAPSΞS*
 `;
 
   return content;
