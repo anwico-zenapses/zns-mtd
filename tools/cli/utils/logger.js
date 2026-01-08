@@ -6,7 +6,7 @@
 const winston = require('winston');
 const path = require('path');
 const fs = require('fs-extra');
-const ConfigManager = require('../config/config-manager');
+const ConfigManager = require('../../config/config-manager');
 
 // Asegurar que existe el directorio de logs
 const logsDir = path.join(process.cwd(), ConfigManager.LOGS_DIR);
