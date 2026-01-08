@@ -39,10 +39,25 @@ program
     }
   });
 
+// Comando: new (crear nuevo proyecto)
+program
+  .command('new [project-name]')
+  .description('Crear un nuevo proyecto con estructura completa AWC ZNS-MTD')
+  .option('-t, --type <type>', 'Tipo de proyecto (web, api, mobile, enterprise)')
+  .action(async (projectName, options) => {
+    try {
+      const { newProjectCommand } = require('./commands/new-project');
+      await newProjectCommand(projectName, options);
+    } catch (error) {
+      console.error(chalk.red('Error creando proyecto:'), error.message);
+      process.exit(1);
+    }
+  });
+
 // Comando: init
 program
   .command('init')
-  .description('Inicializar proyecto con ZNS-MTD y analizar contexto')
+  .description('Inicializar proyecto existente con ZNS-MTD')
   .option('-t, --type <type>', 'Tipo de proyecto (web, api, mobile, enterprise)')
   .action(async (options) => {
     try {

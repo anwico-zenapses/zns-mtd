@@ -4,7 +4,7 @@
 
 module_name: "AWC ZNS-MTD Method"
 module_code: "awc-zns-mtd"
-version: "2.0.0"
+version: "2.1.0"
 author: "AWC Team"
 description: "Metodología de Transformación Digital - Zen, Neutro, Sistemático"
 

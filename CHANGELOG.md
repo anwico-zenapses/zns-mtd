@@ -7,6 +7,74 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [2.1.0] - 2026-01-08
+
+### ✨ Añadido
+
+#### **Comando `awc new` - Crear Proyectos Completos**
+- 🎯 Nuevo comando `awc new [project-name]` para crear proyectos desde cero
+- 📁 Estructura de directorios estándar (8 fases)
+- 📋 Templates automáticamente copiados a cada proyecto
+- 🔧 Configuración AWC pre-configurada
+- 📚 Guías START_HERE.md en cada fase
+
+#### **Estructura de Proyecto Estándar**
+```
+proyecto/
+├── 01-comercial/          # Fase 0: Comercial
+│   ├── 01-prospection/
+│   ├── 02-technical-proposal/
+│   ├── 03-quotation/
+│   └── 04-contract/
+├── 02-inception/          # Fase 1: Inception
+├── 03-analysis/           # Fase 2: Análisis
+├── 04-planning/           # Fase 3: Planificación
+├── 05-development/        # Fase 4: Desarrollo
+│   ├── src/
+│   ├── tests/
+│   └── docs/
+├── 06-qa/                 # Fase 5: QA
+├── 07-deployment/         # Fase 6: Deployment
+├── 08-support/            # Fase 7: Soporte
+├── docs/                  # Documentación general
+├── .awc/                  # Configuración AWC
+│   ├── agents/
+│   ├── workflows/
+│   ├── templates/
+│   └── config.json
+└── README.md
+```
+
+#### **Características del Comando**
+- ✅ Crea estructura completa de 8 fases
+- ✅ Copia todos los templates (7 documentos)
+- ✅ Copia todos los workflows (8 workflows)
+- ✅ Copia todos los agentes (22 agentes)
+- ✅ Genera README.md personalizado
+- ✅ Crea .gitignore apropiado
+- ✅ Inicializa Git automáticamente (opcional)
+- ✅ Crea guías START_HERE.md por fase
+
+### 🔄 Modificado
+
+- **CLI**: Separado `awc new` (proyectos nuevos) de `awc init` (proyectos existentes)
+- **UX**: Experiencia mejorada con spinner y mensajes claros
+
+### 📊 Uso
+
+```bash
+# Crear nuevo proyecto interactivo
+awc new
+
+# Crear proyecto con nombre
+awc new mi-proyecto
+
+# Crear proyecto de tipo específico
+awc new mi-api --type api
+```
+
+---
+
 ## [2.0.0] - 2026-01-08
 
 ### 🚀 MAJOR RELEASE - Método Completo End-to-End
