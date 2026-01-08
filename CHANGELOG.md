@@ -7,7 +7,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
-## [2.3.0] - 2026-01-08
+## [2.4.0] - 2026-01-08
 
 ### 🎯 SISTEMA UNIFICADO DE AGENTES ESPECIALIZADOS
 
@@ -28,6 +28,12 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 - 📋 Comandos contextuales por directorio
 - 🎯 Stack detection automático (Java, .NET, Python, PHP, React)
 - 💡 Sugerencias proactivas según fase activa
+
+---
+
+## [2.3.0] - 2026-01-08
+
+(version published externally)
 - 📚 Documentación de 22 agentes especializados
 
 **Comportamiento Contextual**
